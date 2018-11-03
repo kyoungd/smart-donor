@@ -1,0 +1,134 @@
+{
+    "donation": [
+      {
+        "entityId": "498ae66d-4a23-58f0-35c0-7eb255786073",
+        "name": "first-donation",
+        "description": "postive ad only donation",
+        "rules": [
+          "must be humorous",
+          "ads must be positive",
+          "must focus on family value"
+        ],
+        "note": "a lot of things to say",
+        "donateOn": "2018-11-01T23:53:32.806Z",
+        "amount": 5000000,
+        "availableOn": "2018-11-01T23:53:32.806Z",
+        "status": "COMPLETE",
+        "isExpired": false,
+        "isDonationLeft": false,
+        "isDonationSuccess": false,
+        "isDonationPartialSuccess": false,
+        "isDonationReturned": false,
+        "isDonationReturnMust": true,
+        "total": 4,
+        "accepted": 4,
+        "rejected": 0,
+        "waiting": 0
+      },
+      {
+        "entityId": "daa67187-b9c2-96d7-34cf-5b18349cf845",
+        "name": "second-donation",
+        "description": "postive ad only donation",
+        "rules": [
+          "must be humorous",
+          "ads must be positive",
+          "must focus on family value"
+        ],
+        "note": "a lot of things to say",
+        "donateOn": "2018-11-01T23:53:35.140Z",
+        "amount": 5000000,
+        "availableOn": "2018-11-01T23:53:35.140Z",
+        "status": "ACTIVE",
+        "isExpired": false,
+        "isDonationLeft": false,
+        "isDonationSuccess": false,
+        "isDonationPartialSuccess": false,
+        "isDonationReturned": false,
+        "isDonationReturnMust": true,
+        "total": 4,
+        "accepted": 2,
+        "rejected": 0,
+        "waiting": 2
+      }
+    ],
+    "approval": [
+      {
+        "donationName": "second-donation",
+        "donationDescription": "postive ad only donation",
+        "donationStatus": "ACTIVE",
+        "entityId": "2f8a7779-1542-0871-d288-827cab8b3593",
+        "approvalResponse": "OK",
+        "approvalStatus": "ACCEPTED",
+        "createdOn": "2018-11-01T23:53:36.259Z",
+        "description": "Approved Advertisement",
+        "name": "Product 1",
+        "note": "Adverting link...",
+        "status": "ACTIVE"
+      },
+      {
+        "donationName": "first-donation",
+        "donationDescription": "postive ad only donation",
+        "donationStatus": "COMPLETE",
+        "entityId": "54159d5f-3eea-7f3e-c912-99a440541ceb",
+        "approvalResponse": "OK",
+        "approvalStatus": "ACCEPTED",
+        "createdOn": "2018-11-01T23:53:33.574Z",
+        "description": "Approved Advertisement",
+        "name": "Product 4",
+        "note": "Adverting link...",
+        "status": "COMPLETE"
+      },
+      {
+        "donationName": "first-donation",
+        "donationDescription": "postive ad only donation",
+        "donationStatus": "COMPLETE",
+        "entityId": "5871c836-6a83-7b71-7409-669c83f784c6",
+        "approvalResponse": "OK",
+        "approvalStatus": "ACCEPTED",
+        "createdOn": "2018-11-01T23:53:33.519Z",
+        "description": "Approved Advertisement",
+        "name": "Product 3",
+        "note": "Adverting link...",
+        "status": "COMPLETE"
+      },
+      {
+        "donationName": "first-donation",
+        "donationDescription": "postive ad only donation",
+        "donationStatus": "COMPLETE",
+        "entityId": "78ef6791-21d6-0c70-19f6-cd244df1f944",
+        "approvalResponse": "OK",
+        "approvalStatus": "ACCEPTED",
+        "createdOn": "2018-11-01T23:53:33.437Z",
+        "description": "Approved Advertisement",
+        "name": "Product 2",
+        "note": "Adverting link...",
+        "status": "COMPLETE"
+      },
+      {
+        "donationName": "first-donation",
+        "donationDescription": "postive ad only donation",
+        "donationStatus": "COMPLETE",
+        "entityId": "efc6ba0f-9666-1f20-ad5a-f4b9b738d053",
+        "approvalResponse": "OK",
+        "approvalStatus": "ACCEPTED",
+        "createdOn": "2018-11-01T23:53:33.353Z",
+        "description": "Approved Advertisement",
+        "name": "Product 1",
+        "note": "Adverting link...",
+        "status": "COMPLETE"
+      },
+      {
+        "donationName": "second-donation",
+        "donationDescription": "postive ad only donation",
+        "donationStatus": "ACTIVE",
+        "entityId": "f86a52a3-8e0c-87c6-9ca8-09eee6109824",
+        "approvalResponse": "OK",
+        "approvalStatus": "ACCEPTED",
+        "createdOn": "2018-11-01T23:53:36.387Z",
+        "description": "Approved Advertisement",
+        "name": "Product 2",
+        "note": "Adverting link...",
+        "status": "ACTIVE"
+      }
+    ]
+  }
