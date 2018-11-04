@@ -81,15 +81,14 @@ Post.defaultProps = {
 
 export const postQuery = graphql`
   query postBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    donorApiApproval(fields: { slug: { eq: $slug } }) {
       html
       excerpt
-      frontmatter {
-        title
-        date(formatString: "DD.MM.YYYY")
+      title: name
+      date: donateOn
+      fields {
         category
       }
-      timeToRead
     }
   }
 `;

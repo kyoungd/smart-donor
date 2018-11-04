@@ -42,6 +42,16 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
             fields {
               slug
             }
+            description
+            rules
+            note
+            donateOn
+            amount
+            status
+            total
+            accepted
+            rejected
+            waiting
           }
         }
       }
@@ -54,14 +64,18 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
             fields {
               slug
             }
+            donationStatus
+            approvalStatus
+            approvalResponse
+            product: note
+            status
           }
         }
       }
     }
   `);
-
-  const listDonation = path.resolve('src/templates/list-donation.js');
-
+  const postPage = path.resolve('src/templates/post.js');
+  const categoryPage = path.resolve('src/templates/category.js');
   const {
     data: {
       allDonorapiDonation: { edges: allDonation },
@@ -73,44 +87,35 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
     },
   } = result;
 
-  createPage({
-    path: `/`,
-    component: require.resolve(listDonation),
-    context: {
-      slug: `/`
-    }
-  })
-  
-  // allDonation.forEach((donation, index) => {
-  //   const next = index === 0 ? null : allDonation[index - 1].node;
-  //   const prev = index === allDonation.length - 1 ? null : allDonation[index + 1].node;
-  //   createPage({
-  //     path: donation.node.fields.slug,
-  //     component: require.resolve(categoryPage),
-  //     context: {
-  //       slug: donation.node.fields.slug,
-  //       next,
-  //       prev,
-  //       id: donation.node.id,
-  //     },
-  //   });
-  // });
+  allDonation.forEach((donation, index) => {
+    const next = index === 0 ? null : allDonation[index - 1].node;
+    const prev = index === allDonation.length - 1 ? null : allDonation[index + 1].node;
+    createPage({
+      path: donation.node.fields.slug,
+      component: require.resolve(categoryPage),
+      context: {
+        slug: donation.node.fields.slug,
+        next,
+        prev,
+        id: donation.node.id,
+      },
+    });
+  });
 
-  // allApproval.forEach((approval, index) => {
-  //   const next = index === 0 ? null : allApproval[index - 1].node;
-  //   const prev = index === allApproval.length - 1 ? null : allApproval[index + 1].node;
-  //   createPage({
-  //     path: approval.node.fields.slug,
-  //     component: require.resolve(postPage),
-  //     context: {
-  //       slug: approval.node.fields.slug,
-  //       next,
-  //       prev,
-  //       id: approval.node.id,
-  //     },
-  //   });
-  // });
-
+  allApproval.forEach((approval, index) => {
+    const next = index === 0 ? null : allApproval[index - 1].node;
+    const prev = index === allApproval.length - 1 ? null : allApproval[index + 1].node;
+    createPage({
+      path: approval.node.fields.slug,
+      component: require.resolve(postPage),
+      context: {
+        slug: approval.node.fields.slug,
+        next,
+        prev,
+        id: approval.node.id,
+      },
+    });
+  });
 };
 
 exports.onCreateWebpackConfig = ({ stage, actions }) => {
