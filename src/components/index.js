@@ -1,4 +1,5 @@
-import Article from './Article';
+import DonationArticle from './DonationArticle';
+import ApprovalArticle from './ApprovalArticle';
 import Button from './Button';
 import Header from './Header';
 import Layout from './Layout';
@@ -8,4 +9,4 @@ import SEO from './SEO';
 import Subline from './Subline';
 import Wrapper from './Wrapper';
 
-export { Article, Button, Header, Layout, PrevNext, SectionTitle, SEO, Subline, Wrapper };
+export { DonationArticle, ApprovalArticle, Button, Header, Layout, PrevNext, SectionTitle, SEO, Subline, Wrapper };
