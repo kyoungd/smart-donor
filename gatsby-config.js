@@ -10,13 +10,7 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'post',
-        path: `${__dirname}/blog`,
-      },
-    },
+    'gatsby-source-pokeapi',
     {
       resolve: 'gatsby-transformer-remark',
       options: {
