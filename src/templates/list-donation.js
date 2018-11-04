@@ -42,7 +42,6 @@ const dashboardData = (data) => {
   const dashboard = [];
   data.forEach(post => {
     const item = {
-      key: post.node.id,
       id: post.node.id,
       title: post.node.name,
       description: post.node.excerpt,
