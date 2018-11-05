@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
+import { withStyles } from "@material-ui/core/styles"
 import Button from '@material-ui/core/Button';
 import { navigateTo } from 'gatsby-link';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
@@ -24,7 +24,7 @@ const styles = theme => ({
   singleLineInput: {
     lineHeight: 1.4,
     fontSize: '1.2em',
-    [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
+    [`@media (min-width: 100px)`]: {
       width: '47%',
       marginLeft: '3%',
       '&:first-child': {
@@ -164,9 +164,11 @@ class CampaignForm extends React.Component {
           margin="normal"
           className={classes.multilineInput}
         />
+        <div>
         <SupplierGroup
           className={classes.checkboxInput}
         />
+        </div>
         <input name="bot-field" style={{ display: "none" }} />
         <Button
           variant="raised"
@@ -186,4 +188,4 @@ CampaignForm.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default injectSheet(styles)(CampaignForm);
+export default withStyles(styles)(CampaignForm);

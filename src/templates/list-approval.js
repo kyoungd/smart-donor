@@ -40,15 +40,15 @@ const Category = ({ pageContext: { category }, data: { allMarkdownRemark } }) =>
             {subline} (See <Link to="/categories">all categories</Link>)
           </Subline>
           {edges.map(post => (
-            <Article
-              title={post.node.frontmatter.title}
-              date={post.node.frontmatter.date}
-              excerpt={post.node.excerpt}
-              timeToRead={post.node.timeToRead}
-              slug={post.node.fields.slug}
-              category={post.node.frontmatter.category}
-              key={post.node.fields.slug}
-            />
+            // <Article
+            //   title={post.node.frontmatter.title}
+            //   date={post.node.frontmatter.date}
+            //   excerpt={post.node.excerpt}
+            //   timeToRead={post.node.timeToRead}
+            //   slug={post.node.fields.slug}
+            //   category={post.node.frontmatter.category}
+            //   key={post.node.fields.slug}
+            // />
           ))}
         </Content>
       </Wrapper>
@@ -70,25 +70,19 @@ Category.propTypes = {
   }).isRequired,
 };
 
-export const postQuery = graphql`
-  query CategoryPage($category: String!) {
-    allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { category: { eq: $category } } }
-    ) {
-      totalCount
+export const IndexQuery = graphql`
+  query {
+    allDonorapiApproval(sort: { fields: [createdOn], order: DESC }) {
       edges {
         node {
-          frontmatter {
-            title
-            date(formatString: "DD.MM.YYYY")
-            category
-          }
+          id
+          name
           fields {
             slug
           }
-          excerpt(pruneLength: 200)
-          timeToRead
+          date: createdOn
+          excerpt
+          status
         }
       }
     }

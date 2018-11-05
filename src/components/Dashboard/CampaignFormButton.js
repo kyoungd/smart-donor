@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import IconButton from '@material-ui/core/IconButton'
 import CreateIcon from '@material-ui/icons/Create'
-import CampaignForm from '../CampaignForm'
+import DonateForm from '../DonateForm'
 
 function getModalStyle() {
   const top = 10;
@@ -59,7 +59,7 @@ class SimpleModal extends React.Component {
           onClose={this.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            <CampaignForm />
+            <DonateForm />
           </div>
         </Modal>
       </div>

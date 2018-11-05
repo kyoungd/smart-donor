@@ -47,33 +47,6 @@ const pageData = [
   }
 ];
 
-const testData = [
-    {
-      "key": "Donorapi__Donation__daa67187-b9c2-96d7-34cf-5b18349cf845",
-      "id": "Donorapi__Donation__daa67187-b9c2-96d7-34cf-5b18349cf845",
-      "title": "second-donation",
-      "description": "Zwei flinke Boxer jagen die quirlige Eva und ihren Mops durch Sylt. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern. Zwölf…",
-      "amount": 5000000,
-      "total": 4,
-      "approved": 2,
-      "waiting": 2,
-      "rejected": 0,
-      "status": "ACTIVE"
-    },
-    {
-      "key": "Donorapi__Donation__498ae66d-4a23-58f0-35c0-7eb255786073",
-      "id": "Donorapi__Donation__498ae66d-4a23-58f0-35c0-7eb255786073",
-      "title": "first-donation",
-      "description": "Heading 1 Zwei flinke Boxer jagen die quirlige Eva und ihren Mops durch Sylt. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern…",
-      "amount": 5000000,
-      "total": 4,
-      "approved": 4,
-      "waiting": 0,
-      "rejected": 0,
-      "status": "COMPLETE"
-    }
-  ]
-
 class index extends Component {
   render() {
     const { data } = this.props;
