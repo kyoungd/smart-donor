@@ -5,8 +5,8 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { Layout, Wrapper, Header, Button } from 'components';
 import { media } from '../utils/media';
-import DashApproval from '../components/Dashboard/DashApproval';
 import config from '../../config/SiteConfig';
+import Post from '../templates/post-approval';
 
 const Content = styled.div`
   grid-column: 2;
@@ -52,7 +52,7 @@ export default class donate extends Component {
             <Link to="/">{config.siteTitle}</Link>
           </Header>
           <Content>
-            <DashApproval />
+            <Post />
           </Content>
         </Wrapper>
       </Layout>

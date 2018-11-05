@@ -55,6 +55,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
             fields {
               slug
             }
+            donationId
           }
         }
       }
@@ -63,6 +64,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
 
   const listDonation = path.resolve('src/templates/list-donation.js');
   const listApproval = path.resolve('src/templates/list-approval.js');
+  const postApproval = path.resolve('src/templates/post-approval.js');
 
   const {
     data: {
@@ -98,22 +100,22 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
     });
   });
 
-  // allApproval.forEach((approval, index) => {
-  //   const next = index === 0 ? null : allApproval[index - 1].node;
-  //   const prev = index === allApproval.length - 1 ? null : allApproval[index + 1].node;
-  //   createPage({
-  //     path: approval.node.fields.slug,
-  //     component: require.resolve(postPage),
-  //     context: {
-  //       slug: approval.node.fields.slug,
-  //       next,
-  //       prev,
-  //       id: approval.node.id,
-  //       donationId: approval.node.donationid
-  //     },
-  //   });
-  // });
-
+  allApproval.forEach((item, index) => {
+    const next = index === 0 ? null : allApproval[index - 1].node;
+    const prev = index === allApproval.length - 1 ? null : allApproval[index + 1].node;
+    createPage({
+      path: item.node.fields.slug,
+      component: require.resolve(postApproval),
+      context: {
+        id: item.node.id,
+        slug: item.node.fields.slug,
+        next,
+        prev,
+        entityId: item.node.entityId,
+        donationId: item.node.donationId
+      },
+    });
+  });
 };
 
 exports.onCreateWebpackConfig = ({ stage, actions }) => {

@@ -8,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
-import { Link } from "gatsby"
+import { Subline } from 'components';
 
 const styles = theme => ({
   root: {
@@ -42,23 +42,27 @@ const PostContent = styled.div`
 
 function PaperSheet(props) {
   const { classes, data } = props;
+  const subline = `STATUS: ${data.status} - - - CREATED ON: ${data.createdOn}`;
+
+  console.log("--", data);
 
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        <Link to={data.slug}>
-          <Typography variant="h5" component="h3">
-            {data.title}
-          </Typography>
-        </Link>
+        <Typography variant="h5" component="h3">
+          {data.title}
+        </Typography>
+        <Subline sectionTitle>
+            {subline}
+        </Subline>
         <CardContent className={classes.iframeVideo}>
           <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
         </CardContent>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Product Excerpt
+            Product
           </Typography>
-          <Typography component="p">{data.excerpt}</Typography>
+          <PostContent dangerouslySetInnerHTML={{ __html: data.html }} />
         </CardContent>
       </CardActionArea>
       <CardActions>
