@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography"
 import CampaignTableData from "./CampaignTableData"
 import CampaignChip from "./CampaignChip"
 import CampaignControl from './CampaignControl'
+import { Link } from "gatsby"
 
 const styles = theme => ({
   root: {
@@ -23,15 +24,16 @@ function PaperSheet(props) {
 
   return (
     <Paper className={classes.root} elevation={1} key={data.id}>
-        <CampaignControl data={data} />
+      <CampaignControl data={data} />
+      <Link to={data.slug}>
         <Typography variant="h5" component="h3">
-        {data.title}
+          {data.slug} - 
+          {data.title}
         </Typography>
-        <Typography component="p">
-        {data.description}
-        </Typography>
-        <CampaignTableData data={data} />
-        <CampaignChip data={data} />
+      </Link>
+      <Typography component="p">{data.description}</Typography>
+      <CampaignTableData data={data} />
+      <CampaignChip data={data} />
     </Paper>
   );
 }

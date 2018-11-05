@@ -4,7 +4,7 @@ const _ = require('lodash');
 exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
   const { createNodeField } = boundActionCreators;
   if (node.internal.type === 'DonorapiDonation') {
-    const slug = _.kebabCase(`/donation/${node.name}--${node.id}/`);
+    const slug = _.kebabCase(`/approval-list/${node.id}/`);
     createNodeField({
       node,
       name: `slug`,
@@ -17,7 +17,7 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
     });
   }
   if (node.internal.type === 'DonorapiApproval') {
-    const slug = _.kebabCase(`/approval/${node.donationName}--${node.name}--${node.id}/`);
+    const slug = _.kebabCase(`/approval/${node.id}/`);
     createNodeField({
       node,
       name: `slug`,
@@ -61,6 +61,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
   `);
 
   const listDonation = path.resolve('src/templates/list-donation.js');
+  const listApproval = path.resolve('src/templates/list-approval.js');
 
   const {
     data: {
@@ -80,21 +81,21 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
       slug: `/`
     }
   })
-  
-  // allDonation.forEach((donation, index) => {
-  //   const next = index === 0 ? null : allDonation[index - 1].node;
-  //   const prev = index === allDonation.length - 1 ? null : allDonation[index + 1].node;
-  //   createPage({
-  //     path: donation.node.fields.slug,
-  //     component: require.resolve(categoryPage),
-  //     context: {
-  //       slug: donation.node.fields.slug,
-  //       next,
-  //       prev,
-  //       id: donation.node.id,
-  //     },
-  //   });
-  // });
+
+  allDonation.forEach((item, index) => {
+    const next = index === 0 ? null : allDonation[index - 1].node;
+    const prev = index === allDonation.length - 1 ? null : allDonation[index + 1].node;
+    createPage({
+      path: item.node.fields.slug,
+      component: require.resolve(listApproval),
+      context: {
+        slug: item.node.fields.slug,
+        next,
+        prev,
+        donationId: item.node.id
+      },
+    });
+  });
 
   // allApproval.forEach((approval, index) => {
   //   const next = index === 0 ? null : allApproval[index - 1].node;
@@ -107,6 +108,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
   //       next,
   //       prev,
   //       id: approval.node.id,
+  //       donationId: approval.node.donationid
   //     },
   //   });
   // });

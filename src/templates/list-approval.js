@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Layout, Wrapper, Header, Subline, Article, SectionTitle } from 'components';
 import { media } from '../utils/media';
 import config from '../../config/SiteConfig';
+import DashApproval from '../components/Dashboard/DashApproval';
 
 const Content = styled.div`
   grid-column: 2;
@@ -23,47 +24,53 @@ const Content = styled.div`
   }
 `;
 
-const Category = ({ pageContext: { category }, data: { allMarkdownRemark } }) => {
-  const { edges, totalCount } = allMarkdownRemark;
-  const subline = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${category}"`;
+const dashboardData = (data) => {
+  const dashboard = [];
+  data.forEach(post => {
+    const item = {
+      id: post.node.id,
+      title: post.node.name,
+      excerpt: post.node.excerpt,
+      status: post.node.status,
+      slug: post.node.fields.slug,
+      video: post.node.video
+    }
+    dashboard.push(item);
+  });
+  return dashboard;
+}
+
+const ListApprovals = ({ pageContext: { donationId }, data: { allDonorapiApproval } }) => {
+  const { edges, totalCount } = allDonorapiApproval;
+  const subline = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${edges[0].node.donationName}"`;
 
   return (
     <Layout>
       <Wrapper>
-        <Helmet title={`${category} | ${config.siteTitle}`} />
+        <Helmet title={`${donationId} | ${config.siteTitle}`} />
         <Header>
           <Link to="/">{config.siteTitle}</Link>
         </Header>
         <Content>
-          <SectionTitle>Category &ndash; {category}</SectionTitle>
+          <SectionTitle>APPROVALS &ndash; {edges[0].node.donationName} </SectionTitle>
           <Subline sectionTitle>
             {subline} (See <Link to="/categories">all categories</Link>)
           </Subline>
-          {edges.map(post => (
-            // <Article
-            //   title={post.node.frontmatter.title}
-            //   date={post.node.frontmatter.date}
-            //   excerpt={post.node.excerpt}
-            //   timeToRead={post.node.timeToRead}
-            //   slug={post.node.fields.slug}
-            //   category={post.node.frontmatter.category}
-            //   key={post.node.fields.slug}
-            // />
-          ))}
+          <DashApproval data={dashboardData(edges)} />
         </Content>
       </Wrapper>
     </Layout>
   );
 };
 
-export default Category;
+export default ListApprovals;
 
-Category.propTypes = {
+ListApprovals.propTypes = {
   pageContext: PropTypes.shape({
-    category: PropTypes.string.isRequired,
+    donationId: PropTypes.string.isRequired,
   }).isRequired,
   data: PropTypes.shape({
-    allMarkdownRemark: PropTypes.shape({
+    allDonorapiApproval: PropTypes.shape({
       edges: PropTypes.array.isRequired,
       totalCount: PropTypes.number.isRequired,
     }),
@@ -71,8 +78,11 @@ Category.propTypes = {
 };
 
 export const IndexQuery = graphql`
-  query {
-    allDonorapiApproval(sort: { fields: [createdOn], order: DESC }) {
+  {
+    allDonorapiApproval(
+      sort: {fields: [createdOn], order: DESC}, 
+      filter: {donationId: {eq: "daa67187-b9c2-96d7-34cf-5b18349cf845"}}
+    ) {
       edges {
         node {
           id
@@ -80,11 +90,16 @@ export const IndexQuery = graphql`
           fields {
             slug
           }
-          date: createdOn
+          donationName
           excerpt
           status
+          description
+          donationId
+          createdOn
+          video
         }
       }
+      totalCount
     }
   }
 `;

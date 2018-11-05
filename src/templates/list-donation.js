@@ -51,6 +51,7 @@ const dashboardData = (data) => {
       waiting: post.node.waiting,
       rejected: post.node.rejected,
       status: post.node.status,
+      slug: post.node.fields.slug,
     }
     dashboard.push(item);
   });
