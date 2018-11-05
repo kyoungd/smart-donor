@@ -71,7 +71,7 @@
         "name": "Product 1",
         "note": "Adverting link...",
         "status": "ACTIVE",
-        "video": "<iframe style='margin-bottom:0' src='https://www.youtube.com/embed/kCxj68UgfmI?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid90951'></iframe>"
+        "video": "<iframe width='560' height='315' allowfullscreen style='margin-bottom:0' src='https://www.youtube.com/embed/kCxj68UgfmI?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid90951'></iframe>"
       },
       {
         "donationId": "498ae66d-4a23-58f0-35c0-7eb255786073",
@@ -88,7 +88,7 @@
         "name": "Product 4",
         "note": "Adverting link...",
         "status": "COMPLETE",
-        "video": "<iframe style='margin-bottom:0' src='https://www.youtube.com/embed/ys5p3WzVfSs?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid452431'></iframe>"
+        "video": "<iframe width='560' height='315' allowfullscreen style='margin-bottom:0' src='https://www.youtube.com/embed/ys5p3WzVfSs?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid452431'></iframe>"
       },
       {
         "donationId": "498ae66d-4a23-58f0-35c0-7eb255786073",
@@ -105,7 +105,7 @@
         "name": "Product 3",
         "note": "Adverting link...",
         "status": "COMPLETE",
-        "video": "<iframe style='margin-bottom:0' src='https://www.youtube.com/embed/6UYurrW7GVg?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid869049'></iframe>"
+        "video": "<iframe width='560' height='315' allowfullscreen style='margin-bottom:0' src='https://www.youtube.com/embed/6UYurrW7GVg?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid869049'></iframe>"
       },
       {
         "donationId": "498ae66d-4a23-58f0-35c0-7eb255786073",
@@ -122,7 +122,7 @@
         "name": "Product 2",
         "note": "Adverting link...",
         "status": "COMPLETE",
-        "video": "<iframe style='margin-bottom:0' src='https://www.youtube.com/embed/N6dlPK4z-8U?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid53925'></iframe>"
+        "video": "<iframe width='560' height='315' allowfullscreen style='margin-bottom:0' src='https://www.youtube.com/embed/N6dlPK4z-8U?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid53925'></iframe>"
       },
       {
         "donationId": "498ae66d-4a23-58f0-35c0-7eb255786073",
@@ -139,7 +139,7 @@
         "name": "Product 1",
         "note": "Adverting link...",
         "status": "COMPLETE",
-        "video": "<iframe style='margin-bottom:0' src='https://www.youtube.com/embed/wPD7OJ7NhvU?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid814356'></iframe>"
+        "video": "<iframe width='560' height='315' allowfullscreen style='margin-bottom:0' src='https://www.youtube.com/embed/wPD7OJ7NhvU?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid814356'></iframe>"
       },
       {
         "donationId": "daa67187-b9c2-96d7-34cf-5b18349cf845",
@@ -156,7 +156,7 @@
         "name": "Product 2",
         "note": "Adverting link...",
         "status": "ACTIVE",
-        "video": "<iframe style='margin-bottom:0' src='https://www.youtube.com/embed/AXjaoOnTZXQ?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid235058'></iframe>"
+        "video": "<iframe width='560' height='315' allowfullscreen style='margin-bottom:0' src='https://www.youtube.com/embed/AXjaoOnTZXQ?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid235058'></iframe>"
       }
     ]
 }

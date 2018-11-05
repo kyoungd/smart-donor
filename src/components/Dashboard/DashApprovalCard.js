@@ -36,7 +36,7 @@ const styles = theme => ({
 });
 
 const PostContent = styled.div`
-  margin-top: 4rem;
+  margin: 0;
 `;
 
 function PaperSheet(props) {
@@ -49,8 +49,7 @@ function PaperSheet(props) {
           {data.title}
         </Typography>
         <CardContent className={classes.iframeVideo}>
-          {/* <PostContent dangerouslySetInnerHTML={{ __html: data.video }} /> */}
-          <iframe src='https://www.youtube.com/embed/kCxj68UgfmI?title=0&byline=0&portrait=0&badge=0&color=39a3bd' data-fit='yes' frameborder='0' id='fitvid90951'></iframe>
+          <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
         </CardContent>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">

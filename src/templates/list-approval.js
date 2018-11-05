@@ -54,6 +54,7 @@ const ListApprovals = ({ pageContext: { donationId }, data: { allDonorapiApprova
         <Content>
           <SectionTitle>APPROVALS &ndash; {edges[0].node.donationName} </SectionTitle>
           <Subline sectionTitle>
+            [{donationId}]
             {subline} (See <Link to="/categories">all categories</Link>)
           </Subline>
           <DashApproval data={dashboardData(edges)} />
@@ -78,10 +79,10 @@ ListApprovals.propTypes = {
 };
 
 export const IndexQuery = graphql`
-  {
+  query DonorListPage($donationId: String!) {
     allDonorapiApproval(
       sort: {fields: [createdOn], order: DESC}, 
-      filter: {donationId: {eq: "daa67187-b9c2-96d7-34cf-5b18349cf845"}}
+      filter: {donationId: {eq: $donationId}}
     ) {
       edges {
         node {

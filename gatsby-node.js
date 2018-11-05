@@ -42,6 +42,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
             fields {
               slug
             }
+            entityId
           }
         }
       }
@@ -92,7 +93,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
         slug: item.node.fields.slug,
         next,
         prev,
-        donationId: item.node.id
+        donationId: item.node.entityId
       },
     });
   });
