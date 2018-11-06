@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { graphql } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
 import { Layout, Wrapper, SectionTitle, Header, Subline, SEO, PrevNext } from 'components';
 import { media } from '../utils/media';
@@ -40,6 +40,7 @@ const dashboardData = (data) => {
       status: post.node.approvalStatus,
       video: post.node.video,
       slug: post.node.fields.slug,
+      backslug: post.node.fields.backslug,
       createdOn: post.node.createdOn
     }
     dashboard.push(item);
@@ -47,7 +48,7 @@ const dashboardData = (data) => {
   return dashboard;
 }
 
-const PostPage = ({ pageContext: { id, slug, prev, next }, data: { allDonorapiApproval } }) => {
+const PostPage = ({ pageContext: { prev, next }, data: { allDonorapiApproval } }) => {
   const { edges } = allDonorapiApproval;
   const post = edges[0].node;
 
@@ -59,7 +60,9 @@ const PostPage = ({ pageContext: { id, slug, prev, next }, data: { allDonorapiAp
           <Link to="/">{config.siteTitle}</Link>
         </Header>
         <Content>
-        <SectionTitle>DONOR REIVEW AND APPROVAL</SectionTitle>
+        <SectionTitle>
+          DONOR REIVEW AND APPROVAL
+        </SectionTitle>
           <Post data={dashboardData(edges)} />
         </Content>
       </Wrapper>
@@ -74,6 +77,7 @@ PostPage.propTypes = {
     id: PropTypes.string.isRequired,
     donationId: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
+    backslug: PropTypes.string.isRequired,
     next: PropTypes.object,
     prev: PropTypes.object,
   }),
@@ -96,6 +100,7 @@ export const postQuery = graphql`
           fields {
             category
             slug
+            backslug
           }
           html
           video

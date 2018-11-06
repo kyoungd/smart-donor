@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CampaignCard from './CampaignCard';
-import CampaignAddButon from './CampaignAddButton';
 import PropTypes from 'prop-types';
 import { withStyles } from "@material-ui/core/styles";
 
@@ -52,7 +51,6 @@ class index extends Component {
     const { data } = this.props;
     return (
       <div>
-        <CampaignAddButon />
         {data.map(item => (
             <CampaignCard data={item} />
         ))}

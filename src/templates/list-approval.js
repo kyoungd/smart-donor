@@ -54,8 +54,7 @@ const ListApprovals = ({ pageContext: { donationId }, data: { allDonorapiApprova
         <Content>
           <SectionTitle>APPROVALS &ndash; {edges[0].node.donationName} </SectionTitle>
           <Subline sectionTitle>
-            [{donationId}]
-            {subline} (See <Link to="/categories">all categories</Link>)
+            {subline} (See <Link to="/">all donations</Link>)
           </Subline>
           <DashApproval data={dashboardData(edges)} />
         </Content>

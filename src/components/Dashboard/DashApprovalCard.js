@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import { Link } from "gatsby"
+import { SectionTitle } from 'components';
 
 const styles = theme => ({
   root: {
@@ -20,10 +21,10 @@ const styles = theme => ({
     overflowX: 'auto',
   },
   iframeVideo: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     paddingTop: theme.spacing.unit * 2,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginBottom: `0`,
 },
   card: {
@@ -47,19 +48,23 @@ function PaperSheet(props) {
     <Card className={classes.card}>
       <CardActionArea>
         <Link to={data.slug}>
-          <Typography variant="h5" component="h3">
-            {data.title}
-          </Typography>
+          <SectionTitle>
+            <Typography gutterBottom variant="h5" component="h2">
+              {data.title}
+            </Typography>
+          </SectionTitle>
         </Link>
         <CardContent className={classes.iframeVideo}>
           <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
         </CardContent>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Product Excerpt
-          </Typography>
-          <Typography component="p">{data.excerpt}</Typography>
-        </CardContent>
+        <Link to={data.slug}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              OVERVIEW
+            </Typography>
+            <Typography component="p">{data.excerpt}</Typography>
+          </CardContent>
+        </Link>
       </CardActionArea>
       <CardActions>
         <Button size="large" color="primary">

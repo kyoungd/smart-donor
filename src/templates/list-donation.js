@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Layout, DonationArticle, Wrapper, Button, SectionTitle } from 'components';
 import { media } from '../utils/media';
 import Dashboard from '../components/Dashboard';
+import CampaignAddButton from '../components/Dashboard/CampaignAddButton';
 
 const Content = styled.div`
   grid-column: 2;
@@ -71,7 +72,7 @@ const ListDonation = ({
         </p>
       </Hero>
       <Content>
-        <SectionTitle>Latest stories</SectionTitle>
+        <CampaignAddButton />
         {/* {postEdges.map(post => (
           <DonationArticle
             title={post.node.name}

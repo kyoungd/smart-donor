@@ -27,12 +27,11 @@ function PaperSheet(props) {
       <CampaignControl data={data} />
       <Link to={data.slug}>
         <Typography variant="h5" component="h3">
-          {data.slug} - 
           {data.title}
         </Typography>
+        <Typography component="p">{data.description}</Typography>
+        <CampaignTableData data={data} />
       </Link>
-      <Typography component="p">{data.description}</Typography>
-      <CampaignTableData data={data} />
       <CampaignChip data={data} />
     </Paper>
   );
