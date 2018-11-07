@@ -31,7 +31,7 @@ const dashboardData = (data) => {
       id: post.node.id,
       title: post.node.name,
       excerpt: post.node.excerpt,
-      status: post.node.status,
+      status: post.node.approvalStatus,
       slug: post.node.fields.slug,
       video: post.node.video
     }
@@ -93,6 +93,7 @@ export const IndexQuery = graphql`
           donationName
           excerpt
           status
+          approvalStatus
           description
           donationId
           createdOn

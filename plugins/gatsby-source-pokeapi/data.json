@@ -65,7 +65,7 @@
         "donationStatus": "ACTIVE",
         "entityId": "2f8a7779-1542-0871-d288-827cab8b3593",
         "approvalResponse": "OK",
-        "approvalStatus": "ACCEPTED",
+        "approvalStatus": "WAITING",
         "createdOn": "2018-11-01T23:53:36.259Z",
         "description": "Approved Advertisement",
         "excerpt": "View raw (TEST.md) This is a paragraph. Header 1 Header 2 Header 1 Header 2 Header 3 Header 4 Header 5 Header 6 Header 1 Header 2 Header…",

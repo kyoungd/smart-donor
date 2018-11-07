@@ -126,6 +126,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
       context: {
         id: item.node.id,
         slug: item.node.fields.slug,
+        backslug: item.node.fields.backslug,
         next,
         prev,
         entityId: item.node.entityId,
