@@ -43,7 +43,6 @@ const PostContent = styled.div`
 
 function PaperSheet(props) {
   const { classes, data } = props;
-  console.log('DashApprovalCard: ', data);
 
   return (
     <Card className={classes.card}>
