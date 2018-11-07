@@ -5,11 +5,11 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
-import { Link } from "gatsby"
+import { Link } from 'gatsby';
 import { SectionTitle } from 'components';
+import AcceptOrRejectButton from './AcceptOrRejectButton';
 
 const styles = theme => ({
   root: {
@@ -43,6 +43,7 @@ const PostContent = styled.div`
 
 function PaperSheet(props) {
   const { classes, data } = props;
+  console.log('DashApprovalCard: ', data);
 
   return (
     <Card className={classes.card}>
@@ -67,12 +68,7 @@ function PaperSheet(props) {
         </Link>
       </CardActionArea>
       <CardActions>
-        <Button size="large" color="primary">
-          ACCEPT
-        </Button>
-        <Button size="large" color="primary">
-          REJECT
-        </Button>
+        <AcceptOrRejectButton data={data} />
       </CardActions>
     </Card>
   );
