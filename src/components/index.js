@@ -8,5 +8,6 @@ import SectionTitle from './SectionTitle';
 import SEO from './SEO';
 import Subline from './Subline';
 import Wrapper from './Wrapper';
+import Content from './Content';
 
-export { DonationArticle, ApprovalArticle, Button, Header, Layout, PrevNext, SectionTitle, SEO, Subline, Wrapper };
+export { DonationArticle, ApprovalArticle, Button, Header, Layout, PrevNext, SectionTitle, SEO, Subline, Wrapper, Content };

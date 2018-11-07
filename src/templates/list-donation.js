@@ -53,6 +53,7 @@ const dashboardData = (data) => {
       rejected: post.node.rejected,
       status: post.node.status,
       slug: post.node.fields.slug,
+      editslug: post.node.fields.editslug,
     }
     dashboard.push(item);
   });
@@ -108,6 +109,7 @@ export const IndexQuery = graphql`
           name
           fields {
             slug
+            editslug
           }
           excerpt
           status

@@ -46,8 +46,6 @@ function PaperSheet(props) {
   const { classes, data } = props;
   const subline = `STATUS: ${data.status} - - - CREATED ON: ${data.createdOn.slice(0, 10)} `;
 
-  console.log("--", data);
-
   return (
     <Card className={classes.card}>
       <CardActionArea>

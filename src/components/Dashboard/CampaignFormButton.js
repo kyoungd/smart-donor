@@ -1,10 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
-import Modal from '@material-ui/core/Modal'
-import IconButton from '@material-ui/core/IconButton'
-import CreateIcon from '@material-ui/icons/Create'
-import DonateForm from '../DonateForm'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import IconButton from '@material-ui/core/IconButton';
+import CreateIcon from '@material-ui/icons/Create';
+import DonateForm from '../DonateForm';
+import { Link } from 'gatsby';
 
 function getModalStyle() {
   const top = 10;
@@ -26,7 +27,7 @@ const styles = theme => ({
     padding: theme.spacing.unit * 4,
   },
   button: {
-    marginLeft: theme.spacing.unit*2,
+    marginLeft: theme.spacing.unit * 2,
     padding: `0`,
   },
 });
@@ -45,23 +46,14 @@ class SimpleModal extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-
+    const { classes, data } = this.props;
     return (
-      <div>      
-        <IconButton color="secondary" className={classes.button} aria-label="edit" onClick={this.handleOpen} >
+      <div>
+        <Link to={data.editslug}>
+          <IconButton color="secondary" className={classes.button} aria-label="edit">
             <CreateIcon />
-        </IconButton>
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={this.state.open}
-          onClose={this.handleClose}
-        >
-          <div style={getModalStyle()} className={classes.paper}>
-            <DonateForm />
-          </div>
-        </Modal>
+          </IconButton>
+        </Link>
       </div>
     );
   }

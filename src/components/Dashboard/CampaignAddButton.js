@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import { SectionTitle } from 'components';
+import { Link } from 'gatsby';
 
 const styles = theme => ({
   iconButtons: {
@@ -35,9 +35,11 @@ function FloatingActionButtons(props) {
     <div className={classes.iconButtons}>
       <div className={classes.section}>DONATIONS</div>
       <div className={classes.button}>
-        <Button variant="fab" mini color="secondary" aria-label="Add">
-          <AddIcon />
-        </Button>
+        <Link to='/add-donation'>
+          <Button variant="fab" mini color="secondary" aria-label="Add">
+            <AddIcon />
+          </Button>
+        </Link>
       </div>
     </div>
   );

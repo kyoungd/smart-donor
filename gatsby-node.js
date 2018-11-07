@@ -3,12 +3,18 @@ const _ = require('lodash');
 
 exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
   const { createNodeField } = boundActionCreators;
+  const editslug = _.kebabCase(`/donation-edit/${node.entityId}/`);
   if (node.internal.type === 'DonorapiDonation') {
     const slug = _.kebabCase(`/approval-list/${node.entityId}/`);
     createNodeField({
       node,
       name: `slug`,
       value: slug,
+    });
+    createNodeField({
+      node,
+      name: `editslug`,
+      value: editslug,
     });
     createNodeField({
       node,
@@ -47,6 +53,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
             name
             fields {
               slug
+              editslug
             }
             entityId
           }
@@ -71,6 +78,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
   const listDonation = path.resolve('src/templates/list-donation.js');
   const listApproval = path.resolve('src/templates/list-approval.js');
   const postApproval = path.resolve('src/templates/post-approval.js');
+  const editDonation = path.resolve('src/templates/edit-donation.js');
 
   const {
     data: {
@@ -83,14 +91,16 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
     },
   } = result;
 
+  // create donation list page.
   createPage({
     path: `/`,
     component: require.resolve(listDonation),
     context: {
-      slug: `/`
+      slug: `/`,
     }
   })
 
+  // create donation-approval list page.  Each entry is tied to the donation list.
   allDonation.forEach((item, index) => {
     const next = index === 0 ? null : allDonation[index - 1].node;
     const prev = index === allDonation.length - 1 ? null : allDonation[index + 1].node;
@@ -106,6 +116,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
     });
   });
 
+  // create proudct page.  It is tied to the donation-approval list page.
   allApproval.forEach((item, index) => {
     const next = index === 0 ? null : allApproval[index - 1].node;
     const prev = index === allApproval.length - 1 ? null : allApproval[index + 1].node;
@@ -119,6 +130,18 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
         prev,
         entityId: item.node.entityId,
         donationId: item.node.donationId
+      },
+    });
+  });
+
+  // create donation edit page.
+  allDonation.forEach(item => {
+    createPage({
+      path: item.node.fields.editslug,
+      component: require.resolve(editDonation),
+      context: {
+        slug: item.node.fields.editslug,
+        donationId: item.node.entityId,
       },
     });
   });

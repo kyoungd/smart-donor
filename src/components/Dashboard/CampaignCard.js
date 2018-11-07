@@ -1,12 +1,12 @@
-import React from "react"
-import PropTypes from "prop-types"
-import { withStyles } from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
-import Typography from "@material-ui/core/Typography"
-import CampaignTableData from "./CampaignTableData"
-import CampaignChip from "./CampaignChip"
-import CampaignControl from './CampaignControl'
-import { Link } from "gatsby"
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { Link } from 'gatsby';
+import CampaignTableData from './CampaignTableData';
+import CampaignChip from './CampaignChip';
+import CampaignControl from './CampaignControl';
 
 const styles = theme => ({
   root: {
@@ -23,7 +23,7 @@ function PaperSheet(props) {
   const { classes, data } = props;
 
   return (
-    <Paper className={classes.root} elevation={1} key={data.id}>
+    <Paper className={classes.root} elevation={1}>
       <CampaignControl data={data} />
       <Link to={data.slug}>
         <Typography variant="h5" component="h3">
@@ -38,7 +38,7 @@ function PaperSheet(props) {
 }
 
 PaperSheet.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(PaperSheet);
