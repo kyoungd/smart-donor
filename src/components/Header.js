@@ -21,6 +21,8 @@ const Content = styled.div`
   margin: 0 auto;
 
   a {
+    font-size: 1.68rem;
+    text-transform: uppercase;
     color: white;
     &:hover {
       opacity: 0.85;

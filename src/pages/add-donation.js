@@ -22,10 +22,9 @@ const PostPage = () => {
       <Wrapper>
         <Helmet title={`${config.siteTitle}`} />
         <Header>
-          <Link to="/">{config.siteTitle}</Link>
+          <Link to="/">MAKE DONATION</Link>
         </Header>
         <Content>
-          <SectionTitle>MAKE DONATION</SectionTitle>
           <DonateForm data={dashboardData} />
         </Content>
       </Wrapper>
