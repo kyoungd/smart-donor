@@ -4,7 +4,7 @@ import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
 import { Layout, DonationArticle, Wrapper, Button, SectionTitle } from 'components';
 import { media } from '../utils/media';
-import Dashboard from '../components/Dashboard';
+import CampaignCard from '../components/Dashboard/CampaignCard';
 import CampaignAddButton from '../components/Dashboard/CampaignAddButton';
 
 const Content = styled.div`
@@ -21,22 +21,17 @@ const Content = styled.div`
   overflow: hidden;
 `;
 
-const Hero = styled.div`
+const TitleArea = styled.div`
   grid-column: 2;
-  padding: 3rem 2rem 1rem 2rem;
-  text-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-  color: ${props => props.theme.colors.grey.dark};
-
-  p {
-    font-size: 1.68rem;
-    margin-top: -1rem;
-    @media ${media.phone} {
-      font-size: 1.25rem;
-    }
-    @media ${media.tablet} {
-      font-size: 1.45rem;
-    }
+  border-radius: 1rem;
+  padding: 1rem 6rem;
+  @media ${media.tablet} {
+    padding: 1rem 2rem;
   }
+  @media ${media.phone} {
+    padding: 1rem 1.5rem;
+  }
+  overflow: hidden;
 `;
 
 const dashboardData = (data) => {
@@ -67,24 +62,13 @@ const ListDonation = ({
 }) => (
   <Layout>
     <Wrapper>
-      <Hero>
-        <p>
-          DONOR APPROVE SMART CONTRACT
-        </p>
-      </Hero>
-      <Content>
+      <TitleArea>
         <CampaignAddButton />
-        {/* {postEdges.map(post => (
-          <DonationArticle
-            title={post.node.name}
-            date={post.node.createdOn}
-            excerpt={post.node.excerpt}
-            slug={post.node.fields.slug}
-            approvalUri={`/`}
-            key={post.node.fields.slug}
-          />
-        ))} */}
-        <Dashboard data={dashboardData(postEdges)} />
+      </TitleArea>
+      <Content>
+        {dashboardData(postEdges).map(item => (
+          <CampaignCard data={item} key={item.id} />
+        ))}
       </Content>
     </Wrapper>
   </Layout>

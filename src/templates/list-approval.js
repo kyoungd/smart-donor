@@ -49,10 +49,9 @@ const ListApprovals = ({ pageContext: { donationId }, data: { allDonorapiApprova
       <Wrapper>
         <Helmet title={`${donationId} | ${config.siteTitle}`} />
         <Header>
-          <Link to="/">{config.siteTitle}</Link>
+          <Link to="/">{edges[0].node.donationName}</Link>
         </Header>
         <Content>
-          <SectionTitle>APPROVALS &ndash; {edges[0].node.donationName} </SectionTitle>
           <Subline sectionTitle>
             {subline} (See <Link to="/">all donations</Link>)
           </Subline>

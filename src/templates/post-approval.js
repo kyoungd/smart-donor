@@ -5,7 +5,7 @@ import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
 import { Layout, Wrapper, SectionTitle, Header, Content, Subline, SEO, PrevNext } from 'components';
 import config from '../../config/SiteConfig';
-import Post from '../components/Dashboard/DashPost';
+import DashPostCard from '../components/Dashboard/DashPostCard';
 import '../utils/prismjs-theme.css';
 
 const Title = styled.h1`
@@ -32,20 +32,17 @@ const dashboardData = (data) => {
 
 const PostPage = ({ pageContext: { prev, next }, data: { allDonorapiApproval } }) => {
   const { edges } = allDonorapiApproval;
-  const post = edges[0].node;
+  const post = dashboardData(edges)[0];
 
   return (
     <Layout>
       <Wrapper>
         <Helmet title={`${post.name} | ${config.siteTitle}`} />
         <Header>
-          <Link to="/">{config.siteTitle}</Link>
+          <Link to="/">{post.title}</Link>
         </Header>
         <Content>
-        <SectionTitle>
-          DONOR REIVEW AND APPROVAL
-        </SectionTitle>
-          <Post data={dashboardData(edges)} />
+          <DashPostCard data={post} />
         </Content>
       </Wrapper>
     </Layout>

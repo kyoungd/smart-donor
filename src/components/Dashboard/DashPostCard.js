@@ -47,30 +47,27 @@ function PaperSheet(props) {
   const subline = `STATUS: ${data.status} - - - CREATED ON: ${data.createdOn.slice(0, 10)} `;
 
   return (
-    <Card className={classes.card}>
-      <CardActionArea>
-        <SectionTitle>
-          <Typography gutterBottom variant="h5" component="h2">
-            {data.title}
-          </Typography>
-        </SectionTitle>
-        <Subline sectionTitle>
-          {subline} - - - (See <Link to={data.backslug}>back to donation</Link>)
-        </Subline>
-        <CardContent className={classes.iframeVideo}>
-          <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
-        </CardContent>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Product
-          </Typography>
-          <PostContent dangerouslySetInnerHTML={{ __html: data.html }} />
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <AcceptOrRejectButton data={data} />
-      </CardActions>
-    </Card>
+    <div>
+      <Subline sectionTitle>
+        {subline} - - - (See <Link to={data.backslug}>back to donation</Link>)
+      </Subline>
+      <Card className={classes.card}>
+        <CardActionArea>
+          <CardContent className={classes.iframeVideo}>
+            <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
+          </CardContent>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              Product
+            </Typography>
+            <PostContent dangerouslySetInnerHTML={{ __html: data.html }} />
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <AcceptOrRejectButton data={data} />
+        </CardActions>
+      </Card>
+    </div>
   );
 }
 

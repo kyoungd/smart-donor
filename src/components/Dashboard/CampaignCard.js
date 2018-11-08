@@ -13,7 +13,7 @@ const styles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 1,
+    marginBottom: theme.spacing.unit * 3,
     maxWidth: theme.spacing.unit * 120,
     overflowX: 'auto',
   },
@@ -26,7 +26,7 @@ function PaperSheet(props) {
     <Paper className={classes.root} elevation={1}>
       <CampaignControl data={data} />
       <Link to={data.slug}>
-        <Typography variant="h5" component="h3">
+        <Typography variant="h8" component="h8">
           {data.title}
         </Typography>
         <Typography component="p">{data.description}</Typography>

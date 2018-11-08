@@ -11,7 +11,7 @@ const dashboardData = {
   name: '',
   editslug: '',
   description: '',
-  amount: '',
+  amount: 0,
   availableOn: '',
   expireOn: '',
 }

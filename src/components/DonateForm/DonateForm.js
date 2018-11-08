@@ -157,6 +157,9 @@ class DonateForm extends React.Component {
           errorMessages={['this field is required']}
           fullWidth
           margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
           className={classes.singleLineInput}
         />
         <TextValidator
@@ -197,7 +200,7 @@ class DonateForm extends React.Component {
           className={classes.multilineInput}
         />
         <input name="bot-field" style={{ display: 'none' }} />
-        <Button variant="raised" color="primary" size="large" type="submit" className={classes.submit}>
+        <Button variant="outlined" color="primary" size="large" type="submit" className={classes.submit}>
           Send
         </Button>
       </ValidatorForm>
@@ -216,6 +219,4 @@ DonateForm.propTypes = {
   }).isRequired,
 };
 
-export default withStyles(styles)(
-  DonateForm
-);
+export default withStyles(styles)(DonateForm);
