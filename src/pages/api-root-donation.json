@@ -1,0 +1,37 @@
+{
+  "donationName": "ROOT-DONATION",
+  "data": [
+    {
+      "id": "Donorapi__Approval__54159d5f-3eea-7f3e-c912-99a440541ceb",
+      "title": "Product 4",
+      "excerpt": "Zwei flinke Boxer jagen die quirlige Eva und ihren Mops durch Sylt. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern. Zwölf…",
+      "status": "ACCEPTED",
+      "slug": "approval-54159-d-5-f-3-eea-7-f-3-e-c-912-99-a-440541-ceb",
+      "video": "<iframe width='560' height='315' allowfullscreen style='margin-bottom:0' src='https://www.youtube.com/embed/ys5p3WzVfSs?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid452431'></iframe>"
+    },
+    {
+      "id": "Donorapi__Approval__5871c836-6a83-7b71-7409-669c83f784c6",
+      "title": "Product 3",
+      "excerpt": "Zwei flinke Boxer jagen die quirlige Eva und ihren Mops durch Sylt. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern. Zwölf…",
+      "status": "ACCEPTED",
+      "slug": "approval-5871-c-836-6-a-83-7-b-71-7409-669-c-83-f-784-c-6",
+      "video": "<iframe width='560' height='315' allowfullscreen style='margin-bottom:0' src='https://www.youtube.com/embed/6UYurrW7GVg?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid869049'></iframe>"
+    },
+    {
+      "id": "Donorapi__Approval__78ef6791-21d6-0c70-19f6-cd244df1f944",
+      "title": "Product 2",
+      "excerpt": "Heading 1 Zwei flinke Boxer jagen die quirlige Eva und ihren Mops durch Sylt. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern…",
+      "status": "ACCEPTED",
+      "slug": "approval-78-ef-6791-21-d-6-0-c-70-19-f-6-cd-244-df-1-f-944",
+      "video": "<iframe width='560' height='315' allowfullscreen style='margin-bottom:0' src='https://www.youtube.com/embed/N6dlPK4z-8U?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid53925'></iframe>"
+    },
+    {
+      "id": "Donorapi__Approval__efc6ba0f-9666-1f20-ad5a-f4b9b738d053",
+      "title": "Product 1",
+      "excerpt": "Zwei flinke Boxer jagen die quirlige Eva und ihren Mops durch Sylt. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern. Zwölf…",
+      "status": "ACCEPTED",
+      "slug": "approval-efc-6-ba-0-f-9666-1-f-20-ad-5-a-f-4-b-9-b-738-d-053",
+      "video": "<iframe width='560' height='315' allowfullscreen style='margin-bottom:0' src='https://www.youtube.com/embed/wPD7OJ7NhvU?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=39a3bd' data-fit='yes' frameborder='0' id='fitvid814356'></iframe>"
+    }
+  ]
+}

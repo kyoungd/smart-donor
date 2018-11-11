@@ -1,0 +1,28 @@
+[
+    {
+        "id": "Donorapi__Donation__daa67187-b9c2-96d7-34cf-5b18349cf845",
+        "title": "second-donation",
+        "description": "Zwei flinke Boxer jagen die quirlige Eva und ihren Mops durch Sylt. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern. Zwölf…",
+        "amount": 5000000,
+        "total": 4,
+        "approved": 2,
+        "waiting": 2,
+        "rejected": 0,
+        "status": "ACTIVE",
+        "slug": "approval-list-daa-67187-b-9-c-2-96-d-7-34-cf-5-b-18349-cf-845",
+        "editslug": "donation-edit-daa-67187-b-9-c-2-96-d-7-34-cf-5-b-18349-cf-845"
+    },
+    {
+        "id": "Donorapi__Donation__498ae66d-4a23-58f0-35c0-7eb255786073",
+        "title": "first-donation",
+        "description": "Heading 1 Zwei flinke Boxer jagen die quirlige Eva und ihren Mops durch Sylt. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern…",
+        "amount": 5000000,
+        "total": 4,
+        "approved": 4,
+        "waiting": 0,
+        "rejected": 0,
+        "status": "COMPLETE",
+        "slug": "approval-list-498-ae-66-d-4-a-23-58-f-0-35-c-0-7-eb-255786073",
+        "editslug": "donation-edit-498-ae-66-d-4-a-23-58-f-0-35-c-0-7-eb-255786073"
+    }
+]

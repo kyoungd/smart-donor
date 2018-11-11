@@ -3,9 +3,9 @@ const _ = require('lodash');
 
 exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
   const { createNodeField } = boundActionCreators;
-  const editslug = _.kebabCase(`/donation-edit/${node.entityId}/`);
+  const editslug = `/donation-edit/${node.entityId}/`;
   if (node.internal.type === 'DonorapiDonation') {
-    const slug = _.kebabCase(`/approval-list/${node.entityId}/`);
+    const slug = `/approval-list/${node.entityId}/`;
     createNodeField({
       node,
       name: `slug`,
@@ -23,8 +23,8 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
     });
   }
   if (node.internal.type === 'DonorapiApproval') {
-    const slug = _.kebabCase(`/approval/${node.entityId}/`);
-    const backslug = _.kebabCase(`/approval-list/${node.donationId}/`);
+    const slug = `/approval/${node.entityId}/`;
+    const backslug = `/approval-list/${node.donationId}/`;
     createNodeField({
       node,
       name: `slug`,

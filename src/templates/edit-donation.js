@@ -26,6 +26,7 @@ const dashboardData = (data) => {
     }
     dashboard.push(item);
   });
+  console.log(JSON.stringify(dashboard, null, 4));
   return dashboard;
 }
 

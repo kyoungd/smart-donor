@@ -45,7 +45,7 @@ const DonationArticle = ({ title, date, excerpt, slug, approvalUri }) => {
       </Title>
       <Subline>
         {date}
-        <Link to={`${kebabCase(approvalUri)}`}>{approvalUri}</Link>
+        <Link to={`${approvalUri}`}>{approvalUri}</Link>
       </Subline>
       <Excerpt>{excerpt}</Excerpt>
     </Post>
