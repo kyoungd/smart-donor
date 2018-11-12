@@ -14,8 +14,8 @@ const ApiRootDonation = async (donationId) => {
             getResourceId(p.campaignRequest) == request.entityId);
         const isProduct = product && product.length > 0;
         const editslug = '';
-        const slug = `/root-donation/${donationId}`;
-        const clickslug = isProduct ? `/root-post/${product[0].entityId}` : '';
+        const slug = `/root-donation?${donationId}`;
+        const clickslug = isProduct ? `/root-post?${product[0].entityId}` : '';
         const result = {
             id : request.entityId,
             title: request.name,

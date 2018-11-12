@@ -47,7 +47,7 @@ function PaperSheet(props) {
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        <Link to={data.slug}>
+        <Link to={data.clickslug}>
           <SectionTitle>
             <Typography gutterBottom variant="h5" component="h2">
               {data.title}
@@ -57,7 +57,7 @@ function PaperSheet(props) {
         <CardContent className={classes.iframeVideo}>
           <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
         </CardContent>
-        <Link to={data.slug}>
+        <Link to={data.clickslug}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               OVERVIEW

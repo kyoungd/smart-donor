@@ -3,21 +3,8 @@ import styled from 'styled-components';
 import { Layout, Wrapper } from 'components';
 import { media } from '../utils/media';
 import CampaignCard from '../components/Dashboard/CampaignCard';
-
 import CampaignAddButton from '../components/Dashboard/CampaignAddButton';
-
 const { ApiRoot } = require('../models/api-root.js');
-
-const dashboardData = () => { 
-  let data;
-  ApiRoot().then(result => { 
-    data = result
-  }).catch(function(error) {
-    console.log(error);
-  });
-  console.log('dashboard-data: ', data);
-  return ApiRoot().then(result => result) 
-};
 
 const Content = styled.div`
   grid-column: 2;
@@ -45,6 +32,17 @@ const TitleArea = styled.div`
   }
   overflow: hidden;
 `;
+
+const dashboardData = () => { 
+  let data;
+  ApiRoot().then(result => { 
+    data = result
+  }).catch(function(error) {
+    console.log(error);
+  });
+  console.log('dashboard-data: ', data);
+  return ApiRoot().then(result => result) 
+};
 
 export default class ListDonation extends Component {
 
@@ -86,7 +84,17 @@ export default class ListDonation extends Component {
       );
     }
     else {
-      return <div></div>
+      return (
+        <Layout>
+          <Wrapper>
+            <TitleArea>
+              <CampaignAddButton />
+            </TitleArea>
+            <Content>
+            </Content>
+          </Wrapper>
+        </Layout>
+      )
     }
   }
 }

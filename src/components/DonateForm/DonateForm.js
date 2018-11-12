@@ -46,21 +46,7 @@ const styles = theme => ({
   },
 });
 
-class DonateForm extends React.Component {
-  constructor(props) {
-    super(props);
-    const { data } = props;
-    this.state = {
-      name: data.name,
-      amount: data.amount,
-      expireOn: data.expireOn,
-      availableOn: data.availableOn,
-      description: data.description,
-      accountNumber: '',
-      routingNumber: '',
-      submitError: '',
-    }
-  }
+function DonateForm() {
 
   handleChange = event => {
     const { target } = event;
@@ -92,120 +78,130 @@ class DonateForm extends React.Component {
     e.preventDefault();
   };
 
-  render() {
-    const { classes } = this.props;
-    const { name, amount, expireOn, availableOn, routingNumber, accountNumber, description, submitError } = this.state;
-
-    return (
-      <ValidatorForm
-        onSubmit={this.handleSubmit}
-        onError={errors => console.log(errors)}
-        name="campaign"
-        ref={f => (this.form = f)}
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-      >
-        {submitError && <p className={classes.submitError}>{submitError}</p>}
-        <TextValidator
-          id="name"
-          name="name"
-          label="Name"
-          value={name}
-          onChange={this.handleChange}
-          validators={['required']}
-          errorMessages={['this field is required']}
-          fullWidth
-          margin="normal"
-          className={classes.singleLineInput}
-        />
-        <TextValidator
-          id="amount"
-          name="amount"
-          label="amount"
-          value={amount}
-          onChange={this.handleChange}
-          validators={['required', 'matchRegexp:^[0-9]*$']}
-          errorMessages={['this field is required', 'not valid amount']}
-          fullWidth
-          margin="normal"
-          className={classes.singleLineInput}
-        />
-        <TextValidator
-          id="availableOn"
-          name="availableOn"
-          label="available on"
-          type="date"
-          value={availableOn}
-          onChange={this.handleChange}
-          validators={['required']}
-          errorMessages={['this field is required']}
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          className={classes.singleLineInput}
-        />
-        <TextValidator
-          id="expireOn"
-          name="expireOn"
-          label="expires on"
-          type="date"
-          value={expireOn}
-          onChange={this.handleChange}
-          validators={['required']}
-          errorMessages={['this field is required']}
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          className={classes.singleLineInput}
-        />
-        <TextValidator
-          id="routingNumber"
-          name="routingNumber"
-          label="Routing Number"
-          value={routingNumber}
-          onChange={this.handleChange}
-          validators={['required']}
-          errorMessages={['this field is required']}
-          fullWidth
-          margin="normal"
-          className={classes.singleLineInput}
-        />
-        <TextValidator
-          id="accountNumber"
-          name="accountNumber"
-          label="Account Number"
-          value={accountNumber}
-          onChange={this.handleChange}
-          validators={['required']}
-          errorMessages={['this field is required']}
-          fullWidth
-          margin="normal"
-          className={classes.singleLineInput}
-        />
-        <TextValidator
-          id="description"
-          name="description"
-          label="description"
-          value={description}
-          onChange={this.handleChange}
-          validators={['required']}
-          errorMessages={['this field is required']}
-          multiline
-          fullWidth
-          margin="normal"
-          className={classes.multilineInput}
-        />
-        <input name="bot-field" style={{ display: 'none' }} />
-        <Button variant="outlined" color="primary" size="large" type="submit" className={classes.submit}>
-          Send
-        </Button>
-      </ValidatorForm>
-    );
+  const { classes } = this.props;
+  const { data } = this.props;
+  this.setState = {
+    name: data.name,
+    amount: data.amount,
+    expireOn: data.expireOn,
+    availableOn: data.availableOn,
+    description: data.description,
+    accountNumber: '',
+    routingNumber: '',
+    submitError: '',
   }
+  const { name, amount, expireOn, availableOn, routingNumber, accountNumber, description, submitError } = this.state;
+
+  return (
+    <ValidatorForm
+      onSubmit={this.handleSubmit}
+      onError={errors => console.log(errors)}
+      name="campaign"
+      ref={f => (this.form = f)}
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+    >
+      {submitError && <p className={classes.submitError}>{submitError}</p>}
+      <TextValidator
+        id="name"
+        name="name"
+        label="Name"
+        value={name}
+        onChange={this.handleChange}
+        validators={['required']}
+        errorMessages={['this field is required']}
+        fullWidth
+        margin="normal"
+        className={classes.singleLineInput}
+      />
+      <TextValidator
+        id="amount"
+        name="amount"
+        label="amount"
+        value={amount}
+        onChange={this.handleChange}
+        validators={['required', 'matchRegexp:^[0-9]*$']}
+        errorMessages={['this field is required', 'not valid amount']}
+        fullWidth
+        margin="normal"
+        className={classes.singleLineInput}
+      />
+      <TextValidator
+        id="availableOn"
+        name="availableOn"
+        label="available on"
+        type="date"
+        value={availableOn}
+        onChange={this.handleChange}
+        validators={['required']}
+        errorMessages={['this field is required']}
+        fullWidth
+        margin="normal"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        className={classes.singleLineInput}
+      />
+      <TextValidator
+        id="expireOn"
+        name="expireOn"
+        label="expires on"
+        type="date"
+        value={expireOn}
+        onChange={this.handleChange}
+        validators={['required']}
+        errorMessages={['this field is required']}
+        fullWidth
+        margin="normal"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        className={classes.singleLineInput}
+      />
+      <TextValidator
+        id="routingNumber"
+        name="routingNumber"
+        label="Routing Number"
+        value={routingNumber}
+        onChange={this.handleChange}
+        validators={['required']}
+        errorMessages={['this field is required']}
+        fullWidth
+        margin="normal"
+        className={classes.singleLineInput}
+      />
+      <TextValidator
+        id="accountNumber"
+        name="accountNumber"
+        label="Account Number"
+        value={accountNumber}
+        onChange={this.handleChange}
+        validators={['required']}
+        errorMessages={['this field is required']}
+        fullWidth
+        margin="normal"
+        className={classes.singleLineInput}
+      />
+      <TextValidator
+        id="description"
+        name="description"
+        label="description"
+        value={description}
+        onChange={this.handleChange}
+        validators={['required']}
+        errorMessages={['this field is required']}
+        multiline
+        fullWidth
+        margin="normal"
+        className={classes.multilineInput}
+      />
+      <input name="bot-field" style={{ display: 'none' }} />
+      <Button variant="outlined" color="primary" size="large" type="submit" className={classes.submit}>
+        Send
+      </Button>
+    </ValidatorForm>
+  );
+
 }
 
 DonateForm.propTypes = {
