@@ -25,7 +25,7 @@ function PaperSheet(props) {
   return (
     <Paper className={classes.root} elevation={1}>
       <CampaignControl data={data} />
-      <Link to={data.slug}>
+      <Link to={data.clickslug}>
         <Typography variant="h8" component="h8">
           {data.title}
         </Typography>
