@@ -7,38 +7,32 @@ import { Link } from 'gatsby';
 import CampaignTableData from './CampaignTableData';
 import CampaignChip from './CampaignChip';
 import CampaignControl from './CampaignControl';
+import styled from 'styled-components';
 
-const styles = theme => ({
-  root: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 3,
-    maxWidth: theme.spacing.unit * 120,
-    overflowX: 'auto',
-  },
-});
+const Root = styled.div`
+  max-width: 960px;
+  overflow-x: auto;
+  padding-top: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+`;
 
-function PaperSheet(props) {
-  const { classes, data } = props;
-
+export default function (data) {
   return (
-    <Paper className={classes.root} elevation={1}>
-      <CampaignControl data={data} />
-      <Link to={data.clickslug}>
-        <Typography variant="h8" component="h8">
-          {data.title}
-        </Typography>
-        <Typography component="p">{data.description}</Typography>
-        <CampaignTableData data={data} />
-      </Link>
-      <CampaignChip data={data} />
+    <Paper elevation={1}>
+      <Root>
+        { CampaignControl.call(this, data) }
+        <Link to={data.clickslug}>
+          <Typography variant="h8" component="h8">
+            {data.title}
+          </Typography>
+          <Typography component="p">{data.description}</Typography>
+          <CampaignTableData data={data} />
+        </Link>
+        <CampaignChip data={data} />
+      </Root>
     </Paper>
   );
 }
-
-PaperSheet.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(PaperSheet);

@@ -8,29 +8,11 @@ import styled from 'styled-components';
 import { media } from '../../utils/media';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const styles = theme => ({
-  iconButtons: {
-    display: 'flex',
-    flexDirection: 'row',
-    padding: `0`,
-    justifyContent: 'center',
-  },
-  button: {
-    display: 'flex',
-    flex: 1,
-    justifyContent: 'flex-end',
-    margin: theme.spacing.unit,
-  },
-  extendedIcon: {
-    display: 'flex',
-    marginRight: theme.spacing.unit,
-  },
-  section: {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    flex: 10
-  },
-});
+const Content = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 const Hero = styled.div`
   grid-column: 2;
@@ -48,26 +30,24 @@ const Hero = styled.div`
   }
 `;
 
-function FloatingActionButtons(props) {
-  const { classes } = props;
+export default function() {
   return (
-    <div className={classes.iconButtons}>
-      <div className={classes.section}>
+    <Content>
+      <div>
         <Hero><p>ALL DONATIONS</p></Hero>
       </div>
-      <div className={classes.button}>
-        <Link to='/add-donation'>
-          <Button variant="outlined" mini color="secondary" aria-label="Add">
+      <div>
+          <Button variant="outlined" mini color="secondary" aria-label="Add"
+            onClick = {()=> {
+              console.log('Add Donation Button clicked');
+              this.setState({
+                pageState: 'ADD-DONATION',
+                pageEntityId: '',
+              })
+            }}>
             <Tooltip title="Make a New Donation"><AddIcon /></Tooltip>
           </Button>
-        </Link>
       </div>
-    </div>
+    </Content>
   );
 }
-
-FloatingActionButtons.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(FloatingActionButtons);

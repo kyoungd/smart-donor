@@ -5,6 +5,7 @@ import { media } from '../utils/media';
 import CampaignCard from '../components/Dashboard/CampaignCard';
 import CampaignAddButton from '../components/Dashboard/CampaignAddButton';
 const { ApiRoot } = require('../models/api-root.js');
+import DonationPage from '../components/DonateForm/DonationPage';
 
 const Content = styled.div`
   grid-column: 2;
@@ -33,23 +34,14 @@ const TitleArea = styled.div`
   overflow: hidden;
 `;
 
-const dashboardData = () => { 
-  let data;
-  ApiRoot().then(result => { 
-    data = result
-  }).catch(function(error) {
-    console.log(error);
-  });
-  console.log('dashboard-data: ', data);
-  return ApiRoot().then(result => result) 
-};
-
 export default class ListDonation extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       dataOk: false,
+      pageState: "ROOT",
+      pageEntityId: "",
     };
   }
 
@@ -64,37 +56,52 @@ export default class ListDonation extends Component {
     }
   }
 
-  render() {
-    const { data, dataOk } = this.state;
+  renderEditDonation(item) {
+    return <DonationPage data={item} />
+  }
+
+  renderRoot(item) {
+    return <CampaignCard data={item} />
+  }
+
+  renderOk() {
+    const { data, pageState, pageEntityId } = this.state;
+    const emptyItem =
+      { id: "", title: "", description: "", rules: "", availableOn: "", amount:0, accountNumber:"", routingNumber:"" }
+
     console.log('root-render: ', data);
-    if (dataOk) {
-      return (
-        <Layout>
-          <Wrapper>
-            <TitleArea>
-              <CampaignAddButton />
-            </TitleArea>
-            <Content>
-              {data.map(item => (
-                <CampaignCard data={item} key={item.id} />
-              ))}
-            </Content>
-          </Wrapper>
-        </Layout>
-      );
-    }
-    else {
-      return (
-        <Layout>
-          <Wrapper>
-            <TitleArea>
-              <CampaignAddButton />
-            </TitleArea>
-            <Content>
-            </Content>
-          </Wrapper>
-        </Layout>
-      )
-    }
+    return (
+      <div>
+      {
+        pageState == 'ADD-DONATION' ? DonationPage.call(this, emptyItem) :
+        (
+          data.map(item => 
+            pageState == 'ROOT' ? CampaignCard.call(this, item) :
+            (pageState == 'EDIT-DONATION' && pageEntityId == item.id ? DonationPage.call(this, item) : '')
+          )
+        )
+      }
+      </div>
+    )
+  }
+
+  renderLoading() {
+    return <div>LOADING...</div>
+  }
+
+  render() {
+    const { dataOk } = this.state;
+    return (
+      <Layout>
+        <Wrapper>
+          <TitleArea>
+            { CampaignAddButton.call(this) }
+          </TitleArea>
+          <Content>
+            { dataOk ? this.renderOk() : this.renderLoading() }
+          </Content>
+        </Wrapper>
+      </Layout>
+    );
   }
 }

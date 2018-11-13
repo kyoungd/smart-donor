@@ -3,42 +3,50 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
 import CampaignFormButton from './CampaignFormButton';
 
-const styles = theme => ({
-  iconButtons: {
-    display: 'flex',
-    flexDirection: 'row',
-    padding: `0`,
-    justifyContent: 'flex-end',
-  },
-  button: {
-    marginLeft: theme.spacing.unit * 2,
-    padding: `0`,
-  },
-  input: {
-    display: 'none',
-  },
-});
+import styled from 'styled-components';
+
+const SIconButtons = styled.div`
+    display: flex;
+    padding: 0;
+    flex-direction: row;
+    justify-content: flex-end;
+`;
+
+const SButton = styled.div`
+    margin-left: 30,
+    padding: 0,
+`;
 
 function handleDelete() {
   alert('You clicked the delete icon.'); // eslint-disable-line no-alert
 }
 
-function IconButtons(props) {
-  const { classes, data } = props;
-  return (
-    <div className={classes.iconButtons}>
-      <CampaignFormButton data={data} />
-      <IconButton className={classes.button} aria-label="Delete" onClick={handleDelete}>
-        <DeleteIcon />
-      </IconButton>
-    </div>
-  );
+function handleEdit(entityId) {
+  console.log('CampaignControl-handleEdit: ', entityId);
+  this.setState ({
+    pageState: 'EDIT-DONATION',
+    pageEntityId: entityId
+  });
 }
 
-IconButtons.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(IconButtons);
+export default function IconButtons(data) {
+  return (
+    <SIconButtons>
+      <IconButton aria-label="Edit" onClick={()=> {
+        console.log('CampaignControl-handleEdit: ', data.id);
+        this.setState ({
+          pageState: 'EDIT-DONATION',
+          pageEntityId: data.id
+        });
+      }}>
+        <SButton> <CreateIcon /> </SButton>
+      </IconButton>
+      <IconButton aria-label="Delete" onClick={handleDelete}>
+        <SButton> <DeleteIcon /> </SButton>
+      </IconButton>
+    </SIconButtons>
+  );
+}
