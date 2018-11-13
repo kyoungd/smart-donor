@@ -21,6 +21,7 @@ const ApiRootDonation = async (donationId) => {
             title: request.name,
             excerpt: (isProduct ? product[0].excerpt : config.default.productExcerpt),
             status: (isProduct ? product[0].approvalStatus : config.default.productApprovalStatus),
+            html: (isProduct ? product[0].html : config.default.productHtml),
             slug,
             editslug,
             clickslug,

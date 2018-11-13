@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Layout, Wrapper, Header, Subline, Article, SectionTitle } from 'components';
 import { media } from '../utils/media';
 import config from '../../config/SiteConfig';
-import DashApproval from '../components/Dashboard/DashApproval';
+import DashApprovalCard from '../components/Dashboard/DashApprovalCard';
 
 const { ApiRootDonation } = require('../models/api-root-donation');
 
@@ -33,6 +33,8 @@ export default class ListApprovals extends Component {
     this.state = {
       dataOk: false,
       donationId: donationId.slice(1, donationId.length),
+      pageState: config.pageStateDonorListPost,
+      pageEntityId: '',
     };
   }
 
@@ -49,10 +51,10 @@ export default class ListApprovals extends Component {
   }
 
   renderOk() {
-    const { donationId, dashboard } = this.state;
+    const { donationId, dashboard, pageState, pageEntityId } = this.state;
     const totalCount = dashboard.data.length;
     const subline = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${dashboard.donationName}"`;
-  
+
     return (
       <Layout>
         <Wrapper>
@@ -64,7 +66,10 @@ export default class ListApprovals extends Component {
             <Subline sectionTitle>
               {subline} (See <Link to="/">all donations</Link>)
             </Subline>
-            <DashApproval data={dashboard.data} />
+            {
+              pageState == config.pageStateDonorListPost ? 
+                dashboard.data.map(item => DashApprovalCard.call(this, item)) : pageState + '=' + config.pageStateDonorListPost
+            }
           </Content>
         </Wrapper>
       </Layout>

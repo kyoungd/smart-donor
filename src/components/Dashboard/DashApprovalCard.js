@@ -11,70 +11,54 @@ import { Link } from 'gatsby';
 import { SectionTitle } from 'components';
 import AcceptOrRejectButton from './AcceptOrRejectButton';
 
-const styles = theme => ({
-  root: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 1,
-    maxWidth: theme.spacing.unit * 120,
-    overflowX: 'auto',
-  },
-  iframeVideo: {
-    display: 'flex',
-    flexDirection: 'row',
-    paddingTop: theme.spacing.unit * 2,
-    justifyContent: 'center',
-    marginBottom: `0`,
-},
-  card: {
-    maxWidth: 960,
-    padding:20,
-    margin:20
-  },
-  media: {
-    height: 140,
-  },
-});
-
-const PostContent = styled.div`
-  margin: 0;
+const RootPage = styled.div`
+  margin-bottom: 1em;
+  max-width: 120em;
+  overflow-x: auto;
+  div {
+    max-width: 960px;
+    padding: 10px;
+    margin: 10px;
+  }
 `;
 
-function PaperSheet(props) {
-  const { classes, data } = props;
+const PostContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-top: 2em;
+  justify-content: center;
+  margin-bottom: 0;
+`;
 
+export default function(data) {
+  console.log('DashApprovalCard: ', data)
   return (
-    <Card className={classes.card}>
-      <CardActionArea>
-        <Link to={data.clickslug}>
-          <SectionTitle>
-            <Typography gutterBottom variant="h5" component="h2">
-              {data.title}
-            </Typography>
-          </SectionTitle>
-        </Link>
-        <CardContent className={classes.iframeVideo}>
-          <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
-        </CardContent>
-        <Link to={data.clickslug}>
+    <RootPage>
+      <Card>
+        <CardActionArea>
+          <Link to={data.clickslug}>
+            <SectionTitle>
+              <Typography gutterBottom variant="h5" component="h2">
+                {data.title}
+              </Typography>
+            </SectionTitle>
+          </Link>
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              OVERVIEW
-            </Typography>
-            <Typography component="p">{data.excerpt}</Typography>
+            <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
           </CardContent>
-        </Link>
-      </CardActionArea>
-      <CardActions>
-        <AcceptOrRejectButton data={data} />
-      </CardActions>
-    </Card>
+          <Link to={data.clickslug}>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                OVERVIEW
+              </Typography>
+              <Typography component="p">{data.excerpt}</Typography>
+            </CardContent>
+          </Link>
+        </CardActionArea>
+        <CardActions>
+          <AcceptOrRejectButton data={data} />
+        </CardActions>
+      </Card>
+    </RootPage>
   );
 }
-
-PaperSheet.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(PaperSheet);

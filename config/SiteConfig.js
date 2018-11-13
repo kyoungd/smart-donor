@@ -25,4 +25,11 @@ module.exports = {
   headerFontFamily: 'Bitter',
   bodyFontFamily: 'Open Sans',
   baseFontSize: '18px',
+
+  pageStateDonorRoot: 'LIST-DONATION',
+  pageStateDonorListPost: 'LIST-POST',
+  pageStateDonorAddDonation: 'ADD-DONATION',
+  pageStateDonorEditDonation: 'EDIT-DONATION',
+  pageStateDonorProduct: 'DONATION-POST',
+
 };
