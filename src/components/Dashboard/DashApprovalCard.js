@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { SectionTitle } from 'components';
 import AcceptOrRejectButton from './AcceptOrRejectButton';
+import config from '../../../config/SiteConfig';
 
 const RootPage = styled.div`
   margin-bottom: 1em;
@@ -31,29 +32,32 @@ const PostContent = styled.div`
 `;
 
 export default function(data) {
-  console.log('DashApprovalCard: ', data)
   return (
     <RootPage>
       <Card>
         <CardActionArea>
-          <Link to={data.clickslug}>
+          <div onClick={()=> {
+            this.setState({pageState: config.pageStateDonorPost, pageEntityId: data.id})
+          }}>
             <SectionTitle>
               <Typography gutterBottom variant="h5" component="h2">
                 {data.title}
               </Typography>
             </SectionTitle>
-          </Link>
+          </div>
           <CardContent>
             <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
           </CardContent>
-          <Link to={data.clickslug}>
+          <div onClick={()=> {
+            this.setState({pageState: config.pageStateDonorPost, pageEntityId: data.id})
+          }}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
                 OVERVIEW
               </Typography>
               <Typography component="p">{data.excerpt}</Typography>
             </CardContent>
-          </Link>
+          </div>
         </CardActionArea>
         <CardActions>
           <AcceptOrRejectButton data={data} />

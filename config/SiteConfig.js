@@ -30,6 +30,6 @@ module.exports = {
   pageStateDonorListPost: 'LIST-POST',
   pageStateDonorAddDonation: 'ADD-DONATION',
   pageStateDonorEditDonation: 'EDIT-DONATION',
-  pageStateDonorProduct: 'DONATION-POST',
+  pageStateDonorPost: 'DONATION-POST',
 
 };

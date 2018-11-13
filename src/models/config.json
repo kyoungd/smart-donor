@@ -7,6 +7,7 @@
         "productApprovalStatus": "NOT_SUBMITTED",
         "productStatus": "NOT_STARTED",
         "productVideo": "UNDER CONSTRUCTION",
+        "productCreatedOn": "----",
         "endpointBlockchainApi" : "http://localhost:3000/api",
         "pageDonorRoot": "/",
         "pageDonorDonation": "/root-donation",

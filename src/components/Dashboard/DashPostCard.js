@@ -6,73 +6,78 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import BackIcon from '@material-ui/icons/Backspace';
+import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import { Subline } from 'components';
 import { SectionTitle } from 'components';
 import { Link } from 'gatsby';
 import AcceptOrRejectButton from './AcceptOrRejectButton';
+import config from '../../../config/SiteConfig';
 
-const styles = theme => ({
-  root: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 1,
-    maxWidth: theme.spacing.unit * 120,
-    overflowX: 'auto',
-  },
-  iframeVideo: {
-    display: "flex",
-    flexDirection: "row",
-    paddingTop: theme.spacing.unit * 2,
-    justifyContent: "center",
-    marginBottom: `0`,
-},
-  card: {
-    maxWidth: 960,
-    padding:20,
-    margin:20
-  },
-  media: {
-    height: 140,
-  },
-});
+const RootPage = styled.div`
+  padding-top: 2em;
+  padding-bottom: 2em;
+  margin-bottom: 1em;
+  max-width: 120em;
+  overflow-x: auto;
+  div {
+    max-width: 960px;
+    padding: 10px;
+    margin: 10px;
+  }
+  Button {
+    margin-left: 5%;
+  }
+`;
 
-const PostContent = styled.div`
+const PostVideo = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-top: 2em;
+  justify-content: center;
   margin: 0;
 `;
 
-function PaperSheet(props) {
-  const { classes, data } = props;
-  const subline = `STATUS: ${data.status} - - - CREATED ON: ${data.createdOn.slice(0, 10)} `;
+const PostContent = styled.div`
+  display:block;
+`;
 
+export default function(data) {
+  const createdOn = data.createdOn.length > 10 ? data.createdOn.slice(0, 10) : data.createdOn;
+  const subline = `STATUS: ${data.status} - - - CREATED ON: ${createdOn} `;
   return (
-    <div>
-      <Subline sectionTitle>
-        {subline} - - - (See <Link to={data.backslug}>back to donation</Link>)
-      </Subline>
-      <Card className={classes.card}>
+    <RootPage>
+      <Card>
+        <Subline sectionTitle>
+          {subline} - - - 
+          <Button variant="outlined" size="small" color="secondary" onClick={() => {
+            this.setState({pageState: config.pageStateDonorListPost, pageEntityId: ''});
+          }}>
+            <BackIcon fontSize="medium" />&nbsp;close
+          </Button>          
+        </Subline>
         <CardActionArea>
-          <CardContent className={classes.iframeVideo}>
-            <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
-          </CardContent>
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Product
-            </Typography>
-            <PostContent dangerouslySetInnerHTML={{ __html: data.html }} />
+            <PostVideo dangerouslySetInnerHTML={{ __html: data.video }} />
           </CardContent>
+          <PostContent>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                Product
+              </Typography>
+              <PostContent dangerouslySetInnerHTML={{ __html: data.html }} />
+            </CardContent>
+          </PostContent>
+          const PostContent = styled.div`
+            display:block;
+          `;
+
         </CardActionArea>
         <CardActions>
           <AcceptOrRejectButton data={data} />
         </CardActions>
       </Card>
-    </div>
+    </RootPage>
   );
 }
-
-PaperSheet.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(PaperSheet);

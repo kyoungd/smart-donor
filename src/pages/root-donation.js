@@ -6,6 +6,7 @@ import { Layout, Wrapper, Header, Subline, Article, SectionTitle } from 'compone
 import { media } from '../utils/media';
 import config from '../../config/SiteConfig';
 import DashApprovalCard from '../components/Dashboard/DashApprovalCard';
+import DashPostCard from '../components/Dashboard/DashPostCard';
 
 const { ApiRootDonation } = require('../models/api-root-donation');
 
@@ -50,6 +51,25 @@ export default class ListApprovals extends Component {
     }
   }
 
+  renderPostList(dashboard, subline) {
+    return (
+      <div>
+        <Subline sectionTitle>
+          {subline} (See <Link to="/">all donations</Link>)
+        </Subline>
+        { dashboard.data.map(item => DashApprovalCard.call(this, item)) }
+      </div>
+    )
+  }
+
+  renderPost(dashboard, pageEntityId) {
+    return (
+      <div>
+        { dashboard.data.map(item => pageEntityId == item.id ? DashPostCard.call(this, item) : '') }
+      </div>
+    )
+  }
+
   renderOk() {
     const { donationId, dashboard, pageState, pageEntityId } = this.state;
     const totalCount = dashboard.data.length;
@@ -63,12 +83,9 @@ export default class ListApprovals extends Component {
             <Link to="/">{dashboard.donationName}</Link>
           </Header>
           <Content>
-            <Subline sectionTitle>
-              {subline} (See <Link to="/">all donations</Link>)
-            </Subline>
             {
-              pageState == config.pageStateDonorListPost ? 
-                dashboard.data.map(item => DashApprovalCard.call(this, item)) : pageState + '=' + config.pageStateDonorListPost
+              pageState == config.pageStateDonorListPost ? this.renderPostList(dashboard, subline) : 
+              (pageState == config.pageStateDonorPost ? this.renderPost(dashboard, pageEntityId) : '')
             }
           </Content>
         </Wrapper>
