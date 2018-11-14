@@ -31,7 +31,7 @@ export default function IconButtons(data) {
       <IconButton aria-label="Edit" onClick={()=> {
         console.log('CampaignControl-handleEdit: ', data.id);
         this.setState ({
-          pageState: config.pageState.donor.rootEdit,
+          pageState: config.pageState[config.siteState].rootEdit,
           pageEntityId: data.id
         });
       }}>

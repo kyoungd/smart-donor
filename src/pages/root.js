@@ -41,7 +41,7 @@ export default class ListDonation extends Component {
     super(props);
     this.state = {
       dataOk: false,
-      pageState: config.pageState.donor.rootList,
+      pageState: config.pageState[config.siteState].rootList,
       pageEntityId: '',
     };
   }
@@ -78,11 +78,11 @@ export default class ListDonation extends Component {
     return (
       <div>
       {
-        pageState == config.pageState.donor.rootAdd ? this.PageRootAdd().call(this, emptyItem) :
+        pageState == config.pageState[config.siteState].rootAdd ? this.PageRootAdd().call(this, emptyItem) :
         (
           data.map(item => 
-            pageState == config.pageState.donor.rootList ? this.PageRoot().call(this, item) :
-            (pageState == config.pageState.donor.rootEdit && pageEntityId == item.id ? this.PageRootEdit().call(this, item) : '')
+            pageState == config.pageState[config.siteState].rootList ? this.PageRoot().call(this, item) :
+            (pageState == config.pageState[config.siteState].rootEdit && pageEntityId == item.id ? this.PageRootEdit().call(this, item) : '')
           )
         )
       }

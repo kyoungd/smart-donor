@@ -34,7 +34,7 @@ export default class ListApprovals extends Component {
     this.state = {
       dataOk: false,
       donationId: donationId.slice(1, donationId.length),
-      pageState: config.pageState.donor.sublevelList,
+      pageState: config.pageState[config.siteState].sublevelList,
       pageEntityId: '',
     };
   }
@@ -84,8 +84,8 @@ export default class ListApprovals extends Component {
           </Header>
           <Content>
             {
-              pageState == config.pageState.donor.sublevelList ? this.renderPostList(dashboard, subline) : 
-              (pageState == config.pageState.donor.post ? this.renderPost(dashboard, pageEntityId) : '')
+              pageState == config.pageState[config.siteState].sublevelList ? this.renderPostList(dashboard, subline) : 
+              (pageState == config.pageState[config.siteState].post ? this.renderPost(dashboard, pageEntityId) : '')
             }
           </Content>
         </Wrapper>

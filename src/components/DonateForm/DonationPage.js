@@ -177,7 +177,7 @@ export default function(data) {
                     <SButton>
                         <Button variant="outlined" color="primary" onClick={() => {
                             this.setState({
-                                pageState: config.pageState.donor.rootList,
+                                pageState: config.pageState[config.siteState].rootList,
                                 pageEntityId: ''
                             });
                         }}>

@@ -42,7 +42,7 @@ export default function() {
             onClick = {()=> {
               console.log('Add Donation Button clicked');
               this.setState({
-                pageState: config.pageState.donor.rootAdd,
+                pageState: config.pageState[config.siteState].rootAdd,
                 pageEntityId: '',
               })
             }}>
