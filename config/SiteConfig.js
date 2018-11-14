@@ -70,4 +70,8 @@ module.exports = {
   },
 
   siteState: 'donor',
+  
+  siteStateDonor: 'donor',
+  siteStateCustomer: 'customer',
+  siteStateSupplier: 'supplier',
 };
