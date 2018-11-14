@@ -7,6 +7,7 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { media } from '../../utils/media';
 import Tooltip from '@material-ui/core/Tooltip';
+import config from '../../../config/SiteConfig';
 
 const Content = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ export default function() {
             onClick = {()=> {
               console.log('Add Donation Button clicked');
               this.setState({
-                pageState: 'ADD-DONATION',
+                pageState: config.pageState.donor.rootAdd,
                 pageEntityId: '',
               })
             }}>

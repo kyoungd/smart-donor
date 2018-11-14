@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
 import CampaignFormButton from './CampaignFormButton';
+import config from '../../../config/SiteConfig';
 
 import styled from 'styled-components';
 
@@ -24,21 +25,13 @@ function handleDelete() {
   alert('You clicked the delete icon.'); // eslint-disable-line no-alert
 }
 
-function handleEdit(entityId) {
-  console.log('CampaignControl-handleEdit: ', entityId);
-  this.setState ({
-    pageState: 'EDIT-DONATION',
-    pageEntityId: entityId
-  });
-}
-
 export default function IconButtons(data) {
   return (
     <SIconButtons>
       <IconButton aria-label="Edit" onClick={()=> {
         console.log('CampaignControl-handleEdit: ', data.id);
         this.setState ({
-          pageState: 'EDIT-DONATION',
+          pageState: config.pageState.donor.rootEdit,
           pageEntityId: data.id
         });
       }}>

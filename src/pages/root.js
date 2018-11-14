@@ -6,6 +6,7 @@ import CampaignCard from '../components/Dashboard/CampaignCard';
 import CampaignAddButton from '../components/Dashboard/CampaignAddButton';
 const { ApiRoot } = require('../models/api-root.js');
 import DonationPage from '../components/DonateForm/DonationPage';
+import config from '../../config/SiteConfig';
 
 const Content = styled.div`
   grid-column: 2;
@@ -40,15 +41,15 @@ export default class ListDonation extends Component {
     super(props);
     this.state = {
       dataOk: false,
-      pageState: "ROOT",
-      pageEntityId: "",
+      pageState: config.pageState.donor.rootList,
+      pageEntityId: '',
     };
   }
 
   async componentDidMount() {
     try {
       console.log('root-componentDidMount: start');
-      const data = await ApiRoot();
+      const data = await ApiRoot('DONOR');
       this.setState({data, dataOk: true});
       console.log('root-componentDidMount: ', data);
     } catch (error) {
@@ -73,11 +74,11 @@ export default class ListDonation extends Component {
     return (
       <div>
       {
-        pageState == 'ADD-DONATION' ? DonationPage.call(this, emptyItem) :
+        pageState == config.pageState.donor.rootAdd ? DonationPage.call(this, emptyItem) :
         (
           data.map(item => 
-            pageState == 'ROOT' ? CampaignCard.call(this, item) :
-            (pageState == 'EDIT-DONATION' && pageEntityId == item.id ? DonationPage.call(this, item) : '')
+            pageState == config.pageState.donor.rootList ? CampaignCard.call(this, item) :
+            (pageState == config.pageState.donor.rootEdit && pageEntityId == item.id ? DonationPage.call(this, item) : '')
           )
         )
       }

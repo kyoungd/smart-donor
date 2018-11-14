@@ -32,4 +32,42 @@ module.exports = {
   pageStateDonorEditDonation: 'EDIT-DONATION',
   pageStateDonorPost: 'DONATION-POST',
 
+  pageStateCustomerRoot: 'LIST-CAMPAIGN',
+  pageStateCustomerEdit: 'EDIT-CAMPAIGN',
+  pageStateCustomerAdd: 'ADD-CAMPAIGN',
+  pageStateCustomerRequesstList: 'LIST-CAMPAIGNREQUEST',
+  pageStateCustomerRequesstEdit: 'EDIT-CAMPAIGNREQUEST',
+  pageStateCustomerRequesstAdd: 'ADD-CAMPAIGNREQUEST',
+
+  pageState: {
+    donor: {
+      rootList: 'LIST-DONATION',
+      rootEdit: 'EDIT-DONATION',
+      rootAdd: 'ADD-DONATION',
+      sublevelList: 'LIST-POST',
+      sublevelEdit: '',
+      SublevlAdd: '',
+      post: 'DONATION-POST',
+    },
+    customer: {
+      rootList: 'LIST-CAMPAIGN',
+      rootEdit: 'EDIT-CAMPAIGN',
+      rootAdd: 'ADD-CAMPAIGN',
+      sublevelList: 'LIST-CAMPAIGNREQEUST',
+      sublevelEdit: 'EDIT-CAMPAIGNREQEUST',
+      sublevelAdd: 'ADD-CAMPAIGNREQEUST',
+      post: 'CAMPAIGN-POST',
+    },
+    supplier: {
+      rootList: 'LIST-CAMPAIGNREQUEST',
+      rootEdit: '',
+      rootAdd: '',
+      sublevelList: 'LIST-PRODUCT',
+      sublevelEdit: 'EDIT-PRODUCT',
+      sublevelAdd: '',
+      post: '',
+    }
+  },
+
+  siteState: 'donor',
 };

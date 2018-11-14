@@ -59,8 +59,8 @@ function TableSheet(props) {
                 <TableCell component="th" scope="row" className={classes.tableCell}>
                     ${formatMoney(data.amount, 2)}
                 </TableCell>
-                <TableCell numeric className={classes.tableCell}>{data.approved}</TableCell>
                 <TableCell numeric className={classes.tableCell}>{data.total}</TableCell>
+                <TableCell numeric className={classes.tableCell}>{data.accepted}</TableCell>
                 <TableCell numeric className={classes.tableCell}>{data.waiting}</TableCell>
                 <TableCell numeric className={classes.tableCell}>{data.rejected}</TableCell>
                 </TableRow>

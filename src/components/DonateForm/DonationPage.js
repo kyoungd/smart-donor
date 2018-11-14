@@ -93,6 +93,7 @@ function showAccount() {
 }
 
 export default function(data) {
+    console.log('in donation page....................... ');
     return (
     <div>
         <Content>
@@ -176,7 +177,7 @@ export default function(data) {
                     <SButton>
                         <Button variant="outlined" color="primary" onClick={() => {
                             this.setState({
-                                pageState: 'ROOT',
+                                pageState: config.pageState.donor.rootList,
                                 pageEntityId: ''
                             });
                         }}>
