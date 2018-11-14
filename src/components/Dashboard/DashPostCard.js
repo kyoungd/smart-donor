@@ -52,7 +52,7 @@ export default function(data) {
         <Subline sectionTitle>
           {subline} - - - 
           <Button variant="outlined" size="small" color="secondary" onClick={() => {
-            this.setState({pageState: config.pageStateDonorListPost, pageEntityId: ''});
+            this.setState({pageState: config.pageState.donor.sublevelList, pageEntityId: ''});
           }}>
             <BackIcon fontSize="medium" />&nbsp;close
           </Button>          

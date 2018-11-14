@@ -46,7 +46,7 @@ module.exports = {
       rootAdd: 'ADD-DONATION',
       sublevelList: 'LIST-POST',
       sublevelEdit: '',
-      SublevlAdd: '',
+      sublevelAdd: '',
       post: 'DONATION-POST',
     },
     customer: {

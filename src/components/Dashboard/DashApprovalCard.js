@@ -37,7 +37,7 @@ export default function(data) {
       <Card>
         <CardActionArea>
           <div onClick={()=> {
-            this.setState({pageState: config.pageStateDonorPost, pageEntityId: data.id})
+            this.setState({pageState: config.pageState.donor.post, pageEntityId: data.id})
           }}>
             <SectionTitle>
               <Typography gutterBottom variant="h5" component="h2">
@@ -49,7 +49,7 @@ export default function(data) {
             <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
           </CardContent>
           <div onClick={()=> {
-            this.setState({pageState: config.pageStateDonorPost, pageEntityId: data.id})
+            this.setState({pageState: config.pageState.donor.post, pageEntityId: data.id})
           }}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
