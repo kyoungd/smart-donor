@@ -2,7 +2,7 @@ const _ = require('lodash');
 const { get, getResourceId } = require('./api');
 const config = require('./config');
 
-const ApiCampaignRequest = async (campaignId) => {
+const ApiCustomerCampaignRequest = async (campaignId) => {
     const allCampaign = await get('campaign', campaignId);
     if (!allCampaign || !allCampaign.data)
         return {};
@@ -33,4 +33,4 @@ const ApiCampaignRequest = async (campaignId) => {
     return { mainTitle, backslag: config.default.root, data: reqs };
 }
 
-module.exports = { ApiCampaignRequest };
+module.exports = { ApiCustomerCampaignRequest };

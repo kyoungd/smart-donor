@@ -41,6 +41,7 @@ module.exports = {
 
   pageState: {
     donor: {
+      rootTitle: 'ALL DONATIONS',
       rootList: 'LIST-DONATION',
       rootEdit: 'EDIT-DONATION',
       rootAdd: 'ADD-DONATION',
@@ -50,6 +51,7 @@ module.exports = {
       post: 'DONATION-POST',
     },
     customer: {
+      rootTitle: 'ALL CAMPAIGNS',
       rootList: 'LIST-CAMPAIGN',
       rootEdit: 'EDIT-CAMPAIGN',
       rootAdd: 'ADD-CAMPAIGN',
@@ -59,6 +61,7 @@ module.exports = {
       post: 'CAMPAIGN-POST',
     },
     supplier: {
+      rootTitle: 'ALL REQUESTS',
       rootList: 'LIST-CAMPAIGNREQUEST',
       rootEdit: '',
       rootAdd: '',

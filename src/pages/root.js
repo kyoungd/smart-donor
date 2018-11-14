@@ -4,9 +4,10 @@ import { Layout, Wrapper } from 'components';
 import { media } from '../utils/media';
 import CampaignCard from '../components/Dashboard/CampaignCard';
 import CampaignAddButton from '../components/Dashboard/CampaignAddButton';
-const { ApiRoot } = require('../models/api-root.js');
+import ApiRoot from '../models/api-root.js';
 import config from '../../config/SiteConfig';
 import DonationPage from '../components/DonateForm/DonationPage';
+import CampaignPage from '../components/DonateForm/CampaignPage';
 
 const Content = styled.div`
   grid-column: 2;
@@ -49,7 +50,7 @@ export default class ListDonation extends Component {
   async componentDidMount() {
     try {
       console.log('root-componentDidMount: start');
-      const data = await ApiRoot('DONOR');
+      const data = await ApiRoot(config.siteState);
       this.setState({data, dataOk: true});
       console.log('root-componentDidMount: ', data);
     } catch (error) {
@@ -58,15 +59,18 @@ export default class ListDonation extends Component {
   }
 
   PageRootEdit = () => {
-    return config.siteState == config.siteStateDonor ? DonationPage : undefined;
+    return config.siteState == config.siteStateDonor ? DonationPage :
+      ( config.siteState == config.siteStateCustomer ? CampaignPage : undefined);
   }
 
   PageRootAdd = () => {
-      return config.siteState == config.siteStateDonor ? DonationPage : undefined;
+      return config.siteState == config.siteStateDonor ? DonationPage :
+      ( config.siteState == config.siteStateCustomer ? CampaignPage : undefined);
   }
 
   PageRoot = () => {
-      return config.siteState == config.siteStateDonor ? CampaignCard : undefined;
+      return config.siteState == config.siteStateDonor ? CampaignCard : 
+        ( config.siteState == config.siteStateCustomer ? CampaignCard : undefined);
   }
 
   renderOk() {

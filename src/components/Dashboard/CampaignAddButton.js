@@ -35,7 +35,7 @@ export default function() {
   return (
     <Content>
       <div>
-        <Hero><p>ALL DONATIONS</p></Hero>
+        <Hero><p>{config.pageState[config.siteState].rootTitle}</p></Hero>
       </div>
       <div>
           <Button variant="outlined" mini color="secondary" aria-label="Add"

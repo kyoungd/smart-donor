@@ -28,8 +28,8 @@ const ApiCampaignList = async () => {
         const rejected = `${pRejected}/${reqRrejected}`
         const waiting = `${pWaiting}/${reqWaiting}`;
         const slug = '/root';
-        const editslug = `/root-campaign-edit?${campaign.entityId}`;
-        const clickslug = `/root-campaignrequest?${campaign.entityId}`;
+        const editslug = '';
+        const clickslug = `/root-sublevel?${campaign.entityId}`;
         const result = {
             id: campaign.entityId,
             title: campaign.name,

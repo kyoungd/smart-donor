@@ -16,8 +16,8 @@ const ApiDonationList = async () => {
             getResourceId(product.donation) == donation.entityId && product.approvalStatus == "REJECTED" ? count+1 : count
         , 0);
         const slug = '/root';
-        const editslug = `/root-donation-edit/${donation.entityId}`;
-        const clickslug = `/root-donation?${donation.entityId}`;
+        const editslug = ``;
+        const clickslug = `/root-sublevel?${donation.entityId}`;
         const result = {
             id: donation.entityId,
             title: donation.name,
