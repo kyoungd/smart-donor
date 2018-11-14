@@ -31,7 +31,8 @@ const Hero = styled.div`
   }
 `;
 
-export default function() {
+export default function(level='root') {
+  const site = config.pageState[config.siteState];
   return (
     <Content>
       <div>
@@ -40,9 +41,8 @@ export default function() {
       <div>
           <Button variant="outlined" mini color="secondary" aria-label="Add"
             onClick = {()=> {
-              console.log('Add Donation Button clicked');
               this.setState({
-                pageState: config.pageState[config.siteState].rootAdd,
+                pageState: (level == 'root' ? site.rootAdd : site.sublevelAdd),
                 pageEntityId: '',
               })
             }}>

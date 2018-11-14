@@ -55,9 +55,9 @@ module.exports = {
       rootList: 'LIST-CAMPAIGN',
       rootEdit: 'EDIT-CAMPAIGN',
       rootAdd: 'ADD-CAMPAIGN',
-      sublevelList: 'LIST-CAMPAIGNREQEUST',
-      sublevelEdit: 'EDIT-CAMPAIGNREQEUST',
-      sublevelAdd: 'ADD-CAMPAIGNREQEUST',
+      sublevelList: 'LIST-CAMPAIGNREQUEST',
+      sublevelEdit: 'EDIT-CAMPAIGNREQUEST',
+      sublevelAdd: 'ADD-CAMPAIGNREQUEST',
       post: 'CAMPAIGN-POST',
     },
     supplier: {
@@ -72,7 +72,7 @@ module.exports = {
     }
   },
 
-  siteState: 'donor',
+  siteState: 'customer',
   
   siteStateDonor: 'donor',
   siteStateCustomer: 'customer',
