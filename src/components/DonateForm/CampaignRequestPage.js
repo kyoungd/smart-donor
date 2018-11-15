@@ -1,5 +1,6 @@
 /* eslint jsx-a11y/label-has-for:0 */
 
+import update from 'immutability-helper';
 import React from 'react';
 import styled from 'styled-components';
 import Button from "@material-ui/core/Button";
@@ -12,6 +13,8 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 import { media } from '../../utils/media';
 import config from '../../../config/SiteConfig';
+
+const _ = require('lodash');
 
 const Content = styled.div`
   grid-column: 2;
@@ -87,9 +90,11 @@ const getSelectedMenu = (data) => {
   return menu;
 }
 
-export default function CampaignRequestPage(campaignId) {
-  const { dashboard } = this.state;
-  const data = dashboard.emptySublevelItem;
+export default function CampaignRequestPage(campaignRequestId) {
+  const { dashboard, test } = this.state;
+  console.log('CampaignRequestPage ', dashboard.data, campaignRequestId);
+  const requestIx = dashboard.data.findIndex(item => item.id == campaignRequestId);
+  const data = dashboard.data[requestIx];
 
   return (
     <div>
@@ -98,10 +103,38 @@ export default function CampaignRequestPage(campaignId) {
         <form name="contact-form" method="post">
           <div>
             <div>
-              <TextField variant="outlined" id="name" label="name" value={data.title} margin="normal" />
+              <TextField variant="outlined" id="name" label="name" value={data.name} margin="normal"
+                onChange={event => {
+                  // this.setState(prevState => ({
+                  //   ...prevState,
+                  //   test: {
+                  //     one: 'great',
+                  //   }
+                  // }));
+                  this.setState({
+                    dashboard: update(this.state.dashboard, { 
+                      data:
+                        {[requestIx] : {name: {$set: event.target.value}}}
+                    })
+                  })
+                  // this.setState(prevState => ({
+                  //   ...prevState,
+                  //   dashboard: {
+                  //     ...prevState.dashboard,
+                  //     data: {
+                  //       ...prevState.dashboard.data,
+                  //       0: {
+                  //         ...prevState.dashboard.data[0],
+                  //         name: 'hello'
+                  //       }
+                  //     }
+                  //   }
+                  // }));
+                }
+              } />
             </div>
             <div>
-              <TextField variant="outlined" id="amount" label="amount" value={data.amount} margin="normal" />
+              <TextField variant="outlined" id="amount" label="amount" defaultValue={data.amount} margin="normal" />
             </div>
             <DateDiv>
               <div>
@@ -135,7 +168,7 @@ export default function CampaignRequestPage(campaignId) {
                       return s;
                     });
                     this.setState(
-                      {...dashboard.emptySublevelItem.supplier, supplier: supplierList}
+                      {...dashboard.data[requestIx].supplier, supplier: supplierList}
                     );
                   }}
                   input={

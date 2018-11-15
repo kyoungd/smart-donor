@@ -64,8 +64,11 @@ export default class ListApprovals extends Component {
     }
   }
 
-
   PageSublevelAdd = () => {
+    return (config.siteState === config.siteStateCustomer ? CampaignRequestPage : undefined);
+  }
+
+  PageSublevelEdit = () => {
     return (config.siteState === config.siteStateCustomer ? CampaignRequestPage : undefined);
   }
 
@@ -75,7 +78,7 @@ export default class ListApprovals extends Component {
         <Subline sectionTitle>
           {subline} (See <Link to="/">all donations</Link>)
         </Subline>
-        {dashboard.data.map(item => DashApprovalCard.call(this, item))}
+        {dashboard.data.map(item => item.id === 'new' ? '' : DashApprovalCard.call(this, item))}
       </div>
     )
   }
@@ -85,11 +88,11 @@ export default class ListApprovals extends Component {
   }
 
   renderSublevelEdit(dashboard, pageEntityId) {
-    return <div></div>;
+    return this.PageSublevelEdit().call(this, pageEntityId);
   }
 
   renderSublevelAdd(dashboard) {
-    return this.PageSublevelAdd().call(this);
+    return this.PageSublevelAdd().call(this, 'new');
   }
 
   renderLoop() {
@@ -113,7 +116,7 @@ export default class ListApprovals extends Component {
 
   renderOk() {
     const { donationId, dashboard, pageState, pageEntityId } = this.state;
-    console.log('root-donation - renderOK: ', dashboard);
+    console.log('root-donation - renderOK: ', this.state);
 
     return (
       <Layout>

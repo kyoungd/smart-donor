@@ -21,7 +21,8 @@ const EmptySublevelItem = async (campaignId) => {
         return result;
     });
     const result = {
-        id : '',
+        id : 'new',
+        name: '',
         title: '',
         excerpt: '',
         html: '',
@@ -70,6 +71,7 @@ const ApiCustomerCampaignRequest = async (campaignId) => {
         const clickslug = '';
         const result = {
             id : request.entityId,
+            name: `${request.name}`,
             title: `${request.name} / ${supplier ? supplier.name : '-'}`,
             excerpt: (isProduct ? product[0].excerpt : config.default.productExcerpt),
             html: (isProduct ? product[0].html : config.default.productHtml),
@@ -84,7 +86,7 @@ const ApiCustomerCampaignRequest = async (campaignId) => {
         return result;
     });
     const emptySublevelItem = await EmptySublevelItem(campaignId);
-    return { mainTitle, backslag: config.default.root, data: reqs, emptySublevelItem };
+    return { mainTitle, backslag: config.default.root, data: [emptySublevelItem, ...reqs], test: {one:'one', two: 'two', three: 'three'} };
 }
 
 module.exports = { ApiCustomerCampaignRequest };
