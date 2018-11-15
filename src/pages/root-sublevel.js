@@ -57,7 +57,6 @@ export default class ListApprovals extends Component {
     try {
       const { donationId } = this.state;
       const dashboard = await ApiSublevel(config.siteState, donationId);
-      console.log('root-donation - componentDidMount: ', dashboard);
       this.setState({ dashboard, dataOk: true });
       console.log('root-componentDidMount: start', dashboard);
     } catch (error) {
@@ -90,7 +89,7 @@ export default class ListApprovals extends Component {
   }
 
   renderSublevelAdd(dashboard) {
-    return this.PageSublevelAdd().call(this, dashboard.emptySublevelItem);
+    return this.PageSublevelAdd().call(this);
   }
 
   renderLoop() {
@@ -114,6 +113,7 @@ export default class ListApprovals extends Component {
 
   renderOk() {
     const { donationId, dashboard, pageState, pageEntityId } = this.state;
+    console.log('root-donation - renderOK: ', dashboard);
 
     return (
       <Layout>

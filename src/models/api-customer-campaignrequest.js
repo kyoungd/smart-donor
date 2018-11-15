@@ -16,6 +16,7 @@ const EmptySublevelItem = async (campaignId) => {
             name: supplier.name,
             checked,
             description: supplier.note,
+            selected: false,
         }
         return result;
     });
@@ -46,15 +47,17 @@ const ApiCustomerCampaignRequest = async (campaignId) => {
     const allSupplier = await get('supplier');
     const reqs = allRequest.filter(r => getResourceId(r.campaign) == campaignId).map(request => {
         const listSupplier = allSupplier.data.map(supplier => {
-            let checkResult = allRequest.reduce((total, req) => 
+            const selected = supplier.participantId === getResourceId(request.supplier);
+            const checkResult = allRequest.reduce((total, req) => 
                 getResourceId(req.supplier) === supplier.participantId 
                 && !_.includes(['CANCELED', 'REJECTED'], supplier.approvalStatus) ? total+1 : total, 0) ;
-            const checked = supplier.participantId !== getResourceId(request.supplier) && checkResult > 0 ? true : false;
+            const checked = !selected && checkResult > 0 ? true : false;
             const result = {
                 id: supplier.participantId,
                 name: supplier.name,
                 checked,
                 description: supplier.note,
+                selected,
             }
             return result;
         });
