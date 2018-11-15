@@ -93,16 +93,7 @@ function showAccount() {
     </DateDiv>
 }
 
-const emptyItem = {
-    id: '',
-    name: '',
-    amount: 0,
-    avaialbleOn:'',
-    expireOn: '',
-    description: '',
-}
-
-export default function(data = emptyItem) {
+export default function(data) {
     console.log('CampaignRequest : ', data);
     return (
     <div>
@@ -176,7 +167,7 @@ export default function(data = emptyItem) {
                     <SButton>
                         <Button variant="outlined" color="primary" onClick={() => {
                             this.setState({
-                                pageState: config.pageState[config.siteState].rootList,
+                                pageState: config.pageState[config.siteState].sublevelList,
                                 pageEntityId: ''
                             });
                         }}>

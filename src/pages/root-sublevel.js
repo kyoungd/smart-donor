@@ -89,8 +89,8 @@ export default class ListApprovals extends Component {
     return <div></div>;
   }
 
-  renderSublevelAdd() {
-    return this.PageSublevelAdd().call(this);
+  renderSublevelAdd(dashboard) {
+    return this.PageSublevelAdd().call(this, dashboard.emptySublevelItem);
   }
 
   renderLoop() {
@@ -102,9 +102,9 @@ export default class ListApprovals extends Component {
       case config.pageState[config.siteState].sublevelList:
         return this.renderSublevelList(dashboard, subline);
       case config.pageState[config.siteState].sublevelEdit:
-        return this.renderSublevelEdit(dashboard, subline);
+        return this.renderSublevelEdit(dashboard, pageEntityId);
       case config.pageState[config.siteState].sublevelAdd:
-        return this.renderSublevelAdd();
+        return this.renderSublevelAdd(dashboard);
       case config.pageState[config.siteState].post:
         return this.renderPost(dashboard, pageEntityId);
       default:
