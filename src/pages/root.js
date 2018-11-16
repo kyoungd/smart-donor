@@ -9,6 +9,7 @@ import ApiRootHelper from '../models/api-root-helper.js';
 import config from '../../config/SiteConfig';
 import DonationPage from '../components/DonateForm/DonationPage';
 import CampaignPage from '../components/DonateForm/CampaignPage';
+import SupplierRequestProductCard from '../components/Dashboard/SupplierRequestProductCard';
 
 const Content = styled.div`
   grid-column: 2;
@@ -71,8 +72,16 @@ export default class ListDonation extends Component {
   }
 
   PageRoot = () => {
-      return config.siteState == config.siteStateDonor ? CampaignCard : 
-        ( config.siteState == config.siteStateCustomer ? CampaignCard : undefined);
+    switch (config.siteState) {
+      case config.siteStateDonor:
+        return CampaignCard;
+      case config.siteStateCampaign:
+        return CampaignCard;
+      case config.siteStateSupplier:
+        return SupplierRequestProductCard;
+      default:
+        return undefined;
+    }
   }
 
   renderOk() {

@@ -62,17 +62,18 @@ module.exports = {
     },
     supplier: {
       rootTitle: 'ALL REQUESTS',
-      rootList: 'LIST-CAMPAIGNREQUEST',
-      rootEdit: '',
+      rootList: 'LIST-REQUESTPRODUCT',
+      rootEdit: 'EDIT-PRODUCT',
       rootAdd: '',
-      sublevelList: 'LIST-PRODUCT',
-      sublevelEdit: 'EDIT-PRODUCT',
+      sublevelList: '',
+      sublevelEdit: '',
       sublevelAdd: '',
       post: '',
+      supplierId: 's-6ee91abf-d094-49e1-9385-d3cbd84b54a903',
     }
   },
 
-  siteState: 'customer',
+  siteState: 'supplier',
   
   siteStateDonor: 'donor',
   siteStateCustomer: 'customer',
