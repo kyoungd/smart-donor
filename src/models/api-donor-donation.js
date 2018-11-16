@@ -1,5 +1,24 @@
 const _ = require('lodash');
 const { get, post, getResourceId } = require('./api');
+const config = require('./config');
+
+const ApiDonationBlnak = {
+  id: 'new',
+  title: '',
+  description: '',
+  rules: [],
+  amount: 0,
+  expireOn: '',
+  availbleOn: '',
+  status: config.default.productStatus,
+  total:'',
+  accepted: '',
+  rejected: '',
+  waiting: '',
+  slug:'',
+  editslug:'',
+  clickslug:'',
+}
 
 const ApiDonationList = async () => {
     const donations = await get('donation');
@@ -37,7 +56,7 @@ const ApiDonationList = async () => {
             };
         return result;
     });
-    return cr;
+    return [ApiDonationBlnak, ...cr];
 }
 
 module.exports = { ApiDonationList };

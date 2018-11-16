@@ -5,6 +5,7 @@ import { media } from '../utils/media';
 import CampaignCard from '../components/Dashboard/CampaignCard';
 import CampaignAddButton from '../components/Dashboard/CampaignAddButton';
 import ApiRoot from '../models/api-root.js';
+import ApiRootHelper from '../models/api-root-helper.js';
 import config from '../../config/SiteConfig';
 import DonationPage from '../components/DonateForm/DonationPage';
 import CampaignPage from '../components/DonateForm/CampaignPage';
@@ -51,6 +52,7 @@ export default class ListDonation extends Component {
     try {
       console.log('root-componentDidMount: start');
       const data = await ApiRoot(config.siteState);
+      const helper = await ApiRootHelper(config.siteState);
       this.setState({data, dataOk: true});
       console.log('root-componentDidMount: ', data);
     } catch (error) {
@@ -78,15 +80,15 @@ export default class ListDonation extends Component {
     const emptyItem =
       { id: "", title: "", description: "", rules: "", availableOn: "", amount:0, accountNumber:"", routingNumber:"" }
 
-    console.log('root-render: ', data);
+    console.log('root-render: ', this.state);
     return (
       <div>
       {
-        pageState == config.pageState[config.siteState].rootAdd ? this.PageRootAdd().call(this, emptyItem) :
+        pageState == config.pageState[config.siteState].rootAdd ? this.PageRootAdd().call(this, 'new') :
         (
           data.map(item => 
-            pageState == config.pageState[config.siteState].rootList ? this.PageRoot().call(this, item) :
-            (pageState == config.pageState[config.siteState].rootEdit && pageEntityId == item.id ? this.PageRootEdit().call(this, item) : '')
+            pageState == config.pageState[config.siteState].rootList && item.id !== 'new' ? this.PageRoot().call(this, item) :
+            (pageState == config.pageState[config.siteState].rootEdit && pageEntityId == item.id ? this.PageRootEdit().call(this, item.id) : '')
           )
         )
       }

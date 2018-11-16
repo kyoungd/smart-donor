@@ -1,5 +1,25 @@
 const _ = require('lodash');
 const { get, post, getResourceId } = require('./api');
+const config = require('./config');
+
+const ApiCampaignBlank = {
+  id: 'new',
+  title: '',
+  description: '',
+  rules: '',
+  amount: 0,
+  expireOn: '',
+  availbleOn: '',
+  status: config.default.productStatus,
+  total: '',
+  accepted: '',
+  rejected: '',
+  waiting: '',
+  slug: '',
+  editslug: '',
+  clickslug: '',
+  donation: '',
+};
 
 const ApiCampaignList = async () => {
     const campaigns = await get('campaign');
@@ -46,10 +66,11 @@ const ApiCampaignList = async () => {
             slug,
             editslug,
             clickslug,
-            };
+            donation: getResourceId(campaign.donation),
+          };
         return result;
     });
-    return cr;
+    return [ApiCampaignBlank, ...cr];
 }
 
 module.exports = { ApiCampaignList };
