@@ -43,7 +43,8 @@ const PostContent = styled.div`
   display:block;
 `;
 
-export default function(data) {
+export default function DashPostCard(data) {
+  console.log('DashPostCard  ---', data);
   const createdOn = data.createdOn.length > 10 ? data.createdOn.slice(0, 10) : data.createdOn;
   const subline = `STATUS: ${data.status} - - - CREATED ON: ${createdOn} `;
   return (
@@ -51,9 +52,14 @@ export default function(data) {
       <Card>
         <Subline sectionTitle>
           {subline} - - - 
-          <Button variant="outlined" size="small" color="secondary" onClick={() => {
-            this.setState({pageState: config.pageState[config.siteState].sublevelList, pageEntityId: ''});
-          }}>
+          <Button
+            variant="outlined"
+            size="small"
+            color="secondary"
+            onClick={() => {
+              this.setState({pageState: config.pageState[config.siteState].sublevelList, pageEntityId: ''});
+            }}
+            >
             <BackIcon fontSize="medium" />&nbsp;close
           </Button>          
         </Subline>
@@ -72,7 +78,6 @@ export default function(data) {
           const PostContent = styled.div`
             display:block;
           `;
-
         </CardActionArea>
         <CardActions>
           <AcceptOrRejectButton data={data} />

@@ -72,13 +72,22 @@ export default class ListApprovals extends Component {
     return (config.siteState === config.siteStateCustomer ? CampaignRequestPage : undefined);
   }
 
+  showEditControl = () => {
+    try {
+      return config.pageState[config.siteState].sublevelEdit &&  config.pageState[config.siteState].sublevelEdit !== '';
+    }
+    catch {
+      return false;
+    }
+  }
+
   renderSublevelList(dashboard, subline) {
     return (
       <div>
         <Subline sectionTitle>
           {subline} (See <Link to="/">all donations</Link>)
         </Subline>
-        {dashboard.data.map(item => item.id === 'new' ? '' : DashApprovalCard.call(this, item))}
+        {dashboard.data.map(item => item.id === 'new' ? '' : DashApprovalCard.call(this, item, this.showEditControl() ) ) }
       </div>
     )
   }

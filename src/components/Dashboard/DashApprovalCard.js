@@ -11,6 +11,7 @@ import { Link } from 'gatsby';
 import { SectionTitle } from 'components';
 import AcceptOrRejectButton from './AcceptOrRejectButton';
 import config from '../../../config/SiteConfig';
+import CampaignControl from './CampaignControl';
 
 const RootPage = styled.div`
   margin-bottom: 1em;
@@ -31,20 +32,27 @@ const PostContent = styled.div`
   margin-bottom: 0;
 `;
 
-export default function(data) {
+const HeaderContent= styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-top: 2em;
+  justify-content: space-around;
+  margin-bottom: 0;
+`;
+
+export default function DashApprovalCard(data, showControl=false) {
   return (
     <RootPage>
       <Card>
         <CardActionArea>
-          <div onClick={()=> {
-            this.setState({pageState: config.pageState[config.siteState].post, pageEntityId: data.id})
-          }}>
+          <HeaderContent>
             <SectionTitle>
               <Typography gutterBottom variant="h5" component="h2">
                 {data.title}
               </Typography>
             </SectionTitle>
-          </div>
+            { showControl && CampaignControl.call(this, data, 'sublevelEdit') }
+          </HeaderContent>
           <CardContent>
             <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
           </CardContent>

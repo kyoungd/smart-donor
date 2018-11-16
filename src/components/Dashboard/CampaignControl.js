@@ -11,34 +11,32 @@ import styled from 'styled-components';
 
 const SIconButtons = styled.div`
     display: flex;
-    padding: 0;
     flex-direction: row;
     justify-content: flex-end;
-`;
-
-const SButton = styled.div`
-    margin-left: 30,
-    padding: 0,
+    div {
+      padding: 0px;
+      margin: 0px;
+    }
 `;
 
 function handleDelete() {
   alert('You clicked the delete icon.'); // eslint-disable-line no-alert
 }
 
-export default function IconButtons(data) {
+export default function IconButtons(data, listName = 'rootEdit') {
   return (
     <SIconButtons>
       <IconButton aria-label="Edit" onClick={()=> {
         console.log('CampaignControl-handleEdit: ', data.id);
         this.setState ({
-          pageState: config.pageState[config.siteState].rootEdit,
+          pageState: config.pageState[config.siteState][listName],
           pageEntityId: data.id
         });
       }}>
-        <SButton> <CreateIcon /> </SButton>
+        <CreateIcon />
       </IconButton>
       <IconButton aria-label="Delete" onClick={handleDelete}>
-        <SButton> <DeleteIcon /> </SButton>
+        <DeleteIcon />
       </IconButton>
     </SIconButtons>
   );
