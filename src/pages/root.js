@@ -53,7 +53,7 @@ export default class ListDonation extends Component {
       console.log('root-componentDidMount: start');
       const data = await ApiRoot(config.siteState);
       const helper = await ApiRootHelper(config.siteState);
-      this.setState({data, dataOk: true});
+      this.setState({data, helper, dataOk: true});
       console.log('root-componentDidMount: ', data);
     } catch (error) {
       console.log(error);

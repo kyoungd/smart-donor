@@ -9,6 +9,11 @@ import { Layout, Wrapper, Header } from 'components';
 import { media } from '../../utils/media';
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 import config from '../../../config/SiteConfig';
 import { func } from 'prop-types';
@@ -69,6 +74,14 @@ const DateDiv = styled.div`
   }
 `;
 
+const DonationDiv = styled.div`
+  div {
+    min-width: 20em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+`;
+
 const SButton = styled.div `
   margin-left: 1.5em;
 `;
@@ -87,7 +100,7 @@ function showAccount() {
 }
 
 export default function (campaignId) {
-  const { data } = this.state;
+  const { data, helper } = this.state;
   const campaignIx = data.findIndex(item => item.id === campaignId);
   const campaign = data[campaignIx];
 
@@ -107,9 +120,9 @@ export default function (campaignId) {
     <div>
       <Content>
         <p>Make Donation</p>
-        <form name="contact-form" method="post">
+        <form name="contact-form" method="post" onSubmit={submitHandler}>
           <div>
-            <p>
+            <div>
               <TextField
                 variant="outlined"
                 id="name"
@@ -118,8 +131,8 @@ export default function (campaignId) {
                 margin="normal"
                 onChange={changeHandler('title')}
               />
-            </p>
-            <p>
+            </div>
+            <div>
               <TextField
                 variant="outlined"
                 id="amount"
@@ -128,7 +141,7 @@ export default function (campaignId) {
                 margin="normal"
                 onChange={changeHandler('amount')}
               />
-            </p>
+            </div>
             <DateDiv>
               <div>
                 <TextField
@@ -158,7 +171,7 @@ export default function (campaignId) {
               </div>
             </DateDiv>
             {campaign.id === 'new' && showAccount()}
-            <p>
+            <div>
               <TextField
                 variant="outlined"
                 id="description"
@@ -169,23 +182,49 @@ export default function (campaignId) {
                 margin="normal"
                 onChange={changeHandler('description')}
                 />
-            </p>
+            </div>
           </div>
+          <DonationDiv>
+            <FormControl variant="outlined">
+              <InputLabel
+                ref={ref => {
+                  this.InputLabelRef = ref;
+                }}
+                htmlFor="outlined-age-simple"
+              >
+                Choose Donation
+              </InputLabel>
+              <Select
+                value={campaign.donation}
+                onChange={changeHandler('donation')}
+                input={<OutlinedInput labelWidth={100} name="donation" id="outlined-donation-simple" />}
+              >
+                <MenuItem value="new">
+                  <em>None </em>
+                </MenuItem>
+                {helper.map(s => <MenuItem value={s.id}><em>{s.name}</em></MenuItem>)}
+              </Select>
+            </FormControl>
+          </DonationDiv>
           <SIconButtons>
             <SButton>
-              <Button variant="outlined" color="primary">
+              <Button variant="outlined" color="primary" type="submit">
                 Submit
-                        </Button>
+              </Button>
             </SButton>
             <SButton>
-              <Button variant="outlined" color="primary" onClick={() => {
-                this.setState({
-                  pageState: config.pageState[config.siteState].rootList,
-                  pageEntityId: ''
-                });
-              }}>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => {
+                  this.setState({
+                    pageState: config.pageState[config.siteState].rootList,
+                    pageEntityId: ''
+                  });
+                }}
+              >
                 Cancel
-                        </Button>
+              </Button>
             </SButton>
           </SIconButtons>
         </form>
