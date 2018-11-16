@@ -58,7 +58,7 @@ export default class ListApprovals extends Component {
       const { donationId } = this.state;
       const dashboard = await ApiSublevel(config.siteState, donationId);
       this.setState({ dashboard, dataOk: true });
-      console.log('root-componentDidMount: start', dashboard);
+      // console.log('root-componentDidMount: start', dashboard);
     } catch (error) {
       console.log(error);
     }
@@ -116,7 +116,7 @@ export default class ListApprovals extends Component {
 
   renderOk() {
     const { donationId, dashboard, pageState, pageEntityId } = this.state;
-    console.log('root-donation - renderOK: ', this.state);
+    // console.log('root-donation - renderOK: ', this.state);
 
     return (
       <Layout>

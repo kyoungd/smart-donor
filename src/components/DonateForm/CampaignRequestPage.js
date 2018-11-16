@@ -96,63 +96,109 @@ export default function CampaignRequestPage(campaignRequestId) {
   const requestIx = dashboard.data.findIndex(item => item.id == campaignRequestId);
   const data = dashboard.data[requestIx];
 
+  const changeHandler = type => event => {
+    this.setState({
+      dashboard: update(this.state.dashboard, { 
+        data:
+          {[requestIx] : {[type]: {$set: event.target.value}}}
+      })
+    })
+  }
+
+  const submitHandler = (event) => {
+    console.log('description --------', data);
+    //Make a network call somewhere
+    event.preventDefault();
+  }
+
   return (
     <div>
       <Content>
         <p>Request for Proposal</p>
-        <form name="contact-form" method="post">
+        <form name="contact-form" method="post" onSubmit={submitHandler}>
           <div>
             <div>
               <TextField variant="outlined" id="name" label="name" value={data.name} margin="normal"
-                onChange={event => {
-                  // this.setState(prevState => ({
-                  //   ...prevState,
-                  //   test: {
-                  //     one: 'great',
-                  //   }
-                  // }));
-                  this.setState({
-                    dashboard: update(this.state.dashboard, { 
-                      data:
-                        {[requestIx] : {name: {$set: event.target.value}}}
-                    })
-                  })
-                  // this.setState(prevState => ({
-                  //   ...prevState,
-                  //   dashboard: {
-                  //     ...prevState.dashboard,
-                  //     data: {
-                  //       ...prevState.dashboard.data,
-                  //       0: {
-                  //         ...prevState.dashboard.data[0],
-                  //         name: 'hello'
-                  //       }
-                  //     }
-                  //   }
-                  // }));
-                }
-              } />
+                onChange={changeHandler('name')}
+                // onChange={event => {
+                //   // this.setState(prevState => ({
+                //   //   ...prevState,
+                //   //   test: {
+                //   //     one: 'great',
+                //   //   }
+                //   // }));
+                //   console.log('name changed');
+                //   this.setState({
+                //     dashboard: update(this.state.dashboard, { 
+                //       data:
+                //         {[requestIx] : {name: {$set: event.target.value}}}
+                //     })
+                //   })
+                //   // this.setState(prevState => ({
+                //   //   ...prevState,
+                //   //   dashboard: {
+                //   //     ...prevState.dashboard,
+                //   //     data: {
+                //   //       ...prevState.dashboard.data,
+                //   //       0: {
+                //   //         ...prevState.dashboard.data[0],
+                //   //         name: 'hello'
+                //   //       }
+                //   //     }
+                //   //   }
+                //   // }));
+                // }} 
+              />
             </div>
             <div>
-              <TextField variant="outlined" id="amount" label="amount" defaultValue={data.amount} margin="normal" />
+              <TextField
+                variant="outlined"
+                id="amount"
+                label="amount"
+                defaultValue={data.amount}
+                margin="normal"
+                onChange={changeHandler('amount')}
+              />
             </div>
             <DateDiv>
               <div>
-                <TextField variant="outlined" id="availableOn" label="availableOn" type="date" 
-                  defaultValue={data.availableOn} InputLabelProps={{ shrink: true, }} />
+                <TextField
+                  variant="outlined"
+                  id="availableOn"
+                  label="availableOn"
+                  type="date"
+                  value={data.availableOn}
+                  onChange={changeHandler('availableOn')}
+                  InputLabelProps={{ shrink: true, }}
+                />
               </div>
               <div>
-                <TextField variant="outlined" id="expireOn" label="expireOn" type="date" 
-                  defaultValue={data.expireOn} InputLabelProps={{ shrink: true, }} />
+                <TextField
+                  variant="outlined"
+                  id="expireOn"
+                  label="expireOn"
+                  type="date"
+                  value={data.expireOn}
+                  onChange={changeHandler('expireOn')}
+                  InputLabelProps={{ shrink: true, }}
+                />
               </div>
             </DateDiv>
             <div>
-              <TextField variant="outlined" id="description" label="description" 
-                multiline rowsMax="3" value={data.description} margin="normal" />
+              <TextField
+                variant="outlined"
+                id="description"
+                label="description"
+                multiline
+                rowsMax="3"
+                value={data.description}
+                onChange={changeHandler('description')}
+                margin="normal"
+              />
             </div>
             <SupplierDiv>
               <FormControl variant="outlined">
-                <InputLabel 
+                <InputLabel
                   ref={ref => {
                     this.InputLabelRef = ref;
                   }}
@@ -184,8 +230,8 @@ export default function CampaignRequestPage(campaignRequestId) {
           </div>
         <SIconButtons>
         <SButton>
-        <Button variant="outlined" color="primary">
-        Submit
+        <Button variant="outlined" color="primary" type="submit">
+          Submit
         </Button>
         </SButton>
         <SButton>
