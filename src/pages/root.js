@@ -9,6 +9,7 @@ import ApiRootHelper from '../models/api-root-helper.js';
 import config from '../../config/SiteConfig';
 import DonationPage from '../components/DonateForm/DonationPage';
 import CampaignPage from '../components/DonateForm/CampaignPage';
+import ProductPage from '../components/DonateForm/ProductPage';
 import SupplierRequestProductCard from '../components/Dashboard/SupplierRequestProductCard';
 
 const Content = styled.div`
@@ -62,8 +63,16 @@ export default class ListDonation extends Component {
   }
 
   PageRootEdit = () => {
-    return config.siteState == config.siteStateDonor ? DonationPage :
-      ( config.siteState == config.siteStateCustomer ? CampaignPage : undefined);
+    switch (config.siteState) {
+      case config.siteStateDonor:
+        return DonationPage;
+      case config.siteStateCustomer:
+        return CampaignPage;
+      case config.siteStateSupplier:
+        return ProductPage;
+      default:
+        return undefined;
+    }
   }
 
   PageRootAdd = () => {
@@ -115,7 +124,7 @@ export default class ListDonation extends Component {
       <Layout>
         <Wrapper>
           <TitleArea>
-            { CampaignAddButton.call(this) }
+            { config.pageState[config.siteState].rootAdd !== '' && CampaignAddButton.call(this) }
           </TitleArea>
           <Content>
             { dataOk ? this.renderOk() : this.renderLoading() }
