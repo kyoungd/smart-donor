@@ -56,7 +56,6 @@ export default class ListDonation extends Component {
       const data = await ApiRoot(config.siteState);
       const helper = await ApiRootHelper(config.siteState);
       this.setState({data, helper, dataOk: true});
-      console.log('root-componentDidMount: ', data);
     } catch (error) {
       console.log(error);
     }
@@ -98,7 +97,7 @@ export default class ListDonation extends Component {
     const emptyItem =
       { id: "", title: "", description: "", rules: "", availableOn: "", amount:0, accountNumber:"", routingNumber:"" }
 
-    console.log('root-render: ', this.state);
+    console.log('root-render: ', JSON.stringify(this.state, null, 2));
     return (
       <div>
       {

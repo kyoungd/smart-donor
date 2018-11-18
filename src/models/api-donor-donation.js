@@ -2,11 +2,11 @@ const _ = require('lodash');
 const { get, post, getResourceId } = require('./api');
 const config = require('./config');
 
-const ApiDonationBlnak = {
+const ApiDonationBlank = (customerId, donorId ) => ({
   id: 'new',
   title: '',
   description: '',
-  rules: [],
+  rules: '',
   amount: 0,
   expireOn: '',
   availbleOn: '',
@@ -18,9 +18,11 @@ const ApiDonationBlnak = {
   slug:'',
   editslug:'',
   clickslug:'',
-}
+  customer: customerId,
+  donor: donorId,
+})
 
-const ApiDonationList = async () => {
+const ApiDonationList = async (customerId, donorId) => {
     const donations = await get('donation');
     const requests = await get('campaignrequest');
     const products = await get('product');
@@ -37,14 +39,15 @@ const ApiDonationList = async () => {
         const slug = '/root';
         const editslug = ``;
         const clickslug = `/root-sublevel?${donation.entityId}`;
+        const rules = donation.rules.join(' ');
         const result = {
             id: donation.entityId,
             title: donation.name,
             description: donation.description,
-            rules: donation.rules,
+            rules,
             amount: donation.amount,
-            expireOn: donation.expireOn,
-            availbleOn: donation.availbleOn,
+            expireOn: donation.expirationOn.length > 10 ? donation.expirationOn.slice(0, 10) : donation.expirationOn,
+            availableOn: donation.availableOn.length > 10 ? donation.availableOn.slice(0, 10) : donation.availableOn,
             status: donation.status,
             total,
             accepted,
@@ -53,10 +56,12 @@ const ApiDonationList = async () => {
             slug,
             editslug,
             clickslug,
+            customer: customerId,
+            donor: donorId,
             };
         return result;
     });
-    return [ApiDonationBlnak, ...cr];
+    return [ApiDonationBlank(customerId, donorId), ...cr];
 }
 
 module.exports = { ApiDonationList };

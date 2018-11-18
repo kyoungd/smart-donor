@@ -2,6 +2,7 @@
 
 import React from 'react';
 import update from 'immutability-helper';
+import _ from 'lodash';
 import Helmet from 'react-helmet';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
@@ -12,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 
 import config from '../../../config/SiteConfig';
 import { func } from 'prop-types';
+import SetBlockchain from '../../models/api-post';
 
 const Content = styled.div`
   grid-column: 2;
@@ -90,17 +92,29 @@ export default function DonationPage(donationId) {
   const { data } = this.state;
   const donationIx = data.findIndex(item => item.id === donationId);
   const donation = data[donationIx];
-  
+
   const changeHandler = type => event => {
     this.setState({
       data: update(this.state.data, { [donationIx]: { [type]: { $set: event.target.value } } })
     });
   }
 
-  const submitHandler = (event) => {
-    console.log('submitHandler --------', donation);
-    //Make a network call somewhere
+  const submitHandler = async event => {
     event.preventDefault();
+    console.log('submitHandler --------', donation);
+    try {
+      let formData = _.cloneDeep(donation);
+      formData.expirationOn = donation.expireOn;
+      formData.name = donation.title;
+      formData.entityId = donation.id;
+      formData.rules = donation.rules.split('.');
+      const result = await SetBlockchain('donation', formData);
+      if (result.status === 200) {
+        console.log(result.statusText);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -165,7 +179,8 @@ export default function DonationPage(donationId) {
                 label="Rules"
                 multiline
                 rowsMax="3"
-                value=""
+                value={donation.rules}
+                onChange={changeHandler('rules')}
                 margin="normal"
               />
             </p>
