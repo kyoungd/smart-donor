@@ -46,7 +46,7 @@ const ApiDonationList = async (customerId, donorId) => {
             description: donation.description,
             rules,
             amount: donation.amount,
-            expireOn: donation.expirationOn.length > 10 ? donation.expirationOn.slice(0, 10) : donation.expirationOn,
+            expireOn: donation.expireOn.length > 10 ? donation.expireOn.slice(0, 10) : donation.expireOn,
             availableOn: donation.availableOn.length > 10 ? donation.availableOn.slice(0, 10) : donation.availableOn,
             status: donation.status,
             total,

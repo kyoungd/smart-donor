@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import { Subline } from 'components';
 import { SectionTitle } from 'components';
 import { Link } from 'gatsby';
-import AcceptOrRejectButton from './AcceptOrRejectButton';
+import ApprovalButton from './ApprovalButton';
 import config from '../../../config/SiteConfig';
 
 const RootPage = styled.div`
@@ -23,11 +23,7 @@ const RootPage = styled.div`
   overflow-x: auto;
   div {
     max-width: 960px;
-    padding: 10px;
     margin: 10px;
-  }
-  Button {
-    margin-left: 5%;
   }
 `;
 
@@ -43,7 +39,7 @@ const PostContent = styled.div`
   display:block;
 `;
 
-export default function DashPostCard(data) {
+export default function DashPostCard(data, productId) {
   console.log('DashPostCard  ---', data);
   const createdOn = data.createdOn.length > 10 ? data.createdOn.slice(0, 10) : data.createdOn;
   const subline = `STATUS: ${data.status} - - - CREATED ON: ${createdOn} `;
@@ -59,7 +55,7 @@ export default function DashPostCard(data) {
             onClick={() => {
               this.setState({pageState: config.pageState[config.siteState].sublevelList, pageEntityId: ''});
             }}
-            >
+          >
             <BackIcon fontSize="medium" />&nbsp;close
           </Button>          
         </Subline>
@@ -75,12 +71,9 @@ export default function DashPostCard(data) {
               <PostContent dangerouslySetInnerHTML={{ __html: data.html }} />
             </CardContent>
           </PostContent>
-          const PostContent = styled.div`
-            display:block;
-          `;
         </CardActionArea>
         <CardActions>
-          <AcceptOrRejectButton data={data} />
+          { ApprovalButton.call(this, productId) }
         </CardActions>
       </Card>
     </RootPage>

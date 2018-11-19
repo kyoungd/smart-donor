@@ -12,6 +12,7 @@ import { SectionTitle } from 'components';
 import AcceptOrRejectButton from './AcceptOrRejectButton';
 import config from '../../../config/SiteConfig';
 import CampaignControl from './CampaignControl';
+import ApprovalButton from './ApprovalButton';
 
 const RootPage = styled.div`
   margin-bottom: 1em;
@@ -39,7 +40,7 @@ const HeaderContent= styled.div`
   justify-content: space-around;
   margin-bottom: 0;
 `;
-
+ 
 export default function DashApprovalCard(data, showControl=false) {
   return (
     <RootPage>
@@ -68,7 +69,7 @@ export default function DashApprovalCard(data, showControl=false) {
           </div>
         </CardActionArea>
         <CardActions>
-          <AcceptOrRejectButton data={data} />
+          { ApprovalButton.call(this, data.id, true) }
         </CardActions>
       </Card>
     </RootPage>

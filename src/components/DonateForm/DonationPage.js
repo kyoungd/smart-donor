@@ -93,6 +93,13 @@ export default function DonationPage(donationId) {
   const donationIx = data.findIndex(item => item.id === donationId);
   const donation = data[donationIx];
 
+  const closeWindow = () => {
+    this.setState({
+      pageState: config.pageState[config.siteState].rootList,
+      pageEntityId: ''
+    });
+  }
+
   const changeHandler = type => event => {
     this.setState({
       data: update(this.state.data, { [donationIx]: { [type]: { $set: event.target.value } } })
@@ -102,19 +109,19 @@ export default function DonationPage(donationId) {
   const submitHandler = async event => {
     event.preventDefault();
     console.log('submitHandler --------', donation);
-    try {
-      let formData = _.cloneDeep(donation);
-      formData.expirationOn = donation.expireOn;
-      formData.name = donation.title;
-      formData.entityId = donation.id;
-      formData.rules = donation.rules.split('.');
-      const result = await SetBlockchain('donation', formData);
+    let formData = _.cloneDeep(donation);
+    formData.expirationOn = donation.expireOn;
+    formData.name = donation.title;
+    formData.entityId = donation.id;
+    formData.rules = donation.rules.split('.');
+    SetBlockchain('donation', formData).then(result => {
       if (result.status === 200) {
         console.log(result.statusText);
       }
-    } catch (err) {
+    }).catch(err => {
       console.log(err);
-    }
+    });
+    closeWindow();
   }
 
   return (
@@ -204,12 +211,7 @@ export default function DonationPage(donationId) {
               </Button>
             </SButton>
             <SButton>
-              <Button variant="outlined" color="primary" onClick={() => {
-                this.setState({
-                  pageState: config.pageState[config.siteState].rootList,
-                  pageEntityId: ''
-                });
-              }}>
+              <Button variant="outlined" color="primary" onClick={closeWindow}>
                 Cancel
               </Button>
             </SButton>

@@ -93,7 +93,7 @@ export default class ListApprovals extends Component {
   }
 
   renderPost(dashboard, pageEntityId) {
-    return <div> {dashboard.data.map(item => (pageEntityId === item.id ? DashPostCard.call(this, item) : ''))}</div>
+    return <div> {dashboard.data.map(item => (pageEntityId === item.id ? DashPostCard.call(this, item, pageEntityId) : ''))}</div>
   }
 
   renderSublevelEdit(dashboard, pageEntityId) {
@@ -125,7 +125,7 @@ export default class ListApprovals extends Component {
 
   renderOk() {
     const { donationId, dashboard, pageState, pageEntityId } = this.state;
-    // console.log('root-donation - renderOK: ', this.state);
+    console.log('root-sublevel - renderOK: ', this.state);
 
     return (
       <Layout>
