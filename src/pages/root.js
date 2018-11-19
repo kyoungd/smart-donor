@@ -83,12 +83,26 @@ export default class ListDonation extends Component {
     switch (config.siteState) {
       case config.siteStateDonor:
         return CampaignCard;
-      case config.siteStateCampaign:
+      case config.siteStateCustomer:
         return CampaignCard;
       case config.siteStateSupplier:
         return SupplierRequestProductCard;
       default:
+      console.log('PageRoot exception: ', config.siteState, config.siteStateCustomer, CampaignCard);
         return undefined;
+    }
+  }
+
+  mainRenderer = (pageState, data, pageEntityId) => {
+    switch (pageState) {
+      case config.pageState[config.siteState].rootAdd:
+        return this.PageRootAdd().call(this, 'new');
+      case config.pageState[config.siteState].rootList:
+        return data.map(item => item.id !== 'new' && item.id !== 'blank' ? this.PageRoot().call(this, item) : '');
+      case config.pageState[config.siteState].rootEdit:
+        return data.map(item => pageEntityId == item.id ? this.PageRootEdit().call(this, item.id) : '');
+      default:
+        return '';
     }
   }
 
@@ -99,17 +113,7 @@ export default class ListDonation extends Component {
 
     console.log('--------------------------------------------------------------------root-render: ', this.state);
     return (
-      <div>
-      {
-        pageState == config.pageState[config.siteState].rootAdd ? this.PageRootAdd().call(this, 'new') :
-        (
-          data.map(item => 
-            pageState == config.pageState[config.siteState].rootList && item.id !== 'new' && item.id !== 'blank' ? this.PageRoot().call(this, item) :
-            (pageState == config.pageState[config.siteState].rootEdit && pageEntityId == item.id ? this.PageRootEdit().call(this, item.id) : '')
-          )
-        )
-      }
-      </div>
+      <div>{ this.mainRenderer(pageState, data, pageEntityId) }</div>
     )
   }
 
