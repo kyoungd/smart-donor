@@ -1,7 +1,6 @@
 const moment = require('moment');
 const uuidv1 = require('uuid/v1');
 const _ = require('lodash');
-
 const { get, post, put, makeResourceId } = require('./api');
 const idName = require('./api-entityId');
 
@@ -11,7 +10,7 @@ const baseEntity = {
     "entityId": uuidv1(),
     "accountNumber": '',
     "routingNumber": '',
-    "note": '',
+    "note": ' ',
     "status": 'ACTIVE',
     "createdOn": moment().format()
   },
@@ -25,7 +24,7 @@ const baseEntity = {
     "donateOn": moment().format(),
     "amount": 0,
     "availableOn": moment().format(),
-    "expirationOn": moment().format(),
+    "expireOn": moment().format(),
     "status": "ACTIVE",
     "isExpired": "false",
     "isDonationLeft": "false",
@@ -60,18 +59,18 @@ const baseEntity = {
   }
 }
 
-Object.prototype.ForceMatchObject = function(secondObject) {
-  var firstNames = Object.keys(this);
+const ForceMatchObject = (firstObject, secondObject) => {
+  var firstNames = Object.keys(firstObject);
   var secondNames = Object.keys(secondObject);
   firstNames.forEach(n => {
     if(!_.includes(secondNames, n))
-      delete this[n];
+      delete firstObject[n];
   });
-  return this;
+  return firstObject;
 };
 
-Object.prototype.ResourceId = function() {
-  var allName = Object.keys(this);
+const ResourceId = (firstObject) => {
+  var allName = Object.keys(firstObject);
   allName.forEach(name => {
     switch(name) {
       case "customer":
@@ -83,34 +82,45 @@ Object.prototype.ResourceId = function() {
       case "donation":
       case "product":
       case "transferfund":
-        this[name] = makeResourceId(name, this[name]);
+        firstObject[name] = makeResourceId(name, firstObject[name]);
         break;
       default :
         break;
     }
   })
-  return this;
+  return firstObject;
 }
 
 const PostBlockchain = async (model, data) => {
   const baseBlock = baseEntity[model];
-  const element = data.ForceMatchObject(baseBlock);
+  const element = ForceMatchObject(data, baseBlock);
   const item = {...baseBlock, ...element}
-  const info = item.ResourceId();
-  return await post(model, info);
+  const info = ResourceId(item);
+  const param = info[idName[model]] === 'new' ? {...info, [idName[model]]: uuidv1()} : info;
+  console.log('api-post - PostBlockchain: ', param);
+  return await post(model, param);
 }
 
 const PutBlockchain = async (model, data) => {
+  console.log('api-put - PutBlockchain 1: ', data);
   const getResult = await get(model, data[idName[model]]);
+  // console.log('api-put - PutBlockchain 2: ', getResult);
   const baseBlock = getResult.data;
-  const element = data.ForceMatchObject(baseBlock);
+  const element = ForceMatchObject(data, baseBlock);
+  // console.log('api-put - PutBlockchain 3: ', element);
   const item = {...baseBlock, ...element}
-  const info = item.ResourceId();
+  // console.log('api-put - PutBlockchain 4: ', item);
+  const info = ResourceId(item);
+  console.log('api-put - PutBlockchain 5: ', info, data[idName[model]]);
   return await put(model, info, data[idName[model]]);
 }
 
-const SetBlockchain = async (model, data) => 
-  data.id === 'new' || await get(model, data[idName[model]]) ? await PutBlockchain(model, data) : await PostBlockchain(model, data)
+const SetBlockchain = async (model, data) => {
+  if (data.id === 'new' || data.entityId === 'new' || data.participantId === 'new') {
+    return await PostBlockchain(model, data);
+  } 
+  const getBlock = await get(model, data[idName[model]]);
+  return getBlock ? await PutBlockchain(model, data) : await PostBlockchain(model, data);
+}
 
-
-export default SetBlockchain;
+module.exports = { SetBlockchain }

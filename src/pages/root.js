@@ -97,14 +97,14 @@ export default class ListDonation extends Component {
     const emptyItem =
       { id: "", title: "", description: "", rules: "", availableOn: "", amount:0, accountNumber:"", routingNumber:"" }
 
-    console.log('root-render: ', JSON.stringify(this.state, null, 2));
+    console.log('--------------------------------------------------------------------root-render: ', this.state);
     return (
       <div>
       {
         pageState == config.pageState[config.siteState].rootAdd ? this.PageRootAdd().call(this, 'new') :
         (
           data.map(item => 
-            pageState == config.pageState[config.siteState].rootList && item.id !== 'new' ? this.PageRoot().call(this, item) :
+            pageState == config.pageState[config.siteState].rootList && item.id !== 'new' && item.id !== 'blank' ? this.PageRoot().call(this, item) :
             (pageState == config.pageState[config.siteState].rootEdit && pageEntityId == item.id ? this.PageRootEdit().call(this, item.id) : '')
           )
         )
@@ -123,7 +123,7 @@ export default class ListDonation extends Component {
       <Layout>
         <Wrapper>
           <TitleArea>
-            { config.pageState[config.siteState].rootAdd !== '' && CampaignAddButton.call(this) }
+            { config.pageState[config.siteState].rootAdd !== '' && CampaignAddButton.call(this, 'root') }
           </TitleArea>
           <Content>
             { dataOk ? this.renderOk() : this.renderLoading() }

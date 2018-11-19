@@ -6,6 +6,7 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { Layout, Wrapper, Header } from 'components';
 import { media } from '../utils/media';
+import CampaignAddButton from '../components/Dashboard/CampaignAddButton';
 
 import config from '../../config/SiteConfig';
 
@@ -49,6 +50,7 @@ const Success = () => (
         <Link to="/">{config.siteTitle}</Link>
       </Header>
       <Content>
+        { CampaignAddButton.call(this) }
         <h1>Your message was sent!</h1>
         <p>I'll answer your request as quick as possible.</p>
       </Content>

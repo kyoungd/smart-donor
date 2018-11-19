@@ -25,7 +25,7 @@ export default function (data) {
       <Root>
         { CampaignControl.call(this, data) }
         <Link to={data.clickslug}>
-          <Typography variant="h8" component="h8">
+          <Typography variant="h5" component="h5">
             {data.title}
           </Typography>
           <Typography component="p">{data.description}</Typography>

@@ -20,8 +20,8 @@ const RootPage = styled.div`
   overflow-x: auto;
   div {
     max-width: 960px;
-    padding: 10px;
-    margin: 10px;
+    padding-left: 20px;
+    margin: 5px;
   }
 `;
 

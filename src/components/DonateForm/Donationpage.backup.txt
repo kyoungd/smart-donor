@@ -10,10 +10,10 @@ import { Layout, Wrapper, Header } from 'components';
 import { media } from '../../utils/media';
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
+
 import config from '../../../config/SiteConfig';
 import { func } from 'prop-types';
-
-const { SetBlockchain } = require('../../models/api-post');
+import SetBlockchain from '../../models/api-post';
 
 const Content = styled.div`
   grid-column: 2;
@@ -82,7 +82,6 @@ export default function DonationPage(donationId) {
   const donation = data[donationIx];
 
   const closeWindow = () => {
-    console.log('closeWindow called.', config.pageState[config.siteState].rootList);
     this.setState({
       pageState: config.pageState[config.siteState].rootList,
       pageEntityId: ''
@@ -105,25 +104,22 @@ export default function DonationPage(donationId) {
     SetBlockchain('bankaccount', accountInfo)
       .then(result => {
         console.log('DonationPage.saveNew() donation 1 ', result);
-        const bankaccount = result.data.entityId;
+        bankaccount = result.data.entityId;
         let formData = _.cloneDeep(donation);
-        formData.availableOn = donation.availableOn;
         formData.expirationOn = donation.expireOn;
         formData.name = donation.title;
-        formData.rules = donation.rules.split('.');
-        formData.description = donation.description;
         formData.entityId = donation.id;
-        formData.bankAccount = bankaccount;
+        formData.bankaccount = bankaccount;
         formData.customer = donation.customer;
         formData.donor = donation.donor;
         formData.rules = donation.rules.split('.');
-        console.log('DonationPage.saveNew() donation 2 ', JSON.stringify(formData, null, 2));
+        console.log('DonationPage.saveNew() donation 2 ');
         return SetBlockchain('donation', formData);
       })
       .then(result => {
         console.log('DonationPage.saveNew() donation saved 1 ');
         this.setState({
-          data: update(this.state.data, { [donationIx]: { id: { $set: result.data.entityId } } })
+          data: update(this.state.data, { [donationIx]: { [id]: { $set: result.data.entityId } } })
         }, () => {
           console.log('DonationPage.saveNew() donation saved 2 ');
           let newblock = this.state.data.filter(item => item.id === 'blank');
@@ -139,19 +135,17 @@ export default function DonationPage(donationId) {
 
   const saveEdit = () => {
     let formData = _.cloneDeep(donation);
-    formData.availableOn = donation.availableOn;
     formData.expirationOn = donation.expireOn;
     formData.name = donation.title;
     formData.entityId = donation.id;
     formData.rules = donation.rules.split('.');
-    formData.description = donation.description;
-    console.log('saveEdit: 1');
     SetBlockchain('donation', formData)
       .then(result => {
-        console.log('saveEdit: 2');
-        if (result.status === 200) {
-          console.log('saveEdit: 3');
-          console.log(result.statusText);
+        if (result.status === 200 && itemId === 'new') {
+          this.setState(
+            { data: update(this.state.data, { [donationIx]: { [id]: { $set: result.entityId } } }) },
+            () => { console.log(result.statusText) }
+          );
         }
       })
       .catch(err => {

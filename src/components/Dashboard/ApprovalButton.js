@@ -10,7 +10,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import styled from 'styled-components';
-import SetBlockchain from '../../models/api-post';
+
+const { SetBlockchain } = require('../../models/api-post');
 
 const _ = require('lodash');
 
@@ -45,10 +46,11 @@ export default function YesNoButton(productId, readOnly=false) {
   
   const UpdateApproval = () => {
     const formData = {
-      entityId : product.product,
-      approvalStatus : product.status,
-      approvalReason: ' No Reason '
+      entityId: this.state.dashboard.data[productIx].product,
+      approvalStatus: this.state.dashboard.data[productIx].status,
+      approvalResponse: ' No Reason ',
     }
+    console.log('UpdateApproval', formData);
     SetBlockchain('product', formData)
       .then(result => {
         if (result.status === 200) {
