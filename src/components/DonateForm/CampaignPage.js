@@ -18,6 +18,9 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import config from '../../../config/SiteConfig';
 import { func } from 'prop-types';
 
+const { SetBlockchain } = require('../../models/api-post');
+const { get } = require('../../models/api');
+
 const Content = styled.div`
   grid-column: 2;
   box-shadow: 0 4px 120px rgba(0, 0, 0, 0.1);
@@ -65,6 +68,7 @@ const DateDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 0.5em;
   input {
     input-width: 10em;
   }
@@ -75,29 +79,16 @@ const DateDiv = styled.div`
 `;
 
 const DonationDiv = styled.div`
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   div {
     min-width: 20em;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
   }
 `;
 
 const SButton = styled.div `
   margin-left: 1.5em;
 `;
-
-function showAccount() {
-  return (
-    <DateDiv>
-      <div>
-        <TextField id="account" label="account number" value="" InputLabelProps={{ shrink: true, }} />
-      </div>
-      <div>
-        <TextField id="routing" label="routing" type="text" value="" InputLabelProps={{ shrink: true, }} />
-      </div>
-    </DateDiv>
-  )
-}
 
 export default function (campaignId) {
   const { data, helper } = this.state;
@@ -110,16 +101,118 @@ export default function (campaignId) {
     });
   }
 
-  const submitHandler = (event) => {
-    console.log('submitHandler --------', donation);
-    //Make a network call somewhere
+  const closeWindow = () => {
+    console.log('closeWindow called.', config.pageState[config.siteState].rootList);
+    this.setState({
+      pageState: config.pageState[config.siteState].rootList,
+      pageEntityId: ''
+    });
+  }
+
+  const saveNew = () => {
+    let bankaccount;
+    const accountInfo = {
+      entityId: 'new',
+      accountNumber: campaign.account,
+      routingNumber: campaign.routing,
+    }
+    console.log('CampaignPage.saveNew() bankaccount ');
+    SetBlockchain('bankaccount', accountInfo)
+      .then(result => {
+        console.log('CampaignPage.saveNew() campaign 1 ', result);
+        bankaccount = result.data.entityId;
+        return get('donation', campaign.donation);
+      })
+      .then(result => {
+        console.log('CampaignPage.saveNew() campaign 2 ', result);
+        let formData = _.cloneDeep(campaign);
+        formData.availableOn = campaign.availableOn;
+        formData.expireOn = campaign.expireOn;
+        formData.name = campaign.title;
+        formData.description = campaign.description;
+        formData.entityId = campaign.id;
+        formData.bankAccount = bankaccount;
+        formData.customer = campaign.customer;
+        formData.donor = result.data.donor;
+        formData.donation = campaign.donation;
+        console.log('CampaignPage.saveNew() campaign 3 ', JSON.stringify(formData, null, 2));
+        return SetBlockchain('campaign', formData);
+      })
+      .then(result => {
+        console.log('CampaignPage.saveNew() campaign saved 1 ');
+        const clickslug = campaign.clickslug.replace('campaignId', result.data.entityId);
+        this.setState({
+          data: update(this.state.data, {
+            [campaignIx]: { id: { $set: result.data.entityId }, clickslug: { $set: clickslug } },
+          })
+        }, () => {
+          console.log('CampaignPage.saveNew() campaign saved 2 ');
+          let newblock = this.state.data.filter(item => item.id === 'blank');
+          newblock.id = 'new';
+          this.setState({ data: [this.state.data, newblock] });
+        })
+      })
+      .catch(err => {
+        console.log('CampaignPage.saveNew() error ', err);
+      })
+    closeWindow();
+  }
+
+  const saveEdit = () => {
+    let formData = _.cloneDeep(campaign);
+    formData.availableOn = campaign.availableOn;
+    formData.expireOn = campaign.expireOn;
+    formData.name = campaign.title;
+    formData.entityId = campaign.id;
+    formData.description = campaign.description;
+    console.log('saveEdit: 1');
+    SetBlockchain('campaign', formData)
+      .then(result => {
+        console.log('saveEdit: 2');
+        if (result.status === 200) {
+          console.log('saveEdit: 3');
+          console.log(result.statusText);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    closeWindow();
+  }
+
+  const submitHandler = event => {
     event.preventDefault();
+    console.log('Donation submitHandler --------', campaign);
+    campaign.id === 'new' ? saveNew() : saveEdit();
+  }
+
+  const showAccount = () => {
+    return (
+      <DateDiv>
+        <TextField
+          variant="outlined"
+          id="account"
+          label="account number"
+          type="text"
+          value={campaign.account}
+          onChange={changeHandler('account')}
+        />
+        <TextField
+          variant="outlined"
+          id="routing"
+          label="routing number"
+          type="text"
+          value={campaign.routing}
+          onChange={changeHandler('routing')}
+        />
+      </DateDiv>
+    )
   }
 
   return (
     <div>
       <Content>
-        <p>Make Donation</p>
+        <p>Make Campaign</p>
         <form name="contact-form" method="post" onSubmit={submitHandler}>
           <div>
             <div>

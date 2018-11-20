@@ -88,7 +88,7 @@ export default class ListDonation extends Component {
       case config.siteStateSupplier:
         return SupplierRequestProductCard;
       default:
-      console.log('PageRoot exception: ', config.siteState, config.siteStateCustomer, CampaignCard);
+        console.log('PageRoot exception: ', config.siteState, config.siteStateCustomer, CampaignCard);
         return undefined;
     }
   }

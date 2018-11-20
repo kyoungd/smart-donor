@@ -56,6 +56,36 @@ const baseEntity = {
     "donation": "",
     "donor": "",
     "supplier": ""
+  },
+  "campaign": {
+    "$class": "org.acme.smartdonation.object.Campaign",
+    "entityId": "",
+    "name": "",
+    "description": " ",
+    "amount": 0,
+    "status": "NOT_STARTED",
+    "createdOn": "2018-11-20T09:08:43.032Z",
+    "customer": "",
+    "donor": "",
+    "donation": "",
+    "bankAccount": ""
+  },
+  "campaignrequest": {
+    "$class": "org.acme.smartdonation.object.CampaignRequest",
+    "entityId": "",
+    "amount": 0,
+    "createdOn": "",
+    "description": " ",
+    "name": "",
+    "approvalStatus": "NOT_SUBMITTED",
+    "approvalStatusReason": " ",
+    "respondedOn": "",
+    "status": "NOT_STARTED",
+    "campaign": "",
+    "customer": "",
+    "donation": "",
+    "donor": "",
+    "supplier": ""
   }
 }
 

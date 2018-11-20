@@ -108,7 +108,7 @@ export default function DonationPage(donationId) {
         const bankaccount = result.data.entityId;
         let formData = _.cloneDeep(donation);
         formData.availableOn = donation.availableOn;
-        formData.expirationOn = donation.expireOn;
+        formData.expireOn = donation.expireOn;
         formData.name = donation.title;
         formData.rules = donation.rules.split('.');
         formData.description = donation.description;
@@ -140,7 +140,7 @@ export default function DonationPage(donationId) {
   const saveEdit = () => {
     let formData = _.cloneDeep(donation);
     formData.availableOn = donation.availableOn;
-    formData.expirationOn = donation.expireOn;
+    formData.expireOn = donation.expireOn;
     formData.name = donation.title;
     formData.entityId = donation.id;
     formData.rules = donation.rules.split('.');

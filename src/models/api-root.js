@@ -11,7 +11,7 @@ export default async function(siteState) {
       data = await ApiDonationList(config.siteCustomerId, config.siteDonorId);
       break;
     case config.siteStateCustomer:
-      data = await ApiCampaignList();
+      data = await ApiCampaignList(config.siteCustomerId);
       break;
     case config.siteStateSupplier:
       data = await ApiSupplierRfpList(siteSupplierId);
