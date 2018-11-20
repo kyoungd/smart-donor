@@ -21,6 +21,9 @@ module.exports = {
   themeColor: '#3498DB',
   backgroundColor: '#2b2e3c',
 
+  siteStatus: ['NOT_STARTED', 'ACTIVE', 'CANCELED', 'SUSPENDED', 'COMPLETE', 'COMPLETE_FALSE'],
+  siteApprovalStatus: ['NOT_SUBMITTED', 'CANCELED', 'SUBMITTED', 'CONSIDERING', 'ACCEPTED', 'REJECTED'],
+
   // Settings for typography.js
   headerFontFamily: 'Bitter',
   bodyFontFamily: 'Open Sans',

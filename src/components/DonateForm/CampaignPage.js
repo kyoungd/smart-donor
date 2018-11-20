@@ -292,10 +292,24 @@ export default function (campaignId) {
                 onChange={changeHandler('donation')}
                 input={<OutlinedInput labelWidth={100} name="donation" id="outlined-donation-simple" />}
               >
-                <MenuItem value="new">
-                  <em>None </em>
-                </MenuItem>
                 {helper.map(s => <MenuItem value={s.id}><em>{s.name}</em></MenuItem>)}
+              </Select>
+            </FormControl>
+            <FormControl variant="outlined">
+              <InputLabel
+                ref={ref => {
+                  this.InputLabelRef = ref;
+                }}
+                htmlFor="outlined-age-simple"
+              >
+                Choose Donation
+              </InputLabel>
+              <Select
+                value={campaign.status}
+                onChange={changeHandler('status')}
+                input={<OutlinedInput labelWidth={100} name="status" id="outlined-status-simple" />}
+              >
+                {config.siteStatus.map(s => <MenuItem value={s}><em>{s}</em></MenuItem>)}
               </Select>
             </FormControl>
           </DonationDiv>
