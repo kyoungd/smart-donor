@@ -49,7 +49,7 @@ export default function DashApprovalCard(data, showControl=false) {
           <HeaderContent>
             <SectionTitle>
               <Typography gutterBottom variant="h5" component="h2">
-                {data.title}
+                {`${data.name} / ${data.supplier ? data.supplierName : '-'}`}
               </Typography>
             </SectionTitle>
             { showControl && CampaignControl.call(this, data, 'sublevelEdit') }

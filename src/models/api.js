@@ -46,7 +46,7 @@ const remove = async (model, ix) => {
   }
 };
 
-const getResourceId = rid => rid.split('#')[1];
+const getResourceId = rid => (rid.includes('resource') ? rid.split('#')[1] : rid);
 
 const makeResourceId = (model, id) =>
   id.includes('resource') ? id : 'resource:' + endpoints[model].slice(1, endpoints[model].length) + '#' + id;

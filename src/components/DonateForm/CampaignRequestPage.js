@@ -15,6 +15,9 @@ import { media } from '../../utils/media';
 import config from '../../../config/SiteConfig';
 
 const _ = require('lodash');
+const { SetBlockchain } = require('../../models/api-post');
+const { ListSupplier } = require('../../models/api-customer-campaignrequest');
+const { getResourceId } = require('../../models/api');
 
 const Content = styled.div`
   grid-column: 2;
@@ -84,17 +87,12 @@ const SButton = styled.div `
   margin-left: 1.5em;
 `;
 
-const getSelectedMenu = (data) => {
-  const item = data.supplier.find(s => s.selected);
-  const menu = item ? item.id : 'None';
-  return menu;
-}
-
 export default function CampaignRequestPage(campaignRequestId) {
-  const { dashboard, test } = this.state;
+  const { dashboard } = this.state;
   console.log('CampaignRequestPage ', dashboard.data, campaignRequestId);
   const requestIx = dashboard.data.findIndex(item => item.id == campaignRequestId);
-  const data = dashboard.data[requestIx];
+  const request = dashboard.data[requestIx];
+  // console.log('CampaignRequestPage ', request);
 
   const changeHandler = type => event => {
     this.setState({
@@ -105,10 +103,92 @@ export default function CampaignRequestPage(campaignRequestId) {
     })
   }
 
-  const submitHandler = (event) => {
-    console.log('description --------', data);
-    //Make a network call somewhere
+  const nameid = (id, name) => `${id}#${name}`;
+
+  const handlerSupplier = event => {
+    console.log('======== changeSupplierHandler', event.target);
+    
+    const item = event.target.value.split('#');
+    this.setState({
+      dashboard: update(this.state.dashboard, { 
+        data:
+          {[requestIx] : { supplier: {$set: item[0]}, supplierName: {$set: item[1]} }}
+      })
+    })
+  }
+
+  const closeWindow = () => {
+    this.setState({
+      pageState: config.pageState[config.siteState].sublevelList,
+      pageEntityId: ''
+    });
+  }
+
+  const saveNew = () => {
+    console.log('CampaignPage.saveNew() request 2 ', request);
+    let formData = _.cloneDeep(request);
+    formData.entityId = 'new';
+    formData.name = request.name;
+    formData.description = request.description;
+    formData.approvalStatus = request.status;
+    formData.status = request.rfp;
+    formData.supplier = request.supplier;
+    console.log('CampaignRequestPage.saveNew() request 3 ', JSON.stringify(formData, null, 2));
+    SetBlockchain('campaignrequest', formData)
+      .then(result => {
+        console.log('CampaignRequestPage.saveNew() request saved 1 ');
+        this.setState({
+          dashboard: update(this.state.dashboard, { 
+            data:
+              {[requestIx] : {id: {$set: result.data.entityId}}}
+          })
+        }, () => {
+          console.log('CampaignRequestPage.saveNew() request saved 2 ');
+          let newblock = this.state.dashboard.data.filter(item => item.id === 'blank');
+          newblock.id = 'new';
+          this.setState(prevState => ({
+            ...prevState,
+            dashboard: {
+              ...prevState.dashboard,
+              data: [...this.state.dashboard.data, newblock]
+            }
+          }));
+        })
+      })
+      .catch(err => {
+        console.log('CampaignRequestPage.saveNew() error ', err);
+      })
+    closeWindow();
+  }
+
+  const saveEdit = () => {
+    let formData = _.cloneDeep(request);
+    formData.name = request.name;
+    formData.entityId = request.id;
+    formData.description = request.description;
+    formData.approvalStatus = request.status;
+    formData.status = request.rfp;
+    formData.supplier = request.supplier;
+    console.log('saveEdit: 1', formData);
+    SetBlockchain('campaignrequest', formData)
+      .then(result => {
+        console.log('saveEdit: 2');
+        if (result.status === 200) {
+          console.log('saveEdit: 3');
+          console.log(result.statusText);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    closeWindow();
+  }
+
+  const submitHandler = event => {
     event.preventDefault();
+    console.log('Request submitHandler --------', request);
+    if (request.id === 'new') saveNew();
+    else saveEdit();
   }
 
   return (
@@ -118,72 +198,15 @@ export default function CampaignRequestPage(campaignRequestId) {
         <form name="contact-form" method="post" onSubmit={submitHandler}>
           <div>
             <div>
-              <TextField variant="outlined" id="name" label="name" value={data.name} margin="normal"
-                onChange={changeHandler('name')}
-                // onChange={event => {
-                //   // this.setState(prevState => ({
-                //   //   ...prevState,
-                //   //   test: {
-                //   //     one: 'great',
-                //   //   }
-                //   // }));
-                //   console.log('name changed');
-                //   this.setState({
-                //     dashboard: update(this.state.dashboard, { 
-                //       data:
-                //         {[requestIx] : {name: {$set: event.target.value}}}
-                //     })
-                //   })
-                //   // this.setState(prevState => ({
-                //   //   ...prevState,
-                //   //   dashboard: {
-                //   //     ...prevState.dashboard,
-                //   //     data: {
-                //   //       ...prevState.dashboard.data,
-                //   //       0: {
-                //   //         ...prevState.dashboard.data[0],
-                //   //         name: 'hello'
-                //   //       }
-                //   //     }
-                //   //   }
-                //   // }));
-                // }} 
-              />
-            </div>
-            <div>
-              <TextField
+              <TextField 
                 variant="outlined"
-                id="amount"
-                label="amount"
-                defaultValue={data.amount}
+                id="name"
+                label="name"
+                value={request.name}
                 margin="normal"
-                onChange={changeHandler('amount')}
+                onChange={changeHandler('name')}
               />
             </div>
-            <DateDiv>
-              <div>
-                <TextField
-                  variant="outlined"
-                  id="availableOn"
-                  label="availableOn"
-                  type="date"
-                  value={data.availableOn}
-                  onChange={changeHandler('availableOn')}
-                  InputLabelProps={{ shrink: true, }}
-                />
-              </div>
-              <div>
-                <TextField
-                  variant="outlined"
-                  id="expireOn"
-                  label="expireOn"
-                  type="date"
-                  value={data.expireOn}
-                  onChange={changeHandler('expireOn')}
-                  InputLabelProps={{ shrink: true, }}
-                />
-              </div>
-            </DateDiv>
             <div>
               <TextField
                 variant="outlined"
@@ -191,7 +214,7 @@ export default function CampaignRequestPage(campaignRequestId) {
                 label="description"
                 multiline
                 rowsMax="3"
-                value={data.description}
+                value={request.description}
                 onChange={changeHandler('description')}
                 margin="normal"
               />
@@ -206,45 +229,53 @@ export default function CampaignRequestPage(campaignRequestId) {
                 >
                   Choose Supplier
                 </InputLabel>
-                <Select 
-                  value={getSelectedMenu(data)}
-                  onChange={event => {
-                    const supplierList = data.supplier.map(s => {
-                      s.selected = s.id === event.target.value;
-                      return s;
-                    });
-                    this.setState(
-                      {...dashboard.data[requestIx].supplier, supplier: supplierList}
-                    );
-                  }}
-                  input={
-                    <OutlinedInput labelWidth={100} name="age" id="outlined-age-simple" />
-                  }>
-                  <MenuItem value="None">
-                    <em>None </em>
-                  </MenuItem>
-                  {data.supplier.map(s => <MenuItem disabled={s.checked} value={s.id}><em>{s.name}</em></MenuItem>)}
+                <Select
+                  onChange={handlerSupplier}
+                  value={ nameid(getResourceId(request.supplier), request.supplierName) }
+                  input={<OutlinedInput labelWidth={100} name="age" id="outlined-age-simple" />}
+                >
+                  { 
+                    ListSupplier(dashboard.data, dashboard.allSupplier, request).map(s =>
+                      <MenuItem disabled={s.checked} value={nameid(s.id, s.name)}><em>{s.name}</em></MenuItem>) 
+                  }
                 </Select>
               </FormControl>
+              <FormControl variant="outlined">
+              <InputLabel
+                ref={ref => {
+                  this.InputLabelRef = ref;
+                }}
+                htmlFor="outlined-age-simple"
+              >
+                Choose Status
+              </InputLabel>
+              <Select
+                value={request.rfp}
+                onChange={changeHandler('rfp')}
+                input={<OutlinedInput labelWidth={100} name="rfp" id="outlined-rfp-simple" />}
+              >
+                {config.siteStatus.map(s => <MenuItem value={s}><em>{s}</em></MenuItem>)}
+              </Select>
+            </FormControl>
             </SupplierDiv>
           </div>
-        <SIconButtons>
-        <SButton>
-        <Button variant="outlined" color="primary" type="submit">
-          Submit
-        </Button>
-        </SButton>
-        <SButton>
-        <Button variant="outlined" color="primary" onClick={() => {
-            this.setState({
-                pageState: config.pageState[config.siteState].sublevelList,
-                pageEntityId: ''
-            });
-        }}>
-        Cancel
-        </Button>
-        </SButton>
-        </SIconButtons>
+          <SIconButtons>
+            <SButton>
+              <Button variant="outlined" color="primary" type="submit">
+                Submit
+              </Button>
+            </SButton>
+            <SButton>
+              <Button variant="outlined" color="primary" onClick={() => {
+                this.setState({
+                  pageState: config.pageState[config.siteState].sublevelList,
+                  pageEntityId: ''
+                });
+              }}>
+                Cancel
+              </Button>
+            </SButton>
+          </SIconButtons>
         </form>
       </Content>
     </div>

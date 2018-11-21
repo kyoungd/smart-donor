@@ -75,8 +75,7 @@ export default class ListApprovals extends Component {
   showEditControl = () => {
     try {
       return config.pageState[config.siteState].sublevelEdit &&  config.pageState[config.siteState].sublevelEdit !== '';
-    }
-    catch {
+    } catch {
       return false;
     }
   }
@@ -87,7 +86,10 @@ export default class ListApprovals extends Component {
         <Subline sectionTitle>
           {subline} (See <Link to="/">all donations</Link>)
         </Subline>
-        {dashboard.data.map(item => item.id === 'new' ? '' : DashApprovalCard.call(this, item, this.showEditControl() ) ) }
+        {dashboard.data.map(
+          item =>
+            item.id === 'new' || item.id === 'blank' ? '' : DashApprovalCard.call(this, item, this.showEditControl()
+            ))}
       </div>
     )
   }

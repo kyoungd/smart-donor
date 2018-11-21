@@ -42,7 +42,7 @@ export default function YesNoButton(productId, readOnly=false) {
   const productIx = data.findIndex(item => item.id === productId);
   const product = data[productIx];
   const rejectOpen = this.state.rejectOpen === undefined ? false : this.state.rejectOpen;
-  console.log('ApprovalButton - YesNoButton ', product);
+  // console.log('ApprovalButton - YesNoButton ', product);
   
   const UpdateApproval = () => {
     const formData = {
