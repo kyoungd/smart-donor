@@ -14,7 +14,7 @@ export default async function(siteState) {
       data = await ApiCampaignList(config.siteCustomerId);
       break;
     case config.siteStateSupplier:
-      data = await ApiSupplierRfpList(siteSupplierId);
+      data = await ApiSupplierRfpList(config.siteSupplierId);
       break;
     default:
       data = undefined;

@@ -39,9 +39,9 @@ const PostContent = styled.div`
   display:block;
 `;
 
-export default function DashPostCard(data, productId) {
+export default function DashPostCard(data, productId, readOnly=false) {
   console.log('DashPostCard  ---', data);
-  const createdOn = data.createdOn.length > 10 ? data.createdOn.slice(0, 10) : data.createdOn;
+  const createdOn = data.createdOn ? data.createdOn : (data.productCreatedOn ? data.productCreatedOn : '');
   const subline = `STATUS: ${data.status} - - - CREATED ON: ${createdOn} `;
   return (
     <RootPage>
@@ -73,7 +73,7 @@ export default function DashPostCard(data, productId) {
           </PostContent>
         </CardActionArea>
         <CardActions>
-          { ApprovalButton.call(this, productId) }
+          { ApprovalButton.call(this, productId, readOnly) }
         </CardActions>
       </Card>
     </RootPage>

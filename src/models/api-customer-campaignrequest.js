@@ -38,6 +38,7 @@ const EmptySublevelItem = (id, campaign) => ({
     campaign: campaign.data.entityId,
     donor: campaign.data.donor,
     donation: campaign.data.donation,
+    productCreatedOn : '',
   });
 
 const ApiCustomerCampaignRequest = async (campaignId) => {
@@ -49,9 +50,9 @@ const ApiCustomerCampaignRequest = async (campaignId) => {
     const allRequest = allRequests.data.filter(rq => getResourceId(rq.campaign) === campaignId);
     const allProduct = await get('product');
     const allSupplier = await get('supplier');
-    const reqs = allRequest.filter(r => getResourceId(r.campaign) == campaignId).map(request => {
-        const supplier = allSupplier.data.find(s => s.participantId == getResourceId(request.supplier));
-        const product = allProduct.data.filter(p => 
+    const reqs = allRequest.filter(r => getResourceId(r.campaign) === campaignId).map(request => {
+        const supplier = allSupplier.data.find(s => s.participantId === getResourceId(request.supplier));
+        const product = allProduct.data.filter(p =>
             getResourceId(p.campaignRequest) == request.entityId);
         const isProduct = product && product.length > 0;
         const editslug = '';
@@ -60,7 +61,6 @@ const ApiCustomerCampaignRequest = async (campaignId) => {
         const result = {
             id : request.entityId,
             name: `${request.name}`,
-            title: `${request.name} / ${supplier ? supplier.name : '-'}`,
             supplierName: (supplier ? supplier.name : '-'),
             excerpt: (isProduct ? product[0].excerpt : config.default.productExcerpt),
             html: (isProduct ? product[0].html : config.default.productHtml),
@@ -76,6 +76,7 @@ const ApiCustomerCampaignRequest = async (campaignId) => {
             campaign: campaign.data.entityId,
             donor: campaign.data.donor,
             donation: campaign.data.donation,
+            productCreatedOn : (isProduct ? product[0].createdOn : ''),
             }
         return result;
     });

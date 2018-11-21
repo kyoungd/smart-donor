@@ -95,7 +95,12 @@ export default class ListApprovals extends Component {
   }
 
   renderPost(dashboard, pageEntityId) {
-    return <div> {dashboard.data.map(item => (pageEntityId === item.id ? DashPostCard.call(this, item, pageEntityId) : ''))}</div>
+    const readOnly = config.siteState === config.siteStateCustomer;
+    return (
+      <div>
+        {dashboard.data.map(item => (pageEntityId === item.id ? DashPostCard.call(this, item, pageEntityId, readOnly) : ''))}
+      </div>
+    )
   }
 
   renderSublevelEdit(dashboard, pageEntityId) {
