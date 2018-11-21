@@ -19,6 +19,8 @@ import { SectionTitle } from 'components';
 import config from '../../../config/SiteConfig';
 import { EntityStateDdl } from '../../models/api-data-status';
 
+const { SetBlockchain } = require('../../models/api-post');
+
 const RootPage = styled.div`
   padding-top: 2em;
   padding-bottom: 2em;
@@ -68,16 +70,50 @@ export default function ProductPage(requestId) {
   const productIx = data.findIndex(d => d.id === requestId);
   const product = data[productIx];
 
+  const closeWindow = () => {
+    console.log('closeWindow called.', config.pageState[config.siteState].rootList);
+    this.setState({
+      pageState: config.pageState[config.siteState].rootList,
+      pageEntityId: ''
+    });
+  }
+
   const changeHandler = type => event => {
     this.setState({
       data: update(this.state.data, { [productIx]: { [type]: { $set: event.target.value } } })
     });
   }
 
-  const submitHandler = (event) => {
-    console.log('submitHandler --------', donation);
-    //Make a network call somewhere
+  const saveEdit = () => {
+    let formData = _.cloneDeep(product);
+    formData.name = product.name;
+    formData.video = product.video;
+    formData.excerpt = product.excerpt;
+    formData.html = product.html;
+    formData.status = product.rfp;
+    formData.entityId = product.product;
+    console.log('saveEdit: 1', formData);
+    SetBlockchain('product', formData)
+      .then(result => {
+        console.log('saveEdit: 2');
+        if (result.status === 200) {
+          this.setState({
+            data: update(this.state.data, { [productIx]: { product: { $set: result.data.entityId } } })
+          });
+          console.log('saveEdit: 3', result);
+          console.log(result.statusText);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    closeWindow();
+  }
+
+  const submitHandler = event => {
     event.preventDefault();
+    console.log('Product submitHandler --------', product);
+    saveEdit();
   }
 
   console.log('ProductPage  ---', product);

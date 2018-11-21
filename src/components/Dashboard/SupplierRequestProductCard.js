@@ -48,7 +48,7 @@ export default function SupplierRequestProductCard(data) {
           <HeaderContent>
             <SectionTitle>
               <Typography gutterBottom variant="h5" component="h2">
-                {data.title}
+                { `${data.requestName} / ${data.name}` }
               </Typography>
             </SectionTitle>
             { CampaignControl.call(this, data, 'rootEdit') }
