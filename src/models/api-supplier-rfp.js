@@ -35,6 +35,8 @@ const ApiSupplierRfpList = async (supplierId) => {
       campaignRequest: request.entityId,
       supplier: supplierId,
       requestName: request.name,
+      requestCreatedOn: request.createdOn,
+      approvalResponse: isProduct ? product.approvalResponse : '',
     }
     return result;
   });

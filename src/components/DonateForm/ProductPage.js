@@ -25,8 +25,7 @@ const RootPage = styled.div`
   padding-top: 2em;
   padding-bottom: 2em;
   margin-bottom: 1em;
-  max-width: 120em;
-  overflow-x: auto;
+  max-width: 60em;
   form {
     input {
       min-width: 36em;
@@ -36,6 +35,7 @@ const RootPage = styled.div`
     textarea {
       resize: vertical;
       min-width: 36em;
+      margin-left: 2em;
       min-height: 5em;
       width: 100%;
       margin-top: 0.5rem;
@@ -125,65 +125,63 @@ export default function ProductPage(requestId) {
           <Subline sectionTitle>
             {subline} - - - 
           </Subline>
-          <CardActionArea>
-            <CardContent>
-              <TextField
-                variant="outlined"
-                id="name"
-                label="name"
-                value={product.name}
-                margin="normal"
-                onChange={changeHandler('name')}
-              />
-              <TextField
-                variant="outlined"
-                id="video"
-                label="video"
-                value={product.video}
-                margin="normal"
-                onChange={changeHandler('video')}
-              />
-              <TextField
-                variant="outlined"
-                id="excerpt"
-                label="excerpt"
-                multiline
-                rowsMax="2"
-                value={product.excerpt}
-                margin="normal"
-                onChange={changeHandler('excerpt')}
-              />
-              <TextField
-                variant="outlined"
-                id="html"
-                label="html"
-                multiline
-                rowsMax="4"
-                value={product.html}
-                margin="normal"
-                onChange={changeHandler('html')}
-              />
-              <EntityStatusDiv>
-                <FormControl variant="outlined">
-                  <InputLabel
-                    ref={ref => {
-                      this.InputLabelRef = ref;
-                    }}
-                    htmlFor="outlined-age-simple"
-                  >
-                    Product Status
-                  </InputLabel>
-                  <Select
-                    value={product.rfp}
-                    onChange={changeHandler('rfp')}
-                    input={<OutlinedInput labelWidth={100} name="rfp" id="outlined-rfp-simple" />}
-                  >
-                    {EntityStateDdl(product.rfp).map(s => <MenuItem value={s.value}><em>{s.name}</em></MenuItem>)}
-                  </Select>
-                </FormControl>
-              </EntityStatusDiv>
-            </CardContent>
-          </CardActionArea>
+          <CardContent>
+            <TextField
+              variant="outlined"
+              id="name"
+              label="name"
+              value={product.name}
+              margin="normal"
+              onChange={changeHandler('name')}
+            />
+            <TextField
+              variant="outlined"
+              id="video"
+              label="video"
+              value={product.video}
+              margin="normal"
+              onChange={changeHandler('video')}
+            />
+            <TextField
+              variant="outlined"
+              id="excerpt"
+              label="excerpt"
+              multiline
+              rowsMax="2"
+              value={product.excerpt}
+              margin="normal"
+              onChange={changeHandler('excerpt')}
+            />
+            <TextField
+              variant="outlined"
+              id="html"
+              label="html"
+              multiline
+              rowsMax="4"
+              value={product.html}
+              margin="normal"
+              onChange={changeHandler('html')}
+            />
+            <EntityStatusDiv>
+              <FormControl variant="outlined">
+                <InputLabel
+                  ref={ref => {
+                    this.InputLabelRef = ref;
+                  }}
+                  htmlFor="outlined-age-simple"
+                >
+                  Product Status
+                </InputLabel>
+                <Select
+                  value={product.rfp}
+                  onChange={changeHandler('rfp')}
+                  input={<OutlinedInput labelWidth={100} name="rfp" id="outlined-rfp-simple" />}
+                >
+                  {EntityStateDdl(product.rfp).map(s => <MenuItem value={s.value}><em>{s.name}</em></MenuItem>)}
+                </Select>
+              </FormControl>
+            </EntityStatusDiv>
+          </CardContent>
           <CardActions>
             <SIconButtons>
               <SButton>
