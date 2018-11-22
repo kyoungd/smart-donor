@@ -13,22 +13,21 @@ import AcceptOrRejectButton from './AcceptOrRejectButton';
 import config from '../../../config/SiteConfig';
 import CampaignControl from './CampaignControl';
 import ApprovalButton from './ApprovalButton';
+import StatusHighlight from './StatusHightlight';
 
 const RootPage = styled.div`
   margin-bottom: 1em;
   max-width: 120em;
   overflow-x: auto;
-  div {
-    max-width: 960px;
-    padding-left: 20px;
-    margin: 5px;
-  }
+  max-width: 960px;
+  padding: 10px;
+  margin: 10px;
 `;
 
 const PostContent = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 2em;
+  padding-top: 0.5em;
   justify-content: center;
   margin-bottom: 0;
 `;
@@ -36,7 +35,7 @@ const PostContent = styled.div`
 const HeaderContent= styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 2em;
+  padding-top: 0.5em;
   justify-content: space-around;
   margin-bottom: 0;
 `;
@@ -45,32 +44,29 @@ export default function DashApprovalCard(data, showControl=false) {
   return (
     <RootPage>
       <Card>
-        <CardActionArea>
-          <HeaderContent>
-            <SectionTitle>
-              <Typography gutterBottom variant="h5" component="h2">
-                {`${data.name} / ${data.supplier ? data.supplierName : '-'}`}
-              </Typography>
-            </SectionTitle>
-            { showControl && CampaignControl.call(this, data, 'sublevelEdit') }
-          </HeaderContent>
-          <CardContent>
-            <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
-          </CardContent>
-          <div onClick={()=> {
-            this.setState({pageState: config.pageState[config.siteState].post, pageEntityId: data.id})
-          }}>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                OVERVIEW
-              </Typography>
-              <Typography component="p">{data.excerpt}</Typography>
-            </CardContent>
-          </div>
-        </CardActionArea>
-        <CardActions>
-          { ApprovalButton.call(this, data.id, true) }
-        </CardActions>
+        <HeaderContent>
+          <StatusHighlight 
+            createdOn={data.createdOn}
+            status={data.rfp} 
+            approval={data.status}
+            approvalResponse={data.approvalResponse}
+          />
+          { CampaignControl.call(this, data, 'sublevelEdit') }
+        </HeaderContent>
+        <CardContent>
+          <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
+          <SectionTitle>
+            <Typography gutterBottom variant="h5" component="h2">
+              {`${data.name} / ${data.supplier ? data.supplierName : '-'}`}
+            </Typography>
+          </SectionTitle>
+        </CardContent>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            OVERVIEW
+          </Typography>
+          <Typography component="p">{data.excerpt}</Typography>
+        </CardContent>
       </Card>
     </RootPage>
   );

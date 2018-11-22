@@ -45,10 +45,11 @@ export default function YesNoButton(productId, readOnly=false) {
   // console.log('ApprovalButton - YesNoButton ', product);
   
   const UpdateApproval = () => {
+    const { dashboard: { data: { [productIx]: post }}} = this.state;
     const formData = {
-      entityId: this.state.dashboard.data[productIx].product,
-      approvalStatus: this.state.dashboard.data[productIx].status,
-      approvalResponse: ' No Reason ',
+      entityId: post.product,
+      approvalStatus: post.status,
+      approvalResponse: post.approvalResponse,
     }
     console.log('UpdateApproval', formData);
     SetBlockchain('product', formData)
@@ -136,6 +137,15 @@ export default function YesNoButton(productId, readOnly=false) {
     </ButtonIcon>
   )
 
+  const textHandler = type => event => {
+    this.setState({
+      dashboard: update(this.state.dashboard, { 
+        data:
+          {[productIx] : {[type]: {$set: event.target.value}}}
+      })
+    })
+  }
+
   return (
     <RootPage>
       <Dialog open={rejectOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -145,7 +155,15 @@ export default function YesNoButton(productId, readOnly=false) {
             Please tell us few quick reasons for the rejection. It will help us improve so we can provide
             works more in line with your vision.
           </DialogContentText>
-          <TextField autoFocus margin="dense" id="reason" label="Reason" type="text" fullWidth />
+          <TextField 
+            value={product.approvalResponse}
+            onChange={textHandler('approvalResponse')}
+            autoFocus margin="dense"
+            id="reason"
+            label="Reason"
+            type="text"
+            fullWidth
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

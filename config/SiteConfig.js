@@ -49,7 +49,7 @@ module.exports = {
       rootEdit: 'EDIT-DONATION',
       rootAdd: 'ADD-DONATION',
       sublevelList: 'LIST-POST',
-      sublevelEdit: '',
+      sublevelEdit: 'EDIT-POST',
       sublevelAdd: '',
       post: 'DONATION-POST',
     },
@@ -76,7 +76,7 @@ module.exports = {
     }
   },
 
-  siteState: 'supplier',
+  siteState: 'donor',
 
   siteStateDonor: 'donor',
   siteStateCustomer: 'customer',

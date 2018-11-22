@@ -50,7 +50,7 @@ const styles = {
 };
 
 function tooltipApproval (itemApproval, approvalResponse) {
-  return ('REJECTED' ? `${itemApproval.info} - ${approvalResponse}` : itemApproval.info);
+  return (itemApproval.value === 'REJECTED' ? `${itemApproval.info} - ${approvalResponse}` : itemApproval.info);
 }
 
 function findStatus(allStatus, statusValue) {

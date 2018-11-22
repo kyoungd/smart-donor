@@ -69,7 +69,14 @@ export default class ListApprovals extends Component {
   }
 
   PageSublevelEdit = () => {
-    return (config.siteState === config.siteStateCustomer ? CampaignRequestPage : undefined);
+    switch (config.siteState) {
+      case config.siteStateDonor:
+        return DashPostCard;
+      case config.siteStateCustomer:
+        return CampaignRequestPage;
+      default:
+        return undefined;
+    }
   }
 
   showEditControl = () => {
@@ -98,12 +105,12 @@ export default class ListApprovals extends Component {
     const readOnly = config.siteState === config.siteStateCustomer;
     return (
       <div>
-        {dashboard.data.map(item => (pageEntityId === item.id ? DashPostCard.call(this, item, pageEntityId, readOnly) : ''))}
+        {dashboard.data.map(item => (pageEntityId === item.id ? DashPostCard.call(this, pageEntityId, readOnly) : ''))}
       </div>
     )
   }
 
-  renderSublevelEdit(dashboard, pageEntityId) {
+  renderSublevelEdit(pageEntityId) {
     return this.PageSublevelEdit().call(this, pageEntityId);
   }
 
@@ -120,7 +127,7 @@ export default class ListApprovals extends Component {
       case config.pageState[config.siteState].sublevelList:
         return this.renderSublevelList(dashboard, subline);
       case config.pageState[config.siteState].sublevelEdit:
-        return this.renderSublevelEdit(dashboard, pageEntityId);
+        return this.renderSublevelEdit(pageEntityId);
       case config.pageState[config.siteState].sublevelAdd:
         return this.renderSublevelAdd(dashboard);
       case config.pageState[config.siteState].post:

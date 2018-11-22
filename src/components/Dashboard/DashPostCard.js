@@ -39,10 +39,13 @@ const PostContent = styled.div`
   display:block;
 `;
 
-export default function DashPostCard(data, productId, readOnly=false) {
-  console.log('DashPostCard  ---', data);
-  const createdOn = data.createdOn ? data.createdOn : (data.productCreatedOn ? data.productCreatedOn : '');
-  const subline = `STATUS: ${data.status} - - - CREATED ON: ${createdOn} `;
+export default function DashPostCard(entityId, readOnly=false) {
+  const { dashboard: { data } } = this.state;
+  const productIx = data.findIndex(item => item.id === entityId);
+  const { dashboard: { data: { [productIx] : post } } } = this.state;
+  console.log('DashPostCard  ---', post);
+  const createdOn = post.createdOn ? post.createdOn : (post.productCreatedOn ? post.productCreatedOn : '');
+  const subline = `STATUS: ${post.status} - - - CREATED ON: ${createdOn} `;
   return (
     <RootPage>
       <Card>
@@ -61,19 +64,19 @@ export default function DashPostCard(data, productId, readOnly=false) {
         </Subline>
         <CardActionArea>
           <CardContent>
-            <PostVideo dangerouslySetInnerHTML={{ __html: data.video }} />
+            <PostVideo dangerouslySetInnerHTML={{ __html: post.video }} />
           </CardContent>
           <PostContent>
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
                 Product
               </Typography>
-              <PostContent dangerouslySetInnerHTML={{ __html: data.html }} />
+              <PostContent dangerouslySetInnerHTML={{ __html: post.html }} />
             </CardContent>
           </PostContent>
         </CardActionArea>
         <CardActions>
-          { ApprovalButton.call(this, productId, readOnly) }
+          { ApprovalButton.call(this, entityId, readOnly) }
         </CardActions>
       </Card>
     </RootPage>
