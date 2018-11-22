@@ -29,7 +29,7 @@ const PostContent = styled.div`
   flex-direction: row;
   padding-top: 0.5em;
   justify-content: center;
-  margin-bottom: 0;
+  margin-bottom: 0.5em;
 `;
 
 const HeaderContent= styled.div`
@@ -57,11 +57,9 @@ export default function DashApprovalCard(data, showControl=false) {
           <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
           <SectionTitle>
             <Typography gutterBottom variant="h5" component="h2">
-              {`${data.name} / ${data.supplier ? data.supplierName : '-'}`}
+              {`${data.title} / ${data.name}`}
             </Typography>
           </SectionTitle>
-        </CardContent>
-        <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             OVERVIEW
           </Typography>

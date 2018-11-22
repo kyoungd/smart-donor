@@ -9,7 +9,7 @@ const ApiDonorPostList = async (donationId) => {
   const donationName = donation.data.name;
   const allRequest = await get('campaignrequest');
   const allProduct = await get('product');
-  const reqs = allRequest.data.filter(r => getResourceId(r.donation) == donationId).map(request => {
+  const reqs = allRequest.data.filter(r => getResourceId(r.donation) === donationId).map(request => {
     const product = allProduct.data.filter(p =>
       getResourceId(p.campaignRequest) == request.entityId);
     const isProduct = product && product.length > 0;
