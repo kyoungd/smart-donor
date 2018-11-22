@@ -76,7 +76,7 @@ module.exports = {
     }
   },
 
-  siteState: 'donor',
+  siteState: 'customer',
 
   siteStateDonor: 'donor',
   siteStateCustomer: 'customer',

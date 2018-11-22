@@ -1,11 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'gatsby';
 import CampaignTableData from './CampaignTableData';
-import CampaignChip from './CampaignChip';
 import StatusForDonor from './StatusForDonor';
 import CampaignControl from './CampaignControl';
 import styled from 'styled-components';
@@ -20,15 +17,21 @@ const Root = styled.div`
   padding-bottom: 16px;
 `;
 
+const TitleDiv = styled.div`
+  margin-bottom: 0.5em;
+`;
+
 export default function CampaignCard(data) {
   return (
     <Paper elevation={1}>
       <Root>
         {CampaignControl.call(this, data)}
         <Link to={data.clickslug}>
-          <Typography variant="h5" component="h5">
-            {data.title}
-          </Typography>
+          <TitleDiv>
+            <Typography variant="h5" component="h5">
+              {data.title}
+            </Typography>
+          </TitleDiv>
           <Typography component="p">{data.description}</Typography>
           <CampaignTableData data={data} />
         </Link>
