@@ -6,15 +6,27 @@ import CampaignTableData from './CampaignTableData';
 import StatusForDonor from './StatusForDonor';
 import CampaignControl from './CampaignControl';
 import styled from 'styled-components';
+import CardActionArea from '@material-ui/core/CardActionArea';
+const uuidv1 = require('uuid/v1');
 
 const Root = styled.div`
   max-width: 960px;
   overflow-x: auto;
-  padding-top: 16px;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
+  padding-top: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.5em;
+`;
+
+const ContentDiv = styled.div`
+  padding-left: 1em;
+  padding-right: 1em;
+`;
+
+const ApprovalCardDiv = styled.div`
+  display: block;
+  font-size: small;
 `;
 
 const TitleDiv = styled.div`
@@ -23,20 +35,26 @@ const TitleDiv = styled.div`
 
 export default function CampaignCard(data) {
   return (
-    <Paper elevation={1}>
-      <Root>
-        {CampaignControl.call(this, data)}
-        <Link to={data.clickslug}>
-          <TitleDiv>
-            <Typography variant="h5" component="h5">
-              {data.title}
-            </Typography>
-          </TitleDiv>
-          <Typography component="p">{data.description}</Typography>
-          <CampaignTableData data={data} />
-        </Link>
-        <StatusForDonor status={data.status} />
-      </Root>
-    </Paper>
+    <Root key={uuidv1()}>
+      <Paper elevation={1}>
+        <ContentDiv>
+          {CampaignControl.call(this, data)}
+          <Link to={data.clickslug}>
+            <CardActionArea>
+              <TitleDiv>
+                <Typography variant="h5" component="h5">
+                  {data.title}
+                </Typography>
+              </TitleDiv>
+              <Typography component="p">{data.description}</Typography>
+              <CampaignTableData data={data} />
+            </CardActionArea>
+          </Link>
+        </ContentDiv>
+        <ApprovalCardDiv>
+          <StatusForDonor status={data.status} statusType="status" />
+        </ApprovalCardDiv>
+      </Paper>
+    </Root>
   );
 }

@@ -35,25 +35,23 @@ const Content = styled.div`
   @media ${media.phone} {
     padding: 2rem 1.5rem;
   }
+  p {
+    margin-bottom: 0.1em;
+  }
   form {
-    p {
-      label,
-      input {
-        display: block;
-      }
-      input {
-        min-width: 30em;
-        margin-left: 2em;
-        margin-top: 0.5rem;
-      }
-      textarea {
-        resize: vertical;
-        min-width: 30em;
-        min-height: 5em;
-        width: 100%;
-        margin-top: 0.5rem;
-      }
+    #name {
+      width: 30em;
     }
+    #amount {
+      width: 10em;
+    }
+    textarea {
+      resize: vertical;
+      min-width: 30em;
+      min-height: 5em;
+      width: 100%;
+      margin-top: 0.5rem;
+    }  
   }
 `;
 
@@ -68,7 +66,6 @@ const DateDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 0.5em;
   input {
     input-width: 10em;
   }
@@ -78,12 +75,12 @@ const DateDiv = styled.div`
   }
 `;
 
-const DonationDiv = styled.div`
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  div {
-    min-width: 20em;
-  }
+const SelectDiv = styled.div`
+    margin-top: 0.8em;
+    margin-bottom: 1em;
+    div {
+      min-width: 20em;
+    }
 `;
 
 const SButton = styled.div `
@@ -189,6 +186,7 @@ export default function (campaignId) {
   const showAccount = () => {
     return (
       <DateDiv>
+        <div>
         <TextField
           variant="outlined"
           id="account"
@@ -197,6 +195,8 @@ export default function (campaignId) {
           value={campaign.account}
           onChange={changeHandler('account')}
         />
+        </div>
+        <div>
         <TextField
           variant="outlined"
           id="routing"
@@ -205,6 +205,7 @@ export default function (campaignId) {
           value={campaign.routing}
           onChange={changeHandler('routing')}
         />
+        </div>
       </DateDiv>
     )
   }
@@ -264,55 +265,55 @@ export default function (campaignId) {
               </div>
             </DateDiv>
             {campaign.id === 'new' && showAccount()}
-            <div>
-              <TextField
-                variant="outlined"
-                id="description"
-                label="description"
-                multiline
-                rowsMax="3"
-                value={campaign.description}
-                margin="normal"
-                onChange={changeHandler('description')}
-                />
-            </div>
+            <TextField
+              variant="outlined"
+              id="description"
+              label="description"
+              multiline
+              rowsMax="3"
+              value={campaign.description}
+              margin="normal"
+              onChange={changeHandler('description')}
+              />
           </div>
-          <DonationDiv>
-            <FormControl variant="outlined">
-              <InputLabel
-                ref={ref => {
-                  this.InputLabelRef = ref;
-                }}
-                htmlFor="outlined-age-simple"
-              >
-                Choose Donation
-              </InputLabel>
-              <Select
-                value={campaign.donation}
-                onChange={changeHandler('donation')}
-                input={<OutlinedInput labelWidth={100} name="donation" id="outlined-donation-simple" />}
-              >
-                {helper.map(s => <MenuItem value={s.id}><em>{s.name}</em></MenuItem>)}
-              </Select>
-            </FormControl>
-            <FormControl variant="outlined">
-              <InputLabel
-                ref={ref => {
-                  this.InputLabelRef = ref;
-                }}
-                htmlFor="outlined-age-simple"
-              >
-                Choose Donation
-              </InputLabel>
-              <Select
-                value={campaign.status}
-                onChange={changeHandler('status')}
-                input={<OutlinedInput labelWidth={100} name="status" id="outlined-status-simple" />}
-              >
-                {config.siteStatus.map(s => <MenuItem value={s}><em>{s}</em></MenuItem>)}
-              </Select>
-            </FormControl>
-          </DonationDiv>
+          <SelectDiv>
+              <FormControl variant="outlined">
+                <InputLabel
+                  ref={ref => {
+                    this.InputLabelRef = ref;
+                  }}
+                  htmlFor="outlined-age-simple"
+                >
+                  Choose Donation
+                </InputLabel>
+                <Select
+                  value={campaign.donation}
+                  onChange={changeHandler('donation')}
+                  input={<OutlinedInput labelWidth={100} name="donation" id="outlined-donation-simple" />}
+                >
+                  {helper.map(s => <MenuItem value={s.id}><em>{s.name}</em></MenuItem>)}
+                </Select>
+              </FormControl>
+            </SelectDiv>
+            <SelectDiv>
+              <FormControl variant="outlined">
+                <InputLabel
+                  ref={ref => {
+                    this.InputLabelRef = ref;
+                  }}
+                  htmlFor="outlined-age-simple"
+                >
+                  Choose Status
+                </InputLabel>
+                <Select
+                  value={campaign.status}
+                  onChange={changeHandler('status')}
+                  input={<OutlinedInput labelWidth={100} name="status" id="outlined-status-simple" />}
+                >
+                  {config.siteStatus.map(s => <MenuItem value={s}><em>{s}</em></MenuItem>)}
+                </Select>
+              </FormControl>
+          </SelectDiv>
           <SIconButtons>
             <SButton>
               <Button variant="outlined" color="primary" type="submit">

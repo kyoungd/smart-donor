@@ -10,6 +10,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import styled from 'styled-components';
+import StatusForDonor from './StatusForDonor';
 
 const { SetBlockchain } = require('../../models/api-post');
 
@@ -97,56 +98,14 @@ export default function YesNoButton(productId, readOnly=false) {
     this.setState({'rejectOpen': false} );
   }
 
-  const buttonVariant = (status) => (product.status.toLowerCase() === status ? 'contained' : 'outlined');
+  const buttonVariant = (status) => (product.status.toLowerCase() === status ? 'outlined' : 'text');
   const buttonLetter = letter => _.includes(['accepted', 'rejected'], product.status.toLowerCase()) ? letter + 'ED' : letter;
 
   const readOnlyButtons = () => (
-    <ButtonIcon>
-      <Button variant={buttonVariant('accepted')} aria-label="Accept" color="default" disableRipple>
-        <ThumbUpIcon />&nbsp;&nbsp;{buttonLetter('ACCEPT')}
-      </Button>
-      <Button variant={buttonVariant('rejected')} aria-label="Accept" color="default" disableRipple>
-        <ThumbDownIcon />
-        &nbsp;&nbsp;{buttonLetter('REJECT')}
-      </Button>
-    </ButtonIcon>
+    <StatusForDonor status={product.status} statusType="approval" />
   )
 
   const writeButtons = () => (
-    <ButtonIcon>
-    <Button 
-      variant={buttonVariant('accepted')}
-      aria-label="Accept"
-      color="default"
-      disableRipple
-      onClick={changeHandler('ACCEPTED')}
-    >
-      <ThumbUpIcon />
-      &nbsp;&nbsp;{buttonLetter('ACCEPT')}
-    </Button>
-    <Button
-      variant={buttonVariant('rejected')}
-      aria-label="Accept"
-      color="default"
-      disableRipple
-      onClick={handleRejectOpen}
-    >
-      <ThumbDownIcon />
-      &nbsp;&nbsp;{buttonLetter('REJECT')}
-    </Button>
-    </ButtonIcon>
-  )
-
-  const textHandler = type => event => {
-    this.setState({
-      dashboard: update(this.state.dashboard, { 
-        data:
-          {[productIx] : {[type]: {$set: event.target.value}}}
-      })
-    })
-  }
-
-  return (
     <RootPage>
       <Dialog open={rejectOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Reason for rejection</DialogTitle>
@@ -174,8 +133,44 @@ export default function YesNoButton(productId, readOnly=false) {
           </Button>
         </DialogActions>
       </Dialog>
-      { readOnly ? readOnlyButtons() : writeButtons() }
+      <ButtonIcon>
+        <Button 
+          variant={buttonVariant('accepted')}
+          aria-label="Accept"
+          color="default"
+          disableRipple
+          onClick={changeHandler('ACCEPTED')}
+        >
+          <ThumbUpIcon />
+          &nbsp;&nbsp;{buttonLetter('ACCEPT')}
+        </Button>
+        <Button
+          variant={buttonVariant('rejected')}
+          aria-label="Accept"
+          color="default"
+          disableRipple
+          onClick={handleRejectOpen}
+        >
+          <ThumbDownIcon />
+          &nbsp;&nbsp;{buttonLetter('REJECT')}
+        </Button>
+      </ButtonIcon>
     </RootPage>
+  )
+
+  const textHandler = type => event => {
+    this.setState({
+      dashboard: update(this.state.dashboard, { 
+        data:
+          {[productIx] : {[type]: {$set: event.target.value}}}
+      })
+    })
+  }
+
+  return (
+    <div>
+      { readOnly === true ? readOnlyButtons() : writeButtons() }
+    </div>
   );
 
 }

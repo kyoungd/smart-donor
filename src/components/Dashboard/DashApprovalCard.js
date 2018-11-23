@@ -1,20 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
-import { Link } from 'gatsby';
 import { SectionTitle } from 'components';
-import AcceptOrRejectButton from './AcceptOrRejectButton';
 import config from '../../../config/SiteConfig';
 import CampaignControl from './CampaignControl';
-import ApprovalButton from './ApprovalButton';
 import StatusHighlight from './StatusHightlight';
 
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+
+const uuidv1 = require('uuid/v1');
 const RootPage = styled.div`
   margin-bottom: 1em;
   max-width: 120em;
@@ -42,7 +39,7 @@ const HeaderContent= styled.div`
  
 export default function DashApprovalCard(data, showControl=false) {
   return (
-    <RootPage>
+    <RootPage key={uuidv1()}>
       <Card>
         <HeaderContent>
           <StatusHighlight 
@@ -55,15 +52,21 @@ export default function DashApprovalCard(data, showControl=false) {
         </HeaderContent>
         <CardContent>
           <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
-          <SectionTitle>
-            <Typography gutterBottom variant="h5" component="h2">
-              {`${data.title} / ${data.name}`}
+          <CardActionArea 
+            onClick={()=> {
+              this.setState({pageState: config.pageState[config.siteState].post, pageEntityId: data.id})
+            }}
+          >
+            <SectionTitle>
+              <Typography gutterBottom variant="h6" component="h6">
+                {`${data.title} / ${data.name}`}
+              </Typography>
+            </SectionTitle>
+            <Typography gutterBottom variant="h6" component="h6">
+              OVERVIEW
             </Typography>
-          </SectionTitle>
-          <Typography gutterBottom variant="h5" component="h2">
-            OVERVIEW
-          </Typography>
-          <Typography component="p">{data.excerpt}</Typography>
+            <Typography component="p">{data.excerpt}</Typography>
+          </CardActionArea>
         </CardContent>
       </Card>
     </RootPage>

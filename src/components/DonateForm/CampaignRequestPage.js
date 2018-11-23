@@ -14,6 +14,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { media } from '../../utils/media';
 import config from '../../../config/SiteConfig';
 
+const uuidv1 = require('uuid/v1');
 const _ = require('lodash');
 const { SetBlockchain } = require('../../models/api-post');
 const { ListSupplier } = require('../../models/api-customer-campaignrequest');
@@ -34,23 +35,18 @@ const Content = styled.div`
     padding: 2rem 1.5rem;
   }
   form {
-    p {
-      label,
-      input {
-        display: block;
-      }
-      input {
-        min-width: 30em;
-        margin-left: 2em;
-        margin-top: 0.5rem;
-      }
-      textarea {
-        resize: vertical;
-        min-width: 30em;
-        min-height: 5em;
-        width: 100%;
-        margin-top: 0.5rem;
-      }
+    textarea {
+      resize: vertical;
+      min-width: 30em;
+      min-height: 5em;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    input {
+      min-width: 30em;
+      width: 100%;
+      margin-left: 2em;
+      margin-top: 0.5rem;
     }
   }
 `;
@@ -62,24 +58,11 @@ const SIconButtons = styled.div`
   justify-content: flex-end;
 `;
 
-const DateDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  input {
-    input-width: 10em;
-  }
-  div {
-    margin-top: 0.5rem;
-    margin-right:2em;
-  }
-`;
-
 const SupplierDiv = styled.div`
+  margin-top: 0.5em;
+  margin-bottom: 1em;
   div {
     min-width: 20em;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
   }
 `;
 
@@ -192,92 +175,93 @@ export default function CampaignRequestPage(campaignRequestId) {
   }
 
   return (
-    <div>
-      <Content>
-        <p>Request for Proposal</p>
-        <form name="contact-form" method="post" onSubmit={submitHandler}>
+    <Content>
+      <p>Request for Proposal</p>
+      <form name="contact-form" method="post" onSubmit={submitHandler}>
+        <div>
           <div>
-            <div>
-              <TextField 
-                variant="outlined"
-                id="name"
-                label="name"
-                value={request.name}
-                margin="normal"
-                onChange={changeHandler('name')}
-              />
-            </div>
-            <div>
-              <TextField
-                variant="outlined"
-                id="description"
-                label="description"
-                multiline
-                rowsMax="3"
-                value={request.description}
-                onChange={changeHandler('description')}
-                margin="normal"
-              />
-            </div>
-            <SupplierDiv>
-              <FormControl variant="outlined">
-                <InputLabel
-                  ref={ref => {
-                    this.InputLabelRef = ref;
-                  }}
-                  htmlFor="outlined-age-simple"
-                >
-                  Choose Supplier
-                </InputLabel>
-                <Select
-                  onChange={handlerSupplier}
-                  value={ nameid(getResourceId(request.supplier), request.supplierName) }
-                  input={<OutlinedInput labelWidth={100} name="age" id="outlined-age-simple" />}
-                >
-                  { 
-                    ListSupplier(dashboard.data, dashboard.allSupplier, request).map(s =>
-                      <MenuItem disabled={s.checked} value={nameid(s.id, s.name)}><em>{s.name}</em></MenuItem>) 
-                  }
-                </Select>
-              </FormControl>
-              <FormControl variant="outlined">
+            <TextField 
+              variant="outlined"
+              id="name"
+              label="name"
+              value={request.name}
+              margin="normal"
+              onChange={changeHandler('name')}
+            />
+          </div>
+          <div>
+            <TextField
+              variant="outlined"
+              id="description"
+              label="description"
+              multiline
+              rowsMax="3"
+              value={request.description}
+              onChange={changeHandler('description')}
+              margin="normal"
+            />
+          </div>
+          <SupplierDiv>
+            <FormControl variant="outlined">
               <InputLabel
                 ref={ref => {
                   this.InputLabelRef = ref;
                 }}
                 htmlFor="outlined-age-simple"
               >
-                Choose Status
+                Choose Supplier
               </InputLabel>
               <Select
-                value={request.rfp}
-                onChange={changeHandler('rfp')}
-                input={<OutlinedInput labelWidth={100} name="rfp" id="outlined-rfp-simple" />}
+                onChange={handlerSupplier}
+                value={ nameid(getResourceId(request.supplier), request.supplierName) }
+                input={<OutlinedInput labelWidth={100} name="age" id="outlined-age-simple" />}
               >
-                {config.siteStatus.map(s => <MenuItem value={s}><em>{s}</em></MenuItem>)}
+                { 
+                  ListSupplier(dashboard.data, dashboard.allSupplier, request).map(s =>
+                    <MenuItem disabled={s.checked} value={nameid(s.id, s.name)} key={uuidv1()}><em>{s.name}</em></MenuItem>) 
+                }
               </Select>
             </FormControl>
-            </SupplierDiv>
-          </div>
-          <SIconButtons>
-            <SButton>
-              <Button variant="outlined" color="primary" type="submit">
-                Submit
-              </Button>
-            </SButton>
-            <SButton>
-              <Button variant="outlined" color="primary" onClick={() => {
-                this.setState({
-                  pageState: config.pageState[config.siteState].sublevelList,
-                  pageEntityId: ''
-                });
-              }}>
-                Cancel
-              </Button>
-            </SButton>
-          </SIconButtons>
-        </form>
-      </Content>
-    </div>
+          </SupplierDiv>
+          <SupplierDiv>
+            <FormControl variant="outlined">
+
+            <InputLabel
+              ref={ref => {
+                this.InputLabelRef = ref;
+              }}
+              htmlFor="outlined-age-simple"
+            >
+              Choose Status
+            </InputLabel>
+            <Select
+              value={request.rfp}
+              onChange={changeHandler('rfp')}
+              input={<OutlinedInput labelWidth={100} name="rfp" id="outlined-rfp-simple" />}
+            >
+              {config.siteStatus.map(s => <MenuItem value={s} key={uuidv1()}><em>{s}</em></MenuItem>)}
+            </Select>
+          </FormControl>
+          </SupplierDiv>
+        </div>
+        <SIconButtons>
+          <SButton>
+            <Button variant="outlined" color="primary" type="submit">
+              Submit
+            </Button>
+          </SButton>
+          <SButton>
+            <Button variant="outlined" color="primary" onClick={() => {
+              this.setState({
+                pageState: config.pageState[config.siteState].sublevelList,
+                pageEntityId: ''
+              });
+            }}>
+              Cancel
+            </Button>
+          </SButton>
+        </SIconButtons>
+      </form>
+    </Content>
   )
 }

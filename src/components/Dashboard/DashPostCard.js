@@ -1,19 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
+import CloseIcon from  '@material-ui/icons/Close';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import BackIcon from '@material-ui/icons/Backspace';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import styled from 'styled-components';
 import { Subline } from 'components';
-import { SectionTitle } from 'components';
-import { Link } from 'gatsby';
 import ApprovalButton from './ApprovalButton';
 import config from '../../../config/SiteConfig';
+
+const uuidv1 = require('uuid/v1');
 
 const RootPage = styled.div`
   padding-top: 2em;
@@ -47,25 +44,21 @@ export default function DashPostCard(entityId, readOnly=false) {
   const createdOn = post.createdOn ? post.createdOn : (post.productCreatedOn ? post.productCreatedOn : '');
   const subline = `STATUS: ${post.status} - - - CREATED ON: ${createdOn} `;
   return (
-    <RootPage>
+    <RootPage key={uuidv1()}>
       <Card>
         <Subline sectionTitle>
-          {subline} - - - 
-          <Button
-            variant="outlined"
-            size="small"
-            color="secondary"
+          {subline} - - -&nbsp;
+          <IconButton 
+            aria-label="closebutton"
             onClick={() => {
               this.setState({pageState: config.pageState[config.siteState].sublevelList, pageEntityId: ''});
             }}
           >
-            <BackIcon fontSize="medium" />&nbsp;close
-          </Button>          
+            <CloseIcon fontSize="large" />
+          </IconButton>
         </Subline>
-        <CardActionArea>
-          <CardContent>
-            <PostVideo dangerouslySetInnerHTML={{ __html: post.video }} />
-          </CardContent>
+        <CardContent>
+          <PostVideo dangerouslySetInnerHTML={{ __html: post.video }} />
           <PostContent>
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
@@ -74,10 +67,8 @@ export default function DashPostCard(entityId, readOnly=false) {
               <PostContent dangerouslySetInnerHTML={{ __html: post.html }} />
             </CardContent>
           </PostContent>
-        </CardActionArea>
-        <CardActions>
           { ApprovalButton.call(this, entityId, readOnly) }
-        </CardActions>
+        </CardContent>
       </Card>
     </RootPage>
   );

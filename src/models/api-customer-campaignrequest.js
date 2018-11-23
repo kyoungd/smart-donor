@@ -22,6 +22,7 @@ const ListSupplier = (allRequest, allSupplier, request) => {
 
 const EmptySublevelItem = (id, campaign) => ({
     id,
+    title: '',
     name: '',
     supplierName: '',
     excerpt: '',
@@ -60,6 +61,7 @@ const ApiCustomerCampaignRequest = async (campaignId) => {
         const clickslug = '';
         const result = {
             id : request.entityId,
+            title: (isProduct? product[0].name : ' - '),
             name: `${request.name}`,
             supplierName: (supplier ? supplier.name : '-'),
             excerpt: (isProduct ? product[0].excerpt : config.default.productExcerpt),
