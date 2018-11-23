@@ -71,12 +71,12 @@ module.exports = {
       sublevelList: '',
       sublevelEdit: '',
       sublevelAdd: '',
-      post: '',
+      post: 'SUPPLIER-POST',
       supplierId: 's-6ee91abf-d094-49e1-9385-d3cbd84b54a903',
     }
   },
 
-  siteState: 'donor',
+  siteState: 'supplier',
 
   siteStateDonor: 'donor',
   siteStateCustomer: 'customer',

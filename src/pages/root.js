@@ -11,6 +11,7 @@ import DonationPage from '../components/DonateForm/DonationPage';
 import CampaignPage from '../components/DonateForm/CampaignPage';
 import ProductPage from '../components/DonateForm/ProductPage';
 import SupplierRequestProductCard from '../components/Dashboard/SupplierRequestProductCard';
+import DashPostCardRoot from '../components/Dashboard/DashPostCardRoot';
 
 const Content = styled.div`
   grid-column: 2;
@@ -101,15 +102,18 @@ export default class ListDonation extends Component {
         return data.map(item => item.id !== 'new' && item.id !== 'blank' ? this.PageRoot().call(this, item) : '');
       case config.pageState[config.siteState].rootEdit:
         return data.map(item => pageEntityId == item.id ? this.PageRootEdit().call(this, item.id) : '');
+      case config.pageState[config.siteState].post:
+        const oneData = data.find(item => pageEntityId === item.id);
+        console.log('calling root-post', oneData);
+        return <div>{DashPostCardRoot.call(this, oneData, true)}</div>;
       default:
+        console.log('main-renderer ', pageState);
         return '';
     }
   }
 
   renderOk() {
     const { data, pageState, pageEntityId } = this.state;
-    const emptyItem =
-      { id: "", title: "", description: "", rules: "", availableOn: "", amount:0, accountNumber:"", routingNumber:"" }
 
     console.log('--------------------------------------------------------------------root-render: ', this.state);
     return (

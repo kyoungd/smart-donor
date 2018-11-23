@@ -7,7 +7,7 @@ const SectionTitle = styled.div`
   text-align: center;
   color: ${props => props.theme.colors.grey.dark};
   position: relative;
-  padding-bottom: 1rem;
+  margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 
   &:after {

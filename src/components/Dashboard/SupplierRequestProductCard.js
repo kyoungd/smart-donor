@@ -1,14 +1,15 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import { SectionTitle, Subline } from 'components';
-import AcceptOrRejectButton from './AcceptOrRejectButton';
-import config from '../../../config/SiteConfig';
 import CampaignControl from './CampaignControl';
 import StatusHighlight from './StatusHightlight';
+import config from '../../../config/SiteConfig';
+
+const uuidv1 = require('uuid/v1');
 
 const RootPage = styled.div`
   margin-bottom: 1em;
@@ -21,14 +22,9 @@ const RootPage = styled.div`
 const PostContent = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 2em;
+  padding-top: 0.1em;
   justify-content: center;
   margin-bottom: 0;
-  div {
-    max-width: 960px;
-    padding: 5px;
-    margin: 5px;
-  }
 `;
 
 const HeaderContent= styled.div`
@@ -41,7 +37,7 @@ const HeaderContent= styled.div`
 
 export default function SupplierRequestProductCard(data) {
   return (
-    <RootPage>
+    <RootPage key={uuidv1()}>
       <Card>
         <HeaderContent>
           <StatusHighlight 
@@ -54,20 +50,24 @@ export default function SupplierRequestProductCard(data) {
         </HeaderContent>
         <CardContent>
           <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />
-          <div>
-            <SectionTitle>
-              <Typography gutterBottom variant="h6" component="h2">
-                {`${data.requestName} / ${data.name}`}
-              </Typography>
-            </SectionTitle>
-          </div>
-          <Typography gutterBottom variant="h5" component="h2">
-            OVERVIEW
-          </Typography>
-          <Typography component="p">{data.excerpt}</Typography>
+          <CardActionArea
+            onClick={()=> {
+              this.setState({pageState: config.pageState[config.siteState].post, pageEntityId: data.id})
+            }}
+          >
+            <div>
+              <SectionTitle>
+                <Typography gutterBottom variant="h6" component="h6">
+                  {`${data.requestName} / ${data.name}`}
+                </Typography>
+              </SectionTitle>
+            </div>
+            <Typography gutterBottom variant="h6" component="h6">
+              OVERVIEW
+            </Typography>
+            <Typography component="p">{data.excerpt}</Typography>
+          </CardActionArea>
         </CardContent>
-        <CardActions>
-        </CardActions>
       </Card>
     </RootPage>
   );

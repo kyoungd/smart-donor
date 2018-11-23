@@ -19,10 +19,11 @@ import { SectionTitle } from 'components';
 import config from '../../../config/SiteConfig';
 import { EntityStateDdl } from '../../models/api-data-status';
 
+const uuidv1 = require('uuid/v1');
 const { SetBlockchain } = require('../../models/api-post');
 
 const RootPage = styled.div`
-  padding-top: 2em;
+  padding-top: 0.5em;
   padding-bottom: 2em;
   margin-bottom: 1em;
   max-width: 60em;
@@ -91,8 +92,9 @@ export default function ProductPage(requestId) {
     formData.excerpt = product.excerpt;
     formData.html = product.html;
     formData.status = product.rfp;
-    formData.entityId = product.product;
-    console.log('saveEdit: 1', formData);
+    formData.entityId = product.product && product.product.length > 10 ? product.product : 'new';
+    formData.id = formData.entityId;
+    console.log('saveEdit: 1', JSON.stringify(formData, null, 2));
     SetBlockchain('product', formData)
       .then(result => {
         console.log('saveEdit: 2');
@@ -116,16 +118,14 @@ export default function ProductPage(requestId) {
     saveEdit();
   }
 
-  console.log('ProductPage  ---', product);
+  // console.log('ProductPage  ---', product);
   const subline = `STATUS: ${product.rfp} - - - - - APPROVAL: ${product.status} `;
   return (
     <RootPage>
       <form name="contact-form" method="post" onSubmit={submitHandler}>
-        <Card>
           <Subline sectionTitle>
             {subline} - - - 
           </Subline>
-          <CardContent>
             <TextField
               variant="outlined"
               id="name"
@@ -177,12 +177,10 @@ export default function ProductPage(requestId) {
                   onChange={changeHandler('rfp')}
                   input={<OutlinedInput labelWidth={100} name="rfp" id="outlined-rfp-simple" />}
                 >
-                  {EntityStateDdl(product.rfp).map(s => <MenuItem value={s.value}><em>{s.name}</em></MenuItem>)}
+                  {EntityStateDdl(product.rfp).map(s => <MenuItem value={s.value} key={uuidv1()}><em>{s.name}</em></MenuItem>)}
                 </Select>
               </FormControl>
             </EntityStatusDiv>
-          </CardContent>
-          <CardActions>
             <SIconButtons>
               <SButton>
                 <Button variant="outlined" color="primary" type="submit">
@@ -204,8 +202,6 @@ export default function ProductPage(requestId) {
                 </Button>
               </SButton>
             </SIconButtons>
-          </CardActions>
-        </Card>
       </form>
     </RootPage>
   );

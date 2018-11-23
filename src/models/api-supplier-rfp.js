@@ -1,3 +1,4 @@
+const moment = require('moment');
 const _ = require('lodash');
 const { get, getResourceId } = require('./api');
 const config = require('./config');
@@ -22,7 +23,7 @@ const ApiSupplierRfpList = async (supplierId) => {
       html: isProduct ? product[0].html : config.default.productHtml,
       status: isProduct ? product[0].approvalStatus : config.default.productApprovalStatus,
       rfp: isProduct ? product[0].status : config.default.productStatus,
-      createdOn: isProduct ? product[0].createdOn : '',
+      createdOn: isProduct ? product[0].createdOn : moment(),
       slug,
       editslug,
       clickslug,
