@@ -20,6 +20,7 @@ const ListSupplier = (allRequest, allSupplier, request) => {
   });
 };
 
+// Use default createdOn
 const EmptySublevelItem = (id, campaign) => ({
     id,
     title: '',
@@ -40,6 +41,7 @@ const EmptySublevelItem = (id, campaign) => ({
     donor: campaign.data.donor,
     donation: campaign.data.donation,
     productCreatedOn : '',
+    approvalResponse: ' ',
   });
 
 const ApiCustomerCampaignRequest = async (campaignId) => {
@@ -79,6 +81,8 @@ const ApiCustomerCampaignRequest = async (campaignId) => {
             donor: campaign.data.donor,
             donation: campaign.data.donation,
             productCreatedOn : (isProduct ? product[0].createdOn : ''),
+            approvalResponse: (isProduct ? product[0].approvalResponse : ' '),
+            createdOn: request.createdOn,
             }
         return result;
     });

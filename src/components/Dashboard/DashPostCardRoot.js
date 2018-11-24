@@ -69,7 +69,8 @@ export default function DashPostCardRoot(post, readOnly=false) {
             <IconButton 
               aria-label="closebutton"
               onClick={() => {
-                this.setState({pageState: config.pageState[config.siteState].rootList, pageEntityId: ''});
+                const backstate = (config.SiteState === config.siteStateSupplier ? "rootList" : "sublevelList");
+                this.setState({pageState: config.pageState[config.siteState][backstate], pageEntityId: ''});
               }}
             >
               <CloseIcon fontSize="large" />

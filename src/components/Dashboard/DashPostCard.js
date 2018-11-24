@@ -35,6 +35,15 @@ const NameDiv = styled.div `
   margin: 0;
 `;
 
+const CloseIconDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+`;
+
+
 const PostVideo = styled.div`
   display: flex;
   flex-direction: row;
@@ -53,20 +62,23 @@ export default function DashPostCard(entityId, readOnly=false) {
   const { dashboard: { data: { [productIx] : post } } } = this.state;
   console.log('DashPostCard  ---', post);
   const createdOn = post.createdOn ? post.createdOn : (post.productCreatedOn ? post.productCreatedOn : '');
-  const subline = `STATUS: ${post.status} - - - CREATED ON: ${createdOn} `;
+  const subline = `CREATED ON: ${createdOn.length > 10 ? createdOn.slice(0,10) : createdOn}`;
   return (
     <RootPage key={uuidv1()}>
       <Card>
         <Subline sectionTitle>
-          {subline} - - -&nbsp;
-          <IconButton 
-            aria-label="closebutton"
-            onClick={() => {
-              this.setState({pageState: config.pageState[config.siteState].sublevelList, pageEntityId: ''});
-            }}
-          >
-            <CloseIcon fontSize="large" />
-          </IconButton>
+          <CloseIconDiv>
+            <div>{subline}</div>
+            <IconButton 
+              aria-label="closebutton"
+              onClick={() => {
+                const backstate = (config.SiteState === config.siteStateSupplier ? "rootList" : "sublevelList");
+                this.setState({pageState: config.pageState[config.siteState][backstate], pageEntityId: ''});
+              }}
+            >
+              <CloseIcon fontSize="large" />
+            </IconButton>
+          </CloseIconDiv>
         </Subline>
         <NameDiv>{ post.name }</NameDiv>
         <CardContent>

@@ -144,12 +144,8 @@ export default class ListApprovals extends Component {
     return (
       <Layout>
         <Wrapper>
-          <TitleArea>
-            { config.siteState === config.siteStateCustomer && CampaignAddButton.call(this, 'sublevel') }
-          </TitleArea>
-          <Content>
-            {this.renderLoop()}
-          </Content>
+          <TitleArea> {CampaignAddButton.call(this, 'sublevel')} </TitleArea>
+          <Content> {this.renderLoop()} </Content>
         </Wrapper>
       </Layout>
     );

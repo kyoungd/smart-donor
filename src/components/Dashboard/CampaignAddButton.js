@@ -1,4 +1,6 @@
 import React from 'react';
+import CloseIcon from  '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -31,7 +33,7 @@ const Hero = styled.div`
   }
 `;
 
-export default function(level='root') {
+export default function CampaignAddButton(level = 'root') {
   const site = config.pageState[config.siteState];
   return (
     <Content>
@@ -39,15 +41,28 @@ export default function(level='root') {
         <Hero><p>{config.pageState[config.siteState].rootTitle}</p></Hero>
       </div>
       <div>
-          <Button variant="outlined" mini color="secondary" aria-label="Add"
-            onClick = {()=> {
+        {config.siteState === config.siteStateCustomer && (
+          <IconButton 
+            aria-label="closebutton"
+            onClick={() => {
               this.setState({
                 pageState: (level == 'root' ? site.rootAdd : site.sublevelAdd),
                 pageEntityId: '',
               })
-            }}>
-            <Tooltip title="Make a New Donation"><AddIcon /></Tooltip>
-          </Button>
+            }}
+          >
+            <Tooltip title="Make a New Donation">
+              <AddIcon fontSize="large" />
+            </Tooltip>
+          </IconButton>
+        )}
+        {level === 'sublevel' && (
+          <Link to="/">
+            <IconButton aria-label="closebutton">
+              <CloseIcon fontSize="large" />
+            </IconButton>
+          </Link>
+        )}
       </div>
     </Content>
   );
