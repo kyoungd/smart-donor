@@ -22,12 +22,23 @@ const RootPage = styled.div`
     max-width: 960px;
     margin: 10px;
   }
+  h3 {
+    margin-top: 0.5em;
+  }
+`;
+
+const NameDiv = styled.div `
+  display: flex;
+  flex-direction: row;
+  padding-top: 0.1em;
+  justify-content: center;
+  margin: 0;
 `;
 
 const PostVideo = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 2em;
+  padding-top: 0.1em;
   justify-content: center;
   margin: 0;
 `;
@@ -57,6 +68,7 @@ export default function DashPostCard(entityId, readOnly=false) {
             <CloseIcon fontSize="large" />
           </IconButton>
         </Subline>
+        <NameDiv>{ post.name }</NameDiv>
         <CardContent>
           <PostVideo dangerouslySetInnerHTML={{ __html: post.video }} />
           <PostContent>

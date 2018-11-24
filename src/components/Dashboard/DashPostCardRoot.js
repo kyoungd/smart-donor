@@ -23,12 +23,31 @@ const RootPage = styled.div`
     max-width: 960px;
     margin: 10px;
   }
+  h3 {
+    margin-top: 0.5em;
+  }
+`;
+
+const NameDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-top: 0.1em;
+  justify-content: center;
+  margin: 0;
+`;
+
+const CloseIconDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
 `;
 
 const PostVideo = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 2em;
+  padding-top: 0.1em;
   justify-content: center;
   margin: 0;
 `;
@@ -40,21 +59,24 @@ const PostContent = styled.div`
 export default function DashPostCardRoot(post, readOnly=false) {
   console.log('DashPostCardRoot  ---', post);
   const createdOn = post.createdOn ? post.createdOn : (post.productCreatedOn ? post.productCreatedOn : '');
-  const subline = `STATUS: ${post.status} - - - CREATED ON: ${createdOn} `;
+  const subline = `CREATED ON: ${createdOn.length > 10 ? createdOn.slice(0,10) : createdOn}`;
   return (
     <RootPage key={uuidv1()}>
       <Card>
         <Subline sectionTitle>
-          {subline} - - -&nbsp;
-          <IconButton 
-            aria-label="closebutton"
-            onClick={() => {
-              this.setState({pageState: config.pageState[config.siteState].rootList, pageEntityId: ''});
-            }}
-          >
-            <CloseIcon fontSize="large" />
-          </IconButton>
+          <CloseIconDiv>
+            <div>{subline}</div>
+            <IconButton 
+              aria-label="closebutton"
+              onClick={() => {
+                this.setState({pageState: config.pageState[config.siteState].rootList, pageEntityId: ''});
+              }}
+            >
+              <CloseIcon fontSize="large" />
+            </IconButton>
+          </CloseIconDiv>
         </Subline>
+        <NameDiv>{ post.name }</NameDiv>
         <CardContent>
           <PostVideo dangerouslySetInnerHTML={{ __html: post.video }} />
           <PostContent>
