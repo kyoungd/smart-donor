@@ -146,7 +146,7 @@ export default function (campaignId) {
           console.log('CampaignPage.saveNew() campaign saved 2 ');
           let newblock = this.state.data.filter(item => item.id === 'blank');
           newblock.id = 'new';
-          this.setState({ data: [this.state.data, newblock] });
+          this.setState({ data: [...this.state.data, newblock] });
         })
       })
       .catch(err => {

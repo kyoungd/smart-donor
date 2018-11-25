@@ -57,6 +57,9 @@ const PostContent = styled.div`
 `;
 
 export default function DashPostCard(entityId, readOnly=false) {
+  const { rejectOpen } = this.state;
+  if (rejectOpen) return <div>{ApprovalButton.call(this, entityId, readOnly)} </div>;
+
   const { dashboard: { data } } = this.state;
   const productIx = data.findIndex(item => item.id === entityId);
   const { dashboard: { data: { [productIx] : post } } } = this.state;

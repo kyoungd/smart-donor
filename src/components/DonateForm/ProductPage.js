@@ -91,6 +91,8 @@ export default function ProductPage(requestId) {
     formData.video = product.video;
     formData.excerpt = product.excerpt;
     formData.html = product.html;
+    formData.approvalStatus =
+      product.status === 'NOT_SUBMITTED' && product.rfp === 'COMPLETE' ? 'SUBMITTED' : product.status;
     formData.status = product.rfp;
     formData.entityId = product.product && product.product.length > 10 ? product.product : 'new';
     formData.id = formData.entityId;
@@ -100,7 +102,8 @@ export default function ProductPage(requestId) {
         console.log('saveEdit: 2');
         if (result.status === 200) {
           this.setState({
-            data: update(this.state.data, { [productIx]: { product: { $set: result.data.entityId } } })
+            data: update(this.state.data, 
+              { [productIx]: { product: { $set: result.data.entityId }, status: { $set: result.data.approvalStatus }, } })
           });
           console.log('saveEdit: 3', result);
           console.log(result.statusText);

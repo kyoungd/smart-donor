@@ -41,8 +41,9 @@ export default function CampaignAddButton(level = 'root') {
         <Hero><p>{config.pageState[config.siteState].rootTitle}</p></Hero>
       </div>
       <div>
-        {config.siteState === config.siteStateCustomer && (
-          <IconButton 
+        {((level === 'root' && config.siteState !== config.siteStateSupplier) ||
+          (level !== 'root' && config.siteState === config.siteStateCustomer)) && (
+          <IconButton
             aria-label="closebutton"
             onClick={() => {
               this.setState({

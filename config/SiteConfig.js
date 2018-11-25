@@ -49,7 +49,7 @@ module.exports = {
       rootEdit: 'EDIT-DONATION',
       rootAdd: 'ADD-DONATION',
       sublevelList: 'LIST-POST',
-      sublevelEdit: 'EDIT-POST',
+      sublevelEdit: '',
       sublevelAdd: '',
       post: 'DONATION-POST',
     },
@@ -84,5 +84,5 @@ module.exports = {
 
   siteCustomerId: 'c-6ee91abf-d094-49e1-9385-d3cbd84b54a9',
   siteDonorId: 'd-6ee91abf-d094-49e1-9385-d3cbd84b54a9',
-  siteSupplierId: 's-6ee91abf-d094-49e1-9385-d3cbd84b54a903',
+  siteSupplierId: 's-6ee91abf-d094-49e1-9385-d3cbd84b54a909',
 };

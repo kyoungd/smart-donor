@@ -48,7 +48,7 @@ export default function DashApprovalCard(data, showControl=false) {
             approval={data.status}
             approvalResponse={data.approvalResponse}
           />
-          { CampaignControl.call(this, data, 'sublevelEdit') }
+          { showControl && CampaignControl.call(this, data, 'sublevelEdit') }
         </HeaderContent>
         <CardContent>
           <PostContent dangerouslySetInnerHTML={{ __html: data.video }} />

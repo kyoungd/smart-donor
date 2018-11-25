@@ -81,7 +81,9 @@ export default class ListApprovals extends Component {
 
   showEditControl = () => {
     try {
-      return config.pageState[config.siteState].sublevelEdit &&  config.pageState[config.siteState].sublevelEdit !== '';
+      const sublevelEdit = config.pageState[config.siteState].sublevelEdit;
+      console.log('showEditControl: ', (sublevelEdit !== ''));
+      return sublevelEdit !== '';
     } catch {
       return false;
     }

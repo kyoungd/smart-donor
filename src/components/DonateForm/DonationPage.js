@@ -29,26 +29,23 @@ const Content = styled.div`
   @media ${media.phone} {
     padding: 2rem 1.5rem;
   }
+  p {
+    margin-bottom: 0.1em;
+  }
   form {
-    p {
-      margin: 0 px;
-      label,
-      input {
-        display: block;
-      }
-      input {
-        min-width: 30em;
-        margin-left: 2em;
-        margin-top: 0.5rem;
-      }
-      textarea {
-        resize: vertical;
-        min-width: 30em;
-        min-height: 5em;
-        width: 100%;
-        margin-top: 0.5rem;
-      }
+    #name {
+      width: 30em;
     }
+    #amount {
+      width: 10em;
+    }
+    textarea {
+      resize: vertical;
+      min-width: 30em;
+      min-height: 5em;
+      width: 100%;
+      margin-top: 0.5rem;
+    }  
   }
 `;
 
@@ -67,9 +64,17 @@ const DateDiv = styled.div`
     input-width: 10em;
   }
   div {
-    margin-top: 0rem;
+    margin-top: 0.5rem;
     margin-right:2em;
   }
+`;
+
+const SelectDiv = styled.div`
+    margin-top: 0.8em;
+    margin-bottom: 1em;
+    div {
+      min-width: 20em;
+    }
 `;
 
 const SButton = styled.div `
@@ -128,7 +133,7 @@ export default function DonationPage(donationId) {
           console.log('DonationPage.saveNew() donation saved 2 ');
           let newblock = this.state.data.filter(item => item.id === 'blank');
           newblock.id = 'new';
-          this.setState({ data: [this.state.data, newblock] });
+          this.setState({ data: [...this.state.data, newblock] });
         })
       })
       .catch(err => {
@@ -169,105 +174,107 @@ export default function DonationPage(donationId) {
   const showAccount = () => {
     return (
       <DateDiv>
-        <TextField
-          variant="outlined"
-          id="account"
-          label="account number"
-          type="text"
-          value={donation.account}
-          onChange={changeHandler('account')}
-        />
-        <TextField
-          variant="outlined"
-          id="routing"
-          label="routing number"
-          type="text"
-          value={donation.routing}
-          onChange={changeHandler('routing')}
-        />
+        <div>
+          <TextField
+            variant="outlined"
+            id="account"
+            label="account number"
+            type="text"
+            value={donation.account}
+            onChange={changeHandler('account')}
+          />
+        </div>
+        <div>
+          <TextField
+            variant="outlined"
+            id="routing"
+            label="routing number"
+            type="text"
+            value={donation.routing}
+            onChange={changeHandler('routing')}
+          />
+        </div>
       </DateDiv>
     )
   }
 
   return (
-    <div>
-      <Content>
-        <p>Make Donation</p>
-        <form name="contact-form" method="post" onSubmit={submitHandler}>
+    <Content>
+      <p>Make Donation</p>
+      <form name="contact-form" method="post" onSubmit={submitHandler}>
+        <div>
           <div>
-            <p>
+            <TextField
+              variant="outlined"
+              id="name"
+              label="name"
+              value={donation.title}
+              margin="normal"
+              onChange={changeHandler('title')}
+            />
+          </div>
+          <div>
+            <TextField
+              variant="outlined"
+              id="amount"
+              label="amount"
+              value={donation.amount}
+              margin="normal"
+              onChange={changeHandler('amount')}
+            />
+          </div>
+          <DateDiv>
+            <div>
               <TextField
                 variant="outlined"
-                id="name"
-                label="name"
-                value={donation.title}
-                margin="normal"
-                onChange={changeHandler('title')}
+                id="availableOn"
+                label="availableOn"
+                type="date"
+                value={donation.availableOn}
+                onChange={changeHandler('availableOn')}
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
-            </p>
-            <p>
+            </div>
+            <div>
               <TextField
                 variant="outlined"
-                id="amount"
-                label="amount"
-                value={donation.amount}
-                margin="normal"
-                onChange={changeHandler('amount')}
+                id="expireOn"
+                label="expireOn"
+                type="date"
+                value={donation.expireOn}
+                onChange={changeHandler('expireOn')}
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
-            </p>
-            <DateDiv>
-              <div>
-                <TextField
-                  variant="outlined"
-                  id="availableOn"
-                  label="availableOn"
-                  type="date"
-                  value={donation.availableOn}
-                  onChange={changeHandler('availableOn')}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </div>
-              <div>
-                <TextField
-                  variant="outlined"
-                  id="expireOn"
-                  label="expireOn"
-                  type="date"
-                  value={donation.expireOn}
-                  onChange={changeHandler('expireOn')}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </div>
-            </DateDiv>
-            {donation.id == 'new' && showAccount()}
-            <p>
-              <TextField
-                variant="outlined"
-                id="rules"
-                label="Rules"
-                multiline
-                rowsMax="3"
-                value={donation.rules}
-                onChange={changeHandler('rules')}
-                margin="normal"
-              />
-            </p>
-            <p>
-              <TextField
-                variant="outlined"
-                id="description"
-                label="description"
-                multiline
-                rowsMax="3"
-                value={donation.description}
-                onChange={changeHandler('description')}
-                margin="normal"
-              />
-            </p>
+            </div>
+          </DateDiv>
+          {donation.id == 'new' && showAccount()}
+          <div>
+            <TextField
+              variant="outlined"
+              id="rules"
+              label="Rules"
+              multiline
+              rowsMax="3"
+              value={donation.rules}
+              onChange={changeHandler('rules')}
+              margin="normal"
+            />
+          </div>
+          <div>
+            <TextField
+              variant="outlined"
+              id="description"
+              label="description"
+              multiline
+              rowsMax="3"
+              value={donation.description}
+              onChange={changeHandler('description')}
+              margin="normal"
+            />
           </div>
           <SIconButtons>
             <SButton>
@@ -281,8 +288,8 @@ export default function DonationPage(donationId) {
               </Button>
             </SButton>
           </SIconButtons>
-        </form>
-      </Content>
-    </div>
+        </div>
+      </form>
+    </Content>
   )
 }

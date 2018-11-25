@@ -23,7 +23,7 @@ const styles = theme => ({
     overflowX: 'auto',
   },
   tableCell: {
-    maxWidth: theme.spacing.unit * 10
+    maxWidth: theme.spacing.unit * 20
   }
 });
 
